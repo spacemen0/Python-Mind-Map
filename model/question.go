@@ -4,9 +4,9 @@ import "gorm.io/gorm"
 
 type Question struct {
 	gorm.Model
-	TestID         uint   `gorm:"not null"`
+	TestID         uint   `gorm:"not null;uniqueIndex:T_Q"`
 	Description    string `gorm:"type:text;not null"`
 	Answer         string `gorm:"size:25;not null"`
-	QuestionNumber uint   `gorm:"type:tinyint;not null"`
+	QuestionNumber uint   `gorm:"type:tinyint;not null;uniqueIndex:T_Q"`
 	QuestionType   bool   `gorm:"type:boolean;not null"`
 }
