@@ -8,5 +8,5 @@ type Question struct {
 	Description    string `gorm:"type:text;not null"`
 	Answer         string `gorm:"size:25;not null"`
 	QuestionNumber uint   `gorm:"type:tinyint;not null"`
-	QuestionType   bool
+	QuestionType   bool   `gorm:"type:boolean;not null"`
 }
