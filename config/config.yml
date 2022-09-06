@@ -1,0 +1,9 @@
+server:
+  port: 6679
+datasource:
+  host: 127.0.0.1
+  port: 3306
+  databasename: gintest
+  username: root
+  password: fracture@123
+  charset: utf8mb4
