@@ -20,6 +20,7 @@ func CreateQuestion(ctx *gin.Context) {
 		response.Response(ctx, 422, nil, "创建失败")
 		return
 	}
+	CreateAnswerSheet(ctx)
 	response.Response(ctx, 200, nil, "创建成功")
 }
 
