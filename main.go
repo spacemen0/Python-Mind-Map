@@ -28,6 +28,7 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 	r.POST("/createquestion", controller.CreateQuestion)
 	r.POST("/deletequestion", controller.DeleteQuestion)
 	r.POST("/updatequestion", controller.UpdateQuestion)
+	r.GET("/importstudents", controller.ImportStudents)
 	r.GET("info", middleware.AuthMiddleware(), controller.Info)
 	return r
 }

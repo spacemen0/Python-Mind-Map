@@ -7,9 +7,44 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	"github.com/xuri/excelize/v2"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
+
+func ImportStudents(c *gin.Context) {
+	db := common.GetDataBase()
+	f, err := excelize.OpenFile("students.xlsx")
+	if err != nil {
+		panic(err.Error())
+	}
+	rows, err := f.GetRows("Sheet1")
+	if err == nil {
+		for _, row := range rows {
+			studentID := row[0]
+			studentName := row[1]
+			password := studentID[6:]
+			uintID, _ := strconv.Atoi(studentID)
+			hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+			if err != nil {
+				response.Response(c, 500, nil, "加密错误")
+				return
+			}
+			newUser := model.User{
+				StudentID:   uint(uintID),
+				StudentName: studentName,
+				Password:    string(hashedPassword),
+			}
+			err = db.Create(&newUser).Error
+			if err != nil {
+				response.Response(c, 500, nil, studentID+"注册失败")
+				return
+			}
+			response.Response(c, 200, nil, studentID+"注册成功")
+		}
+	}
+	f.Close()
+}
 
 func Register(c *gin.Context) {
 
@@ -19,14 +54,14 @@ func Register(c *gin.Context) {
 	studentID := c.Query("StudentID")
 	studentName := c.Query("StudentName")
 	password := c.Query("Password")
-	sID, _ := strconv.Atoi(studentID)
+	uintID, _ := strconv.Atoi(studentID)
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
 		response.Response(c, 500, nil, "加密错误")
 		return
 	}
 	newUser := model.User{
-		StudentID:   uint(sID),
+		StudentID:   uint(uintID),
 		StudentName: studentName,
 		Password:    string(hashedPassword),
 	}
