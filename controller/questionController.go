@@ -4,7 +4,6 @@ import (
 	"GinTest/common"
 	"GinTest/model"
 	"GinTest/response"
-	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -20,15 +19,16 @@ func CreateQuestion(ctx *gin.Context) {
 		response.Response(ctx, 422, nil, "创建失败")
 		return
 	}
-	CreateAnswerSheet(ctx)
 	response.Response(ctx, 200, nil, "创建成功")
 }
 
 func DeleteQuestion(ctx *gin.Context) {
 	db := common.GetDataBase()
 	testID, _ := strconv.Atoi(ctx.Query("TestID"))
+	chapterID, _ := strconv.Atoi(ctx.Query("ChapterID"))
 	questionNumber, _ := strconv.Atoi(ctx.Query("QuestionNumber"))
 	var question = model.Question{
+		ChapterID:      uint(chapterID),
 		TestID:         uint(testID),
 		QuestionNumber: uint(questionNumber),
 	}
@@ -47,12 +47,8 @@ func UpdateQuestion(ctx *gin.Context) {
 	oldQuestion := model.Question{
 		Model: gorm.Model{ID: newQuestion.ID},
 	}
-	fmt.Println(oldQuestion)
 	hasError := false
 	if db.Model(&oldQuestion).Update("description", newQuestion.Description).Error != nil {
-		hasError = true
-	}
-	if db.Model(&oldQuestion).Update("test_id", newQuestion.TestID).Error != nil {
 		hasError = true
 	}
 	if db.Model(&oldQuestion).Update("answer", newQuestion.Answer).Error != nil {
