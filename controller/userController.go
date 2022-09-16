@@ -4,6 +4,7 @@ import (
 	"GinTest/common"
 	"GinTest/model"
 	"GinTest/response"
+	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -75,7 +76,11 @@ func isExistedStudentID(db *gorm.DB, studentID string) (bool, *model.User) {
 }
 
 func UserInfo(c *gin.Context) {
-	user, _ := c.Get("user")
-	response.Response(c, 200, gin.H{"user": user.(model.User).ToDTO()}, "")
-
+	user, isExisted := c.Get("user")
+	if !isExisted {
+		response.Response(c, 500, nil, "错误")
+		return
+	}
+	fmt.Println(user)
+	response.Response(c, 200, gin.H{"user": user.(*model.User).ToDTO()}, "")
 }

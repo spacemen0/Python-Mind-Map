@@ -10,32 +10,47 @@ import (
 	"gorm.io/gorm"
 )
 
-func AuthMiddleware() gin.HandlerFunc {
-	return func(ctx *gin.Context) {
-		tokenString := ctx.GetHeader("Authorization")
-		if tokenString == "" || !strings.HasPrefix(tokenString, "Bearer ") {
-			response.Response(ctx, 401, nil, "鉴权失败")
-			ctx.Abort()
-			return
-		}
-		tokenString = tokenString[7:]
-		token, claims, err := common.PaeseToken(tokenString)
+func verifyToken(ctx *gin.Context) *model.User {
+	tokenString := ctx.GetHeader("Authorization")
+	if tokenString == "" || !strings.HasPrefix(tokenString, "Bearer ") {
+		response.Response(ctx, 401, nil, "验证token失败")
+		ctx.Abort()
+		return nil
+	}
+	tokenString = tokenString[7:]
+	token, claims, err := common.PaeseToken(tokenString)
 
-		if err != nil || !token.Valid {
-			response.Response(ctx, 401, nil, "鉴权失败")
-			ctx.Abort()
-			return
-		}
-		userID := claims.UserID
-		db := common.GetDataBase()
-		var user model.User
-		err = db.First(&user, userID).Error
-		if err == gorm.ErrRecordNotFound {
-			response.Response(ctx, 401, nil, "鉴权失败")
-			ctx.Abort()
-			return
-		}
+	if err != nil || !token.Valid {
+		response.Response(ctx, 401, nil, "验证token失败")
+		ctx.Abort()
+		return nil
+	}
+	userID := claims.UserID
+	db := common.GetDataBase()
+	var user *model.User
+	err = db.First(&user, userID).Error
+	if err == gorm.ErrRecordNotFound {
+		response.Response(ctx, 401, nil, "无此用户")
+		ctx.Abort()
+		return nil
+	}
+	return user
+}
+
+func AuthUser() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		user := verifyToken(ctx)
 		ctx.Set("user", user)
+		ctx.Next()
+	}
+}
+
+func AuthAdmin() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		user := verifyToken(ctx)
+		if !user.Admin {
+			ctx.Abort()
+		}
 		ctx.Next()
 	}
 }
