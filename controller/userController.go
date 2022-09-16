@@ -4,7 +4,6 @@ import (
 	"GinTest/common"
 	"GinTest/model"
 	"GinTest/response"
-	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -81,6 +80,5 @@ func UserInfo(c *gin.Context) {
 		response.Response(c, 500, nil, "错误")
 		return
 	}
-	fmt.Println(user)
-	response.Response(c, 200, gin.H{"user": user.(*model.User).ToDTO()}, "")
+	response.Response(c, 200, gin.H{"user": user.(*model.User).ToDTO()}, "获取成功")
 }

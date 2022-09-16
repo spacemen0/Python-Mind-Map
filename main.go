@@ -28,7 +28,8 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 	user := r.Group("user")
 	user.Use(middleware.AuthUser())
 	{
-		user.GET("/info", controller.UserInfo)
+		user.GET("/getuser", controller.UserInfo)
+		user.GET("/getquestions", controller.QuestionInfo)
 	}
 	admin := r.Group("admin")
 	admin.Use(middleware.AuthUser())

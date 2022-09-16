@@ -14,9 +14,9 @@ func CreateAnswerSheet(ctx *gin.Context) {
 	var answerSheet = &model.AnswerSheet{}
 	ctx.Bind(&answerSheet)
 	var oldSheet = &model.AnswerSheet{}
-	err := db.Where("id = ?", answerSheet.ID).First(oldSheet).Error
+	err := db.Where("chapter_id = ? AND test_id = ? And user_id = ?", answerSheet.ChapterID, answerSheet.TestID, answerSheet.UserID).First(oldSheet).Error
 	if !(err == gorm.ErrRecordNotFound) {
-		db.Delete(&oldSheet)
+		db.Unscoped().Delete(&oldSheet)
 	}
 	answerSheet.ID = 0
 	err = db.Create(answerSheet).Error
