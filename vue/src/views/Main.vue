@@ -1,7 +1,11 @@
 <template>
   <div class="home">
-    <!--<HelloWorld/>-->
+    <HelloWorld/>
     <Header/>
+
+
+
+
   </div>
 </template>
 
@@ -10,7 +14,7 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 import Header from "@/components/Header.vue";
 export default {
-  name: 'HomeView',
+  name: 'Main',
   components: {
     HelloWorld,
     Header
