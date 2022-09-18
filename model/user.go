@@ -1,22 +1,22 @@
 package model
 
-import "gorm.io/gorm"
-
 type User struct {
-	gorm.Model
-	Username    string `gorm:"type:varchar(20);not null"`
-	PhoneNumber string `gorm:"type:varchar(11);not null;unique"`
+	StudentID   uint   `gorm:"primarykey"`
+	StudentName string `gorm:"type:varchar(20);not null"`
 	Password    string `gorm:"size:256;not null"`
+	Admin       bool   `gorm:"not null"`
 }
 
 type UserDTO struct {
-	Username    string `json:"Username"`
-	PhoneNumber string `json:"PhoneNumber"`
+	StudentID   uint   `json:"StudentID"`
+	StudentName string `json:"StudentName"`
+	Admin       bool   `json:"Admin"`
 }
 
 func (u User) ToDTO() UserDTO {
 	return UserDTO{
-		Username:    u.Username,
-		PhoneNumber: u.PhoneNumber,
+		StudentID:   u.StudentID,
+		StudentName: u.StudentName,
+		Admin:       u.Admin,
 	}
 }
