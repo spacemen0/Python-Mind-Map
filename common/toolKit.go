@@ -1,9 +1,13 @@
 package common
 
+import "strings"
+
 func AnswersToString(answers []string) string {
-	return ""
+	res := strings.Join(answers, "@")
+	return res
 }
 
 func StringToAnswers(str string) []string {
-	return nil
+	res := strings.Split(str, "@")
+	return res
 }

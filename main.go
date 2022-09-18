@@ -28,19 +28,22 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 	user := r.Group("user")
 	user.Use(middleware.AuthUser())
 	{
-		user.GET("/getuser", controller.UserInfo)
-		user.GET("/getquestions", controller.QuestionInfo)
+		user.GET("/getuser", controller.GetUser)
+		user.GET("/getquestions", controller.GetQuestion)
+		user.GET("/getresourcelist", controller.GetResourceList)
 	}
 	admin := r.Group("admin")
-	admin.Use(middleware.AuthUser())
+	admin.Use(middleware.AuthAdmin())
 	{
 		admin.POST("/createquestion", controller.CreateQuestion)
 		admin.POST("/deletequestion", controller.DeleteQuestion)
 		admin.POST("/updatequestion", controller.UpdateQuestion)
-		admin.POST("/uploadexcel", controller.UploadExcel)
+		admin.POST("/uploadfile", controller.UploadFile)
 		admin.POST("/createanswersheet", controller.CreateAnswerSheet)
+		admin.POST("/createresource", controller.CreateResource)
 		admin.GET("/importstudents", controller.ImportStudents)
 	}
+	r.Static("/upload", "./upload")
 	return r
 }
 

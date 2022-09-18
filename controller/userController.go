@@ -14,8 +14,6 @@ import (
 func Register(c *gin.Context) {
 
 	db := common.GetDataBase()
-	//获取参数
-	// phoneNumber := c.PostForm("phoneNumber")
 	studentID := c.Query("StudentID")
 	studentName := c.Query("StudentName")
 	password := c.Query("Password")
@@ -74,7 +72,7 @@ func isExistedStudentID(db *gorm.DB, studentID string) (bool, *model.User) {
 	return !(err == gorm.ErrRecordNotFound), user
 }
 
-func UserInfo(c *gin.Context) {
+func GetUser(c *gin.Context) {
 	user, isExisted := c.Get("user")
 	if !isExisted {
 		response.Response(c, 500, nil, "错误")

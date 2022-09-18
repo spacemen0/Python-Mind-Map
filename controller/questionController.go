@@ -73,7 +73,7 @@ func UpdateQuestion(ctx *gin.Context) {
 	response.Response(ctx, 200, nil, "修改成功")
 }
 
-func QuestionInfo(ctx *gin.Context) {
+func GetQuestion(ctx *gin.Context) {
 	db := common.GetDataBase()
 	var questions []model.Question
 	testID, _ := strconv.Atoi(ctx.Query("TestID"))

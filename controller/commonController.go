@@ -46,13 +46,13 @@ func ImportStudents(c *gin.Context) {
 	f.Close()
 }
 
-func UploadExcel(c *gin.Context) {
+func UploadFile(c *gin.Context) {
 	f, err := c.FormFile("img")
 	if err != nil {
 		response.Response(c, 400, nil, "上传失败")
 		return
 	}
-	err = c.SaveUploadedFile(f, "./upload/"+"students.xlsx")
+	err = c.SaveUploadedFile(f, "./upload/"+f.Filename)
 	if err != nil {
 		response.Response(c, 500, nil, "文件保存出错")
 		return
