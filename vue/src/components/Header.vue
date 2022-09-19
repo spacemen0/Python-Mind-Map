@@ -17,14 +17,15 @@
   <!--  </el-dialog>-->
   <!--</el-col>-->
   <!--<el-col :span="4" :offset="14">-->
-  <el-menu :default-active="2" class="el-menu-demo" style="border-bottom-color: #5c5e63;" mode="horizontal"
+  <el-menu :default-active="'activeIndex'" router class="el-menu-demo" style="border-bottom-color: #5c5e63;" mode="horizontal"
            @select="" background-color="#37373c" active-text-color="#f6f4ef" text-color="rgb(184 184 184)">
     <el-menu-item disabled style="float: left; opacity: 1; cursor: auto; font-size: 20px">AI课堂</el-menu-item>
     <el-menu-item disabled style="opacity: 1; cursor: auto">{{ User.name }}, {{ User.id }}</el-menu-item>
-    <el-menu-item index="1">
+    <el-menu-item>
       <el-button size="medium" style="padding: 20px" circle></el-button>
     </el-menu-item>
-    <el-menu-item index="2">得分情况</el-menu-item>
+    <el-menu-item index="">得分情况</el-menu-item>
+    <el-menu-item index="/main">知识图谱</el-menu-item>
 
   </el-menu>
 
@@ -61,6 +62,7 @@ export default {
       }
     };
     return {
+      activeIndex: 'this.$router.path',
       isLogin: false,
       User: {
         name: '张三',
