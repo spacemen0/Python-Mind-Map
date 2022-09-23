@@ -15,25 +15,27 @@
           <br>
           <el-radio label="D">D.{{ t.selectD }}</el-radio>
         </el-radio-group>
-        <div v-if="isSubmit">
-          <div>正确答案：{{ ruleForm.rightC[i] }}</div>
-          <div :class="[ruleForm.rightC[i] === UserSource[i] ? 'bluee' : 'redd']">
-            <span style="display: inline-block;margin-right: 40px">您的选择：{{ UserSource[i] }}</span>
-            得分{{ ruleForm.rightC[i] === UserSource[i] ? ' 1' : ' 0' }}
-          </div>
-        </div>
+        <!--<div v-if="isSubmit">-->
+        <!--  <div>正确答案：{{ ruleForm.rightC[i] }}</div>-->
+        <!--  <div :class="[ruleForm.rightC[i] === UserSource[i] ? 'bluee' : 'redd']">-->
+        <!--    <span style="display: inline-block;margin-right: 40px">您的选择：{{ UserSource[i] }}</span>-->
+        <!--    得分{{ ruleForm.rightC[i] === UserSource[i] ? ' 1' : ' 0' }}-->
+        <!--  </div>-->
+        <!--</div>-->
       </el-form-item>
       <el-form-item v-for="(t,i) in blankQuesList" :key="i">
-        <P style="margin-top: 10px;margin-bottom: 0;line-height: 2">{{ optQuesList.length + i }}.{{ t.title }}</P>
+        <P style="margin-top: 10px;margin-bottom: 0;line-height: 2">{{ optQuesList.length + 1 + i }}.{{ t.title }}</P>
         <el-input size="small" v-model="UserAnswers[optQuesList.length + i]" clearable style="width: 50%"></el-input>
       </el-form-item>
-      <el-button type="primary" class="subBtn" @click="dialogVisible=true">提交答案</el-button>
+      <el-button type="primary" class="subBtn" @click="clickSubmit">提交答案</el-button>
     </el-form>
+
     <el-dialog title="提示" :visible.sync="dialogVisible" width="20%" top="35vh">
       <span>确定要提交答案？</span>
+      <div v-if="!isFinished" style="color: red; text-align: left; margin-top: 4%"><i class="el-icon-warning"></i>还有题目未完成</div>
       <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="">确 定</el-button>
+    <el-button type="primary" @click="submit">确 定</el-button>
   </span>
     </el-dialog>
   </div>
@@ -45,6 +47,9 @@ import request from "@/utils/request";
 export default {
   name: "AnswerCar",
   data() {
+    let temp = [];
+    for (let i = 0; i < 9; i++)
+      temp.push('');
     return {
       chapterNum: 1,
       chapterName: '',
@@ -121,7 +126,7 @@ export default {
         title: '',
         number: 0
       },
-      UserAnswers: [],
+      UserAnswers: temp,
       dialogVisible: false,
       isFinished: false
     }
@@ -131,7 +136,7 @@ export default {
       if (res.code === 200) {
         this.UserAnswers = [];
         for (let e of res.data) {
-          this.UserAnswers.push('null');
+          this.UserAnswers.push('');
           if (e.ChoiceQuestion === true) {
             let array = e.Description.split('@');
             this.optQuestion.selectA = array[1];
@@ -156,16 +161,25 @@ export default {
     });
   },
   methods: {
+    clickSubmit() {
+      console.log(this.UserAnswers);
+      this.dialogVisible=true;
+      let answerdNum = 0;
+      for (let e of this.UserAnswers) {
+        if (e !== '')
+          answerdNum++;
+      }
+      if (answerdNum === this.UserAnswers.length)
+        this.isFinished = true;
+    },
     submit() {
       this.dialogVisible = false;
       //  发送提交请求
-      let answerdNum = 0;
-      for (let e of this.UserAnswers) {
-        if (e !== 'null')
-          answerdNum++;
-      }
-      if (answerdNum === this.UserAnswers)
-        this.isFinished = true;
+      this.UserAnswers.forEach((value, index, array) => {
+        if (value === '')
+          array[index] = 'null';
+      });
+
       // request.post('/getcorrectanswers', )
 
     },
