@@ -1676,7 +1676,7 @@ const python_ch2 = {
                                                 "children": [
                                                     {
                                                         "data": {
-                                                            "text": "replace, lower, upper, islower, isupper, isalpha, isdigit, isalnum, isspace, split, rsplit, strip, rstrip, capitalize, center, count, startswith, endswith",
+                                                            "text": "replace, lower, upper...",
                                                             "isExplainNode": true
                                                         },
                                                         "children": []
@@ -1713,21 +1713,21 @@ const python_ch2 = {
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "use []: mylist1=[], mylist2=[expression1, sxpression2,...], mylist3=[expression for variable in sequence]",
+                                                    "text": "use []",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
                                             },
                                             {
                                                 "data": {
-                                                    "text": "use list constructor: mylist1=list(), mylist2=list(sequence), mylist3=list(expression for variable in sequence)",
+                                                    "text": "use list constructor: list()",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
                                             },
                                             {
                                                 "data": {
-                                                    "text": "use assignment: mylist1=mylist2=[], mylist3=[] mylist4=mylist3",
+                                                    "text": "use assignment",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
@@ -2033,7 +2033,7 @@ const python_ch2 = {
                                                     },
                                                     {
                                                         "data": {
-                                                            "text": "use set constructor: myset=set(), myset2=set(sequence)",
+                                                            "text": "use set constructor: set()",
                                                             "isExplainNode": true
                                                         },
                                                         "children": []
@@ -2066,7 +2066,7 @@ const python_ch2 = {
                                                         "children": [
                                                             {
                                                                 "data": {
-                                                                    "text": "remove an element: myset.remove(item)/myset.discard(item)",
+                                                                    "text": "remove an element: remove/discard",
                                                                     "isExplainNode": true
                                                                 },
                                                                 "children": []
@@ -2180,7 +2180,7 @@ const python_ch2 = {
                                                 "children": [
                                                     {
                                                         "data": {
-                                                            "text": "use frozenset constructor: myset=frozenset(), myset2=frozenset(sequence)",
+                                                            "text": "use frozenset constructor: frozenset()",
                                                             "isExplainNode": true
                                                         },
                                                         "children": []
@@ -2238,7 +2238,7 @@ const python_ch2 = {
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "mutable, unordered, indexed, key must be unique and immutable type, value can be any type and duplicates",
+                                                    "text": "mutable, unordered, indexed, unique and immutable key",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
@@ -2252,14 +2252,14 @@ const python_ch2 = {
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "use {}: mydict1={}, mydict2={key1:value1, key2:value2,...}",
+                                                    "text": "use {}",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
                                             },
                                             {
                                                 "data": {
-                                                    "text": "use dict constructor: mydict1=dict(), mydict2=dict(key1=value1, key2=value2,...), mydict3=dict([(key1, value1), (key2, value2),...])",
+                                                    "text": "use dict constructor: dict()",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
@@ -2348,7 +2348,7 @@ const python_ch2 = {
                                                 "children": [
                                                     {
                                                         "data": {
-                                                            "text": "mydict.has_key(key), mydict.keys(), mydict.items(), mydict.values()",
+                                                            "text": "mydict.has_key(key), keys(), items(), values()",
                                                             "isExplainNode": true
                                                         },
                                                         "children": []

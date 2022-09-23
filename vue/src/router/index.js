@@ -4,42 +4,49 @@ import LoginPage from "@/views/LoginPage";
 import Main from "@/views/Main";
 import Layout from "@/layout/Layout";
 
+const Answer = () => import('@/views/AnswerCar');
+
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/login',
-    name: 'login',
-    component: LoginPage
-  },
-  {
-    path: '/',
-    name: 'layout',
-    component: Layout,
-    redirect: '/main',
-    children: [
-      {
-        path: '/main',
-        name: 'Main',
-        component: Main
-      },
-      // {
-      //   path: '/main',
-      //   name: 'main',
-      //   component: Main
-      // },
-      // {
-      //   path: '/main',
-      //   name: 'main',
-      //   component: Main
-      // }
-    ]
-  },
+    {
+        path: '/login',
+        name: 'login',
+        component: LoginPage
+    },
+    {
+        path: '/',
+        name: 'layout',
+        component: Layout,
+        redirect: '/main',
+        children: [
+            {
+                path: '/main',
+                name: 'Main',
+                component: Main
+            },
+            // {
+            //   path: '/main',
+            //   name: 'main',
+            //   component: Main
+            // },
+            // {
+            //   path: '/main',
+            //   name: 'main',
+            //   component: Main
+            // }
+        ]
+    },
+    {
+        path: '/answer',
+        name: 'answer',
+        component: Answer
+    }
 
 ]
 
 const router = new VueRouter({
-  routes
+    routes
 })
 
 export default router
