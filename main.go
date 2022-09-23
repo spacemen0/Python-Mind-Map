@@ -4,6 +4,7 @@ import (
 	"GinTest/common"
 	"GinTest/controller"
 	"GinTest/middleware"
+	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -31,6 +32,8 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 		user.GET("/getuser", controller.GetUser)
 		user.GET("/getquestions", controller.GetQuestion)
 		user.GET("/getresourcelist", controller.GetResourceList)
+		user.GET("/getcorrectanswers", controller.GetCorrectAnswers)
+		user.POST("/createanswersheet", controller.CreateAnswerSheet)
 	}
 	admin := r.Group("admin")
 	admin.Use(middleware.AuthAdmin())
@@ -39,11 +42,10 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 		admin.POST("/deletequestion", controller.DeleteQuestion)
 		admin.POST("/updatequestion", controller.UpdateQuestion)
 		admin.POST("/uploadfile", controller.UploadFile)
-		admin.POST("/createanswersheet", controller.CreateAnswerSheet)
 		admin.POST("/createresource", controller.CreateResource)
 		admin.GET("/importstudents", controller.ImportStudents)
 	}
-	r.Static("/upload", "./upload")
+	r.StaticFS("/upload", http.Dir("./upload"))
 	return r
 }
 
