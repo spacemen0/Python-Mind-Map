@@ -32,9 +32,9 @@ func GetResourceList(ctx *gin.Context) {
 		response.Response(ctx, 422, nil, "获取失败")
 		return
 	}
-	response.Response(ctx, 200, gin.H{"resources": resources}, "获取成功")
+	var resourceDTOs []model.ResourceDTO
+	for _, r := range resources {
+		resourceDTOs = append(resourceDTOs, r.ToDTO())
+	}
+	response.Response(ctx, 200, gin.H{"resources": resourceDTOs}, "获取成功")
 }
-
-// func GetResource(ctx *gin.Context) {
-
-// }
