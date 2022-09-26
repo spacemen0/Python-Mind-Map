@@ -24,9 +24,11 @@
     <el-menu-item>
       <el-button size="medium" style="padding: 20px" circle></el-button>
     </el-menu-item>
-    <el-menu-item index="">得分情况</el-menu-item>
+    <el-menu-item index="/gragh">完成情况</el-menu-item>
+    <el-menu-item index="/answer">答题界面</el-menu-item>
     <el-menu-item index="/main">知识图谱</el-menu-item>
-
+    <el-menu-item index="/ranking">排名情况</el-menu-item>
+    <el-menu-item index="/personal">个人情况</el-menu-item>
   </el-menu>
 
   <!--  </el-col>-->
