@@ -1,5 +1,5 @@
 <template>
-    <div id="myChart" :style="{ width: '500px', height: '300px' }" />
+    <div id="myChart" :style="{ width: '300px', height: '500px' }" />
 </template>
   
   
@@ -13,7 +13,7 @@
         drawLine() {
           // 基于准备好的dom，初始化echarts实例
           const myChart = this.$echarts.init(document.getElementById('myChart'))
-myChart.setOption = {
+myChart.setOption ( {
   tooltip: {
     trigger: 'axis',
     axisPointer: {
@@ -97,7 +97,7 @@ myChart.setOption = {
       data: [820, 832, 901, 934, 1290, 1330, 1320]
     }
   ]
-}
+})
 }
 }
 }
