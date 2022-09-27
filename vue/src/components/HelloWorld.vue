@@ -3,6 +3,11 @@
 
   <div class="editContainer">
     <div class="mindMapContainer" id="mindMapContainer"></div>
+    <mindmap
+      height="50"
+      width="50%"
+      
+    ></mindmap>
   </div>
 </template>
 
