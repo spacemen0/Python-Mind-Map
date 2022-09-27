@@ -47,7 +47,7 @@ func ImportStudents(c *gin.Context) {
 }
 
 func UploadFile(c *gin.Context) {
-	f, err := c.FormFile("img")
+	f, err := c.FormFile("file")
 	if err != nil {
 		response.Response(c, 400, nil, "上传失败")
 		return
