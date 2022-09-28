@@ -15,7 +15,7 @@ func CreateResource(ctx *gin.Context) {
 	ctx.Bind(&resource)
 	err := db.Create(resource).Error
 	if err != nil {
-		response.Response(ctx, 400, nil, "创建失败")
+		response.Response(ctx, 400, gin.H{"error": err}, "创建失败")
 		return
 	}
 	response.Response(ctx, 200, nil, "创建成功")
@@ -29,7 +29,7 @@ func GetResourceList(ctx *gin.Context) {
 	chapterID, _ := strconv.Atoi(ctx.Query("ChapterID"))
 	err := db.Where("node_id = ? AND chapter_id = ?", nodeID, chapterID).Find(&resources).Error
 	if err != nil {
-		response.Response(ctx, 422, nil, "获取失败")
+		response.Response(ctx, 422, gin.H{"error": err}, "获取失败")
 		return
 	}
 	var resourceDTOs []model.ResourceDTO

@@ -34,6 +34,7 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 		user.GET("/getresourcelist", controller.GetResourceList)
 		user.GET("/getcorrectanswers", controller.GetCorrectAnswers)
 		user.POST("/createanswersheet", controller.CreateAnswerSheet)
+		user.POST("/uploadcodes", controller.UploadCodes)
 	}
 	admin := r.Group("admin")
 	admin.Use(middleware.AuthAdmin())
@@ -41,9 +42,10 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 		admin.POST("/createquestion", controller.CreateQuestion)
 		admin.POST("/deletequestion", controller.DeleteQuestion)
 		admin.POST("/updatequestion", controller.UpdateQuestion)
-		admin.POST("/uploadfile", controller.UploadFile)
+		admin.POST("/uploadresource", controller.UploadResource)
 		admin.POST("/createresource", controller.CreateResource)
 		admin.GET("/importstudents", controller.ImportStudents)
+		admin.GET("/getstudents", controller.GetStudents)
 	}
 	r.StaticFS("/upload", http.Dir("./upload"))
 	return r

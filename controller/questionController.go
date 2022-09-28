@@ -16,7 +16,7 @@ func CreateQuestion(ctx *gin.Context) {
 	ctx.Bind(&question)
 	err := db.Create(question).Error
 	if err != nil {
-		response.Response(ctx, 400, nil, "创建失败")
+		response.Response(ctx, 400, gin.H{"error": err}, "创建失败")
 		return
 	}
 	response.Response(ctx, 200, nil, "创建成功")
@@ -34,7 +34,7 @@ func DeleteQuestion(ctx *gin.Context) {
 	}
 	err := db.Unscoped().Where(&question).Delete(&question).Error
 	if err != nil {
-		response.Response(ctx, 400, nil, "删除失败")
+		response.Response(ctx, 400, gin.H{"error": err}, "删除失败")
 		return
 	}
 	var questions []model.Question
@@ -59,15 +59,15 @@ func UpdateQuestion(ctx *gin.Context) {
 	fmt.Println(oldQuestion)
 	err := db.Where(&oldQuestion).First(&oldQuestion).Error
 	if err != nil {
-		response.Response(ctx, 422, nil, "查询题目失败")
+		response.Response(ctx, 422, gin.H{"error": err}, "查询题目失败")
 		return
 	}
 	oldQuestion.Description = newQuestion.Description
 	oldQuestion.Answer = newQuestion.Answer
-	oldQuestion.ChoiceQuestion = newQuestion.ChoiceQuestion
+	oldQuestion.QuestionType = newQuestion.QuestionType
 	err = db.Save(&oldQuestion).Error
 	if err != nil {
-		response.Response(ctx, 422, nil, "更新失败")
+		response.Response(ctx, 422, gin.H{"error": err}, "更新失败")
 		return
 	}
 	response.Response(ctx, 200, nil, "修改成功")
@@ -80,7 +80,7 @@ func GetQuestion(ctx *gin.Context) {
 	chapterID, _ := strconv.Atoi(ctx.Query("ChapterID"))
 	err := db.Where("test_id = ? AND chapter_id = ?", testID, chapterID).Find(&questions).Error
 	if err != nil {
-		response.Response(ctx, 422, nil, "获取失败")
+		response.Response(ctx, 422, gin.H{"error": err}, "获取失败")
 		return
 	}
 	var questionDTOs []model.QuestionDTO

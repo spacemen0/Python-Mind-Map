@@ -22,7 +22,7 @@ func CreateAnswerSheet(ctx *gin.Context) {
 	answerSheet.ID = 0
 	err = db.Create(answerSheet).Error
 	if err != nil {
-		response.Response(ctx, 422, nil, "创建失败")
+		response.Response(ctx, 422, gin.H{"error": err}, "创建失败")
 		return
 	}
 	response.Response(ctx, 200, nil, "创建成功")
@@ -41,7 +41,7 @@ func GetCorrectAnswers(ctx *gin.Context) {
 	}
 	err := db.Where("test_id = ? AND chapter_id = ? AND user_id = ?", testID, chapterID, 100000000000).First(&correctAnswer).Error
 	if err != nil {
-		response.Response(ctx, 422, nil, "获取失败")
+		response.Response(ctx, 422, gin.H{"error": err}, "获取失败")
 		return
 	}
 	uAns := common.StringToAnswers(userAnswer.Answers)

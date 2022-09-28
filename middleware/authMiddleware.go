@@ -21,7 +21,7 @@ func verifyToken(ctx *gin.Context) *model.User {
 	token, claims, err := common.PaeseToken(tokenString)
 
 	if err != nil || !token.Valid {
-		response.Response(ctx, 401, nil, "验证token失败")
+		response.Response(ctx, 401, gin.H{"error": err}, "验证token失败")
 		ctx.Abort()
 		return nil
 	}
@@ -30,7 +30,7 @@ func verifyToken(ctx *gin.Context) *model.User {
 	var user *model.User
 	err = db.First(&user, userID).Error
 	if err == gorm.ErrRecordNotFound {
-		response.Response(ctx, 401, nil, "无此用户")
+		response.Response(ctx, 401, gin.H{"error": err}, "无此用户")
 		ctx.Abort()
 		return nil
 	}
@@ -48,7 +48,7 @@ func AuthUser() gin.HandlerFunc {
 func AuthAdmin() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		user := verifyToken(ctx)
-		if !user.Admin {
+		if user == nil || !user.Admin {
 			ctx.Abort()
 		}
 		ctx.Next()

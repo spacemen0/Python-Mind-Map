@@ -4,6 +4,7 @@ type User struct {
 	StudentID   uint   `gorm:"primarykey"`
 	StudentName string `gorm:"type:varchar(20);not null"`
 	Password    string `gorm:"size:256;not null"`
+	ClassID     uint   `gorm:"not null"`
 	Admin       bool   `gorm:"not null"`
 }
 

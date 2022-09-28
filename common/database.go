@@ -29,6 +29,7 @@ func InitDataBase() {
 	database.AutoMigrate(&model.Question{})
 	database.AutoMigrate(&model.AnswerSheet{})
 	database.AutoMigrate(&model.Resource{})
+	database.AutoMigrate(&model.CompletionRate{})
 }
 
 func GetDataBase() *gorm.DB {
