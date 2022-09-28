@@ -1,13 +1,10 @@
 <template>
 
-
   <div class="editContainer">
     <div class="mindMapContainer" id="mindMapContainer"></div>
     <mindmap
-      height="50"
-      width="50%"
-      
-    ></mindmap>
+        height="50"
+        width="50%"></mindmap>
   </div>
 </template>
 
@@ -17,9 +14,10 @@ import {getData, storeData, storeConfig} from '@/api'
 
 export default {
   name: 'HelloWorld',
+  props: ['index'],
   data() {
     return {
-      mindmapdata: null
+      mindmapdata: null,
     }
   },
   mounted() {
@@ -28,12 +26,11 @@ export default {
   },
   methods: {
     getData() {
-      let storeData = getData()
-      this.mindMapData = storeData
+      let storeData = getData();
+      this.mindMapData = storeData.python_trees[this.$props.index];
     },
     init() {
-      let {root, layout, theme, view} = this.mindMapData
-      console.log("this.mindMapData", this.mindMapData)
+      let {root, layout, theme, view} = this.mindMapData;
       this.mindMap = new MindMap({
         el: document.getElementById('mindMapContainer'),
         data: root,
@@ -45,14 +42,6 @@ export default {
       });
       let themeConfig = this.mindMap.getCustomThemeConfig();
       themeConfig.backgroundColor = '#2f2f32';
-      themeConfig.root.fontFamily = '微软雅黑, Microsoft YaHei';
-      themeConfig.second.fontFamily = '微软雅黑, Microsoft YaHei';
-      themeConfig.node.fontFamily = '微软雅黑, Microsoft YaHei';
-      themeConfig.fourthNode.fontFamily = '微软雅黑, Microsoft YaHei';
-      themeConfig.fifthNode.fontFamily = '微软雅黑, Microsoft YaHei';
-      themeConfig.sixthNode.fontFamily = '微软雅黑, Microsoft YaHei';
-      themeConfig.seventhNode.fontFamily = '微软雅黑, Microsoft YaHei';
-      themeConfig.eighthNode.fontFamily = '微软雅黑, Microsoft YaHei';
       // this.mindMap.on('mousedown', (...args) => {
       //     console.log("鼠标按下")
       //     this.mindMap.setTheme('diyColor')
@@ -64,6 +53,9 @@ export default {
       //   //console.log("nodemousedown datae",e)
       // });
       // this.mindMap.render()
+      this.mindMap.on('node_click', (data) => {
+        console.log("node_click", data.ableToClick);
+      });
     }
   }
 }

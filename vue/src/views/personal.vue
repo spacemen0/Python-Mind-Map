@@ -14,6 +14,9 @@
           // 基于准备好的dom，初始化echarts实例
           const myChart = this.$echarts.init(document.getElementById('myChart'))
 myChart.setOption ({
+  title: {
+    text: '各单元完成情况'
+  },
   tooltip: {
     trigger: 'axis',
     axisPointer: {

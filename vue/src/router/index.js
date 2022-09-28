@@ -6,6 +6,8 @@ import Layout from "@/layout/Layout";
 import gragh from '@/views/gragh'
 import ranking from '@/views/ranking'
 import personal from '@/views/personal'
+import helloWorld from "@/components/HelloWorld";
+
 const Answer = () => import('@/views/AnswerCar');
 
 Vue.use(VueRouter)
@@ -25,7 +27,7 @@ const routes = [
             {
                 path: '/main',
                 name: 'Main',
-                component: Main
+                component: Main,
             },
             {
                 path: '/gragh',
@@ -47,13 +49,14 @@ const routes = [
                 name: 'personal',
                 component: personal
             }
-        
+
         ]
     },
-   
+
 ]
 
 const router = new VueRouter({
+    mode: 'history',
     routes
 })
 

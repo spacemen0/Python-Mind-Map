@@ -14,6 +14,9 @@
         // 基于准备好的dom，初始化echarts实例
         const myChart = this.$echarts.init(document.getElementById('myChart'))
         myChart.setOption({
+          title: {
+    text: '上周完成题数'
+  },
           xAxis: {
             type: 'category',
             data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
