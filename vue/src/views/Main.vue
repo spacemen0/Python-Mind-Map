@@ -8,12 +8,13 @@
           text-color="#fff"
           active-text-color="#ffd04b">
         <el-menu-item v-for="(item,index) in ChapNum" @click="updateMindGraph(index + 1)">
-          <span slot="title">Chapter {{index + 1}}</span>
+          <span slot="title">Chapter {{ index + 1 }}</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
     <el-main style="z-index: 1">
       <HelloWorld :index="index" :key="key"/>
+
     </el-main>
   </el-container>
 </template>
@@ -29,6 +30,10 @@ export default {
   },
   data() {
     return {
+      drawer: true,
+      direction: 'rtl',
+      title: 'mytitle',
+
       courseName: 'python',
       index: 0,
       key: 0,

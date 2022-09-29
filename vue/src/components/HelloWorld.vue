@@ -1,13 +1,25 @@
 <template>
+  <div>
+    <div class="editContainer">
+      <div class="mindMapContainer" id="mindMapContainer"></div>
+      <mindmap height="50" width="50%"></mindmap>
+    </div>
+    <el-drawer
+        id="drawer"
+        title=""
+        :visible.sync="drawer"
+        direction="rtl"
+        :modal="false"
+        :modal-append-to-body="false"
+        size="20%">
+      <span slot="title" style="font-size: 30px; color:  #cccccc">{{ title }}</span>
+      <div class="pdfLink">
+        <router-link rel="external nofollow" target="_blank" :to="pdfLink">pdf</router-link>
+      </div>
+    </el-drawer>
 
-  <div class="editContainer">
-    <div class="mindMapContainer" id="mindMapContainer"></div>
-    <mindmap
-        height="50"
-        width="50%"></mindmap>
   </div>
 </template>
-
 <script>
 import MindMap from 'simple-mind-map'
 import {getData, storeData, storeConfig} from '@/api'
@@ -18,6 +30,12 @@ export default {
   data() {
     return {
       mindmapdata: null,
+
+
+      pdfLink: "/Ch3_loop.pdf",
+      drawer: false,
+      direction: 'rtl',
+      title: ''
     }
   },
   mounted() {
@@ -54,7 +72,14 @@ export default {
       // });
       // this.mindMap.render()
       this.mindMap.on('node_click', (data) => {
-        console.log("node_click", data.ableToClick);
+        if (data.ableToClick === true) {
+          this.drawer = true;
+          let pointText = data.nodeData.data.text;
+          this.title = pointText;
+
+
+          console.log("node_click", data);
+        }
       });
     }
   }
@@ -82,6 +107,26 @@ a {
 }
 </style>
 <style lang="less" scoped>
+.pdfLink {
+  padding-left: 50px;
+  color: #42b983;
+  font-size: 30px;
+}
+
+.pdfLink > a {
+  text-decoration: none;
+}
+
+/deep/ .el-drawer.rtl {
+  border-radius: 20px;
+  background-color: #39393c;
+  width: 20%;
+}
+
+#drawer {
+  top: 70px;
+  bottom: 7px;
+}
 
 .courseName {
   position: relative;
