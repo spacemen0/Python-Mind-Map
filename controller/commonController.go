@@ -55,7 +55,7 @@ func UploadResource(c *gin.Context) {
 		response.Response(c, 400, gin.H{"error": err}, "上传失败")
 		return
 	}
-	err = c.SaveUploadedFile(f, "./upload/"+f.Filename)
+	err = c.SaveUploadedFile(f, "./vue/public/"+f.Filename)
 	if err != nil {
 		response.Response(c, 500, gin.H{"error": err}, "文件保存出错")
 		return

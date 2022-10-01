@@ -34,9 +34,9 @@ func GetCorrectAnswers(ctx *gin.Context) {
 	testID, _ := strconv.Atoi(ctx.Query("TestID"))
 	chapterID, _ := strconv.Atoi(ctx.Query("ChapterID"))
 	UserID, _ := strconv.Atoi(ctx.Query("UserID"))
-	done, userAnswer := haveDoneTest(db, testID, chapterID, UserID)
+	done, userAnswer := hasDoneTest(db, testID, chapterID, UserID)
 	if !done {
-		response.Response(ctx, 422, nil, "获取失败")
+		response.Response(ctx, 422, nil, "获取答题卡失败")
 		return
 	}
 	err := db.Where("test_id = ? AND chapter_id = ? AND user_id = ?", testID, chapterID, 100000000000).First(&correctAnswer).Error
@@ -47,13 +47,31 @@ func GetCorrectAnswers(ctx *gin.Context) {
 	uAns := common.StringToAnswers(userAnswer.Answers)
 	cAns := common.StringToAnswers(correctAnswer.Answers)
 	var res []bool
+	count := 0
 	for i := 0; i < len(uAns); i++ {
-		res = append(res, uAns[i] == cAns[i])
+		ans := uAns[i] == cAns[i]
+		if ans {
+			count += 1
+		}
+		res = append(res, ans)
+	}
+	rate := model.CompletionRate{
+		Chapter: uint(chapterID),
+		Test:    uint(testID),
+		UserID:  uint(UserID),
+		Value:   float32(count / len(uAns)),
+	}
+	if !HasCompletionRate(uint(chapterID), uint(testID), uint(UserID), db) {
+		success, erra := CreateCompletionRate(rate)
+		if !success {
+			response.Response(ctx, 422, gin.H{"error": erra}, "创建完成率失败")
+			return
+		}
 	}
 	response.Response(ctx, 200, gin.H{"user answer": userAnswer.Answers, "correct answer": correctAnswer.Answers, "result": res}, "获取成功")
 }
 
-func haveDoneTest(db *gorm.DB, tid int, cid int, uid int) (bool, *model.AnswerSheet) {
+func hasDoneTest(db *gorm.DB, tid int, cid int, uid int) (bool, *model.AnswerSheet) {
 	var answer *model.AnswerSheet
 	err := db.Where("test_id = ? AND chapter_id = ? AND user_id = ?", tid, cid, uid).First(&answer).Error
 	return !(err == gorm.ErrRecordNotFound), answer

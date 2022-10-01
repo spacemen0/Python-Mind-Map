@@ -78,14 +78,16 @@ func GetQuestion(ctx *gin.Context) {
 	var questions []model.Question
 	testID, _ := strconv.Atoi(ctx.Query("TestID"))
 	chapterID, _ := strconv.Atoi(ctx.Query("ChapterID"))
+	userID, _ := strconv.Atoi(ctx.Query("UserID"))
 	err := db.Where("test_id = ? AND chapter_id = ?", testID, chapterID).Find(&questions).Error
 	if err != nil {
-		response.Response(ctx, 422, gin.H{"error": err}, "获取失败")
+		response.Response(ctx, 422, gin.H{"error": err}, "获取题目失败")
 		return
 	}
 	var questionDTOs []model.QuestionDTO
 	for _, q := range questions {
 		questionDTOs = append(questionDTOs, q.ToDTO())
 	}
-	response.Response(ctx, 200, gin.H{"questions": questionDTOs}, "获取成功")
+	hasDoneTest, _ := hasDoneTest(db, testID, chapterID, userID)
+	response.Response(ctx, 200, gin.H{"questions": questionDTOs, "hasDoneTest": hasDoneTest}, "获取题目成功")
 }
