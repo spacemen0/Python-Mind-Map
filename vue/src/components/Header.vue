@@ -121,12 +121,5 @@ export default {
   padding-right: 15px;
 }
 
-/*.el-menu--horizontal > div {*/
-/*  float: left;*/
-/*  color: white;*/
-/*  height: 100%;*/
-/*  line-height: 100%;*/
-/*  vertical-align: middle;*/
-/*}*/
 
 </style>

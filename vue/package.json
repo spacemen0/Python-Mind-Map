@@ -11,6 +11,7 @@
     "core-js": "^3.8.3",
     "echarts": "^5.4.0",
     "element-ui": "^2.15.10",
+    "pdfjs-dist": "^2.16.105",
     "simple-mind-map": "^0.2.3",
     "vue": "2.6.14",
     "vue-echarts": "^6.2.3",

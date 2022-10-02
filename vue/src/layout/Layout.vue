@@ -3,9 +3,9 @@
     <!--    头部-->
     <Header style="z-index: 2"/>
     <!--    主体-->
-    <div style="display: flex">
+    <div style="display: flex; height: calc(94vh); overflow-y: hidden">
       <!--      内容-->
-      <router-view style="flex: 1"/>
+      <router-view style="flex: 1; "/>
     </div>
   </div>
 </template>
