@@ -7,8 +7,8 @@
           background-color="#545c64"
           text-color="#fff"
           active-text-color="#ffd04b">
-        <el-menu-item v-for="(item,index) in ChapNum" @click="updateMindGraph(index + 1)">
-          <span slot="title">Chapter {{ index + 1 }}</span>
+        <el-menu-item v-for="item in ChapNum" v-bind:key="item" @click="updateMindGraph(item)">
+          <span slot="title">Chapter {{ item }}</span>
         </el-menu-item>
       </el-menu>
     </el-aside>
@@ -43,7 +43,7 @@ export default {
   methods: {
     updateMindGraph(index) {
       this.key++;
-      this.index = index - 1;
+      this.index = index;
     }
 
   }
@@ -64,6 +64,5 @@ export default {
 .aside {
   z-index: 2;
   text-align: center;
-  height: 100vh;
 }
 </style>

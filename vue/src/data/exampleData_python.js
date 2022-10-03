@@ -5190,24 +5190,28 @@ const python_tree = {
     }
 }
 
-const python_tree1 = {
+// l = {
+//     "data": {
+//         "text": "expression"
+//     },
+//     "children": []
+// }
+
+const python_tree1 =  {
     "root": {
         "data": {
-            "text": "Ch 1 python language",
-            "expand": true
+            "text": "Ch 1 python language"
         },
         "children": [
             {
                 "data": {
-                    "text": "what is computer?",
-                    "isExplainNode": true
+                    "text": "what is computer?"
                 },
                 "children": [
                     {
                         "data": {
                             "text": "hardware",
                             "isExplainNode": true,
-                            "expand": false,
                             "ableToClick": true
                         },
                         "children": []
@@ -5215,32 +5219,34 @@ const python_tree1 = {
                     {
                         "data": {
                             "text": "four function",
-                            "isExplainNode": true,
-                            "expand": false,
                             "ableToClick": true
                         },
                         "children": [
                             {
                                 "data": {
-                                    "text": "caculation"
+                                    "text": "caculation",
+                                    "isExplainNode": true
                                 },
                                 "children": []
                             },
                             {
                                 "data": {
-                                    "text": "data storage"
+                                    "text": "data storage",
+                                    "isExplainNode": true
                                 },
                                 "children": []
                             },
                             {
                                 "data": {
-                                    "text": "data movement"
+                                    "text": "data movement",
+                                    "isExplainNode": true
                                 },
                                 "children": []
                             },
                             {
                                 "data": {
-                                    "text": "control"
+                                    "text": "control",
+                                    "isExplainNode": true
                                 },
                                 "children": []
                             }
@@ -5257,7 +5263,6 @@ const python_tree1 = {
                         "data": {
                             "text": "recipe",
                             "isExplainNode": true,
-                            "expand": false,
                             "ableToClick": true
                         },
                         "children": []
@@ -5273,7 +5278,6 @@ const python_tree1 = {
                         "data": {
                             "text": "aspects of language",
                             "isExplainNode": true,
-                            "expand": false,
                             "ableToClick": true
                         },
                         "children": []
@@ -5288,21 +5292,23 @@ const python_tree1 = {
                     {
                         "data": {
                             "text": "python program compiler",
-                            "expand": false,
-                            "ableToClick": true
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "IDE tools",
-                                    "isExplainNode": true
+                                    "isExplainNode": true,
+                                    "expand": false,
+                                    "ableToClick": true
                                 },
                                 "children": []
                             },
                             {
                                 "data": {
                                     "text": "programming mode",
-                                    "isExplainNode": true
+                                    "isExplainNode": true,
+                                    "expand": false,
+                                    "ableToClick": true
                                 },
                                 "children": []
                             }
@@ -5311,13 +5317,13 @@ const python_tree1 = {
                     {
                         "data": {
                             "text": "design a python program",
-                            "expand": false,
-                            "ableToClick": true
                         },
                         "children": [
                             {
                                 "data": {
-                                    "text": "fundaments"
+                                    "text": "fundaments",
+                                    "expand": false,
+                                    "ableToClick": true
                                 },
                                 "children": [
                                     {
@@ -5352,48 +5358,57 @@ const python_tree1 = {
                             },
                             {
                                 "data": {
-                                    "text": "python operator"
+                                    "text": "python operator",
+                                    "expand": false,
+                                    "ableToClick": true
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "Arithmetic operators"
+                                            "text": "Arithmetic operators",
+                                            "isExplainNode": true
                                         },
                                         "children": []
                                     },
                                     {
                                         "data": {
-                                            "text": "Assignment operators"
+                                            "text": "Assignment operators",
+                                            "isExplainNode": true
                                         },
                                         "children": []
                                     },
                                     {
                                         "data": {
-                                            "text": "Comparison operators"
+                                            "text": "Comparison operators",
+                                            "isExplainNode": true
                                         },
                                         "children": []
                                     },
                                     {
                                         "data": {
-                                            "text": "Logical operators"
+                                            "text": "Logical operators",
+                                            "isExplainNode": true
                                         },
                                         "children": []
                                     },
                                     {
                                         "data": {
-                                            "text": "Identity operators"
+                                            "text": "Identity operators",
+                                            "isExplainNode": true
                                         },
                                         "children": []
                                     },
                                     {
                                         "data": {
-                                            "text": "Membership  operators"
+                                            "text": "Membership  operators",
+                                            "isExplainNode": true
                                         },
                                         "children": []
                                     },
                                     {
                                         "data": {
-                                            "text": "Bitwise operators"
+                                            "text": "Bitwise operators",
+                                            "isExplainNode": true
                                         },
                                         "children": []
                                     }
@@ -5407,7 +5422,7 @@ const python_tree1 = {
     }
 }
 
-const python_tree2 = {
+const python_tree2 =  {
     "root": {
         "data": {
             "text": "Ch 2"
@@ -5430,7 +5445,8 @@ const python_tree2 = {
             },
             {
                 "data": {
-                    "text": "Expression"
+                    "text": "Expression",
+                    "ableToClick": true
                 },
                 "children": [
                     {
@@ -5451,7 +5467,7 @@ const python_tree2 = {
                     {
                         "data": {
                             "text": "why use variable",
-                            "expand": false
+                            "isExplainNode": true
                         },
                         "children": [
                             {
@@ -5473,7 +5489,7 @@ const python_tree2 = {
                     {
                         "data": {
                             "text": "what is variable",
-                            "expand": false
+                            "isExplainNode": true
                         },
                         "children": [
                             {
@@ -5487,14 +5503,14 @@ const python_tree2 = {
                     },
                     {
                         "data": {
-                            "text": "Name rules",
-                            "expand": false
+                            "text": "Name rules"
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "Start with",
-                                    "isExplainNode": true
+                                    "isExplainNode": true,
+                                    "expand": false
                                 },
                                 "children": [
                                     {
@@ -5516,7 +5532,8 @@ const python_tree2 = {
                             {
                                 "data": {
                                     "text": "Component",
-                                    "isExplainNode": true
+                                    "isExplainNode": true,
+                                    "expand": false
                                 },
                                 "children": [
                                     {
@@ -5553,14 +5570,14 @@ const python_tree2 = {
                     },
                     {
                         "data": {
-                            "text": "Assigning value",
-                            "expand": false
+                            "text": "Assigning value"
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "Single",
-                                    "isExplainNode": true
+                                    "isExplainNode": true,
+                                    "expand": false
                                 },
                                 "children": [
                                     {
@@ -5575,7 +5592,8 @@ const python_tree2 = {
                             {
                                 "data": {
                                     "text": "Multiple",
-                                    "isExplainNode": true
+                                    "isExplainNode": true,
+                                    "expand": false
                                 },
                                 "children": [
                                     {
@@ -5590,7 +5608,8 @@ const python_tree2 = {
                             {
                                 "data": {
                                     "text": "Combine",
-                                    "isExplainNode": true
+                                    "isExplainNode": true,
+                                    "expand": false
                                 },
                                 "children": [
                                     {
@@ -5608,13 +5627,12 @@ const python_tree2 = {
             },
             {
                 "data": {
-                    "text": "Data Type",
+                    "text": "Data Type"
                 },
                 "children": [
                     {
                         "data": {
-                            "text": "Text Type",
-                            "expand": false
+                            "text": "Text Type"
                         },
                         "children": [
                             {
@@ -5628,13 +5646,13 @@ const python_tree2 = {
                     {
                         "data": {
                             "text": "Numeric Type",
-                            "expand": false,
                             "ableToClick": true
                         },
                         "children": [
                             {
                                 "data": {
-                                    "text": "int"
+                                    "text": "int",
+                                    "expand": false
                                 },
                                 "children": [
                                     {
@@ -5676,7 +5694,8 @@ const python_tree2 = {
                             },
                             {
                                 "data": {
-                                    "text": "float"
+                                    "text": "float",
+                                    "expand": false
                                 },
                                 "children": [
                                     {
@@ -5718,7 +5737,8 @@ const python_tree2 = {
                             },
                             {
                                 "data": {
-                                    "text": "complex"
+                                    "text": "complex",
+                                    "expand": false
                                 },
                                 "children": [
                                     {
@@ -5770,13 +5790,14 @@ const python_tree2 = {
                     {
                         "data": {
                             "text": "Boolean Type",
-                            "ableToClick": true,
-                            "expand": false
+                            "ableToClick": true
                         },
                         "children": [
                             {
                                 "data": {
-                                    "text": "true"
+                                    "text": "true",
+                                    "isExplainNode": true,
+                                    "expand": false
                                 },
                                 "children": [
                                     {
@@ -5790,7 +5811,9 @@ const python_tree2 = {
                             },
                             {
                                 "data": {
-                                    "text": "false"
+                                    "text": "false",
+                                    "isExplainNode": true,
+                                    "expand": false
                                 },
                                 "children": [
                                     {
@@ -5812,8 +5835,8 @@ const python_tree2 = {
                             {
                                 "data": {
                                     "text": "string",
-                                    "ableToClick": true,
-                                    "expand": false
+                                    "expand": false,
+                                    "ableToClick": true
                                 },
                                 "children": [
                                     {
@@ -5982,7 +6005,7 @@ const python_tree2 = {
                                                 "children": [
                                                     {
                                                         "data": {
-                                                            "text": "replace, lower, upper, islower, isupper, isalpha, isdigit, isalnum, isspace, split, rsplit, strip, rstrip, capitalize, center, count, startswith, endswith",
+                                                            "text": "replace, lower, upper...",
                                                             "isExplainNode": true
                                                         },
                                                         "children": []
@@ -5996,8 +6019,8 @@ const python_tree2 = {
                             {
                                 "data": {
                                     "text": "list",
-                                    "ableToClick": true,
-                                    "expand": false
+                                    "expand": false,
+                                    "ableToClick": true
                                 },
                                 "children": [
                                     {
@@ -6021,21 +6044,21 @@ const python_tree2 = {
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "use []: mylist1=[], mylist2=[expression1, sxpression2,...], mylist3=[expression for variable in sequence]",
+                                                    "text": "use []",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
                                             },
                                             {
                                                 "data": {
-                                                    "text": "use list constructor: mylist1=list(), mylist2=list(sequence), mylist3=list(expression for variable in sequence)",
+                                                    "text": "use list constructor: list()",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
                                             },
                                             {
                                                 "data": {
-                                                    "text": "use assignment: mylist1=mylist2=[], mylist3=[] mylist4=mylist3",
+                                                    "text": "use assignment",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
@@ -6180,8 +6203,8 @@ const python_tree2 = {
                             {
                                 "data": {
                                     "text": "tuple",
-                                    "ableToClick": true,
-                                    "expand": false
+                                    "expand": false,
+                                    "ableToClick": true
                                 },
                                 "children": [
                                     {
@@ -6308,8 +6331,8 @@ const python_tree2 = {
                             {
                                 "data": {
                                     "text": "set",
-                                    "ableToClick": true,
-                                    "expand": false
+                                    "expand": false,
+                                    "ableToClick": true
                                 },
                                 "children": [
                                     {
@@ -6345,7 +6368,7 @@ const python_tree2 = {
                                                     },
                                                     {
                                                         "data": {
-                                                            "text": "use set constructor: myset=set(), myset2=set(sequence)",
+                                                            "text": "use set constructor: set()",
                                                             "isExplainNode": true
                                                         },
                                                         "children": []
@@ -6378,7 +6401,7 @@ const python_tree2 = {
                                                         "children": [
                                                             {
                                                                 "data": {
-                                                                    "text": "remove an element: myset.remove(item)/myset.discard(item)",
+                                                                    "text": "remove an element: remove/discard",
                                                                     "isExplainNode": true
                                                                 },
                                                                 "children": []
@@ -6492,7 +6515,7 @@ const python_tree2 = {
                                                 "children": [
                                                     {
                                                         "data": {
-                                                            "text": "use frozenset constructor: myset=frozenset(), myset2=frozenset(sequence)",
+                                                            "text": "use frozenset constructor: frozenset()",
                                                             "isExplainNode": true
                                                         },
                                                         "children": []
@@ -6541,8 +6564,8 @@ const python_tree2 = {
                             {
                                 "data": {
                                     "text": "Dictionary",
-                                    "ableToClick": true,
-                                    "expand": false
+                                    "expand": false,
+                                    "ableToClick": true
                                 },
                                 "children": [
                                     {
@@ -6552,7 +6575,7 @@ const python_tree2 = {
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "mutable, unordered, indexed, key must be unique and immutable type, value can be any type and duplicates",
+                                                    "text": "mutable, unordered, indexed, unique and immutable key",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
@@ -6566,14 +6589,14 @@ const python_tree2 = {
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "use {}: mydict1={}, mydict2={key1:value1, key2:value2,...}",
+                                                    "text": "use {}",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
                                             },
                                             {
                                                 "data": {
-                                                    "text": "use dict constructor: mydict1=dict(), mydict2=dict(key1=value1, key2=value2,...), mydict3=dict([(key1, value1), (key2, value2),...])",
+                                                    "text": "use dict constructor: dict()",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
@@ -6615,43 +6638,36 @@ const python_tree2 = {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "update"
+                                                    "text": "add/modify"
                                                 },
                                                 "children": [
                                                     {
                                                         "data": {
-                                                            "text": "add/modify"
+                                                            "text": "mydict[key]=value",
+                                                            "isExplainNode": true
                                                         },
-                                                        "children": [
-                                                            {
-                                                                "data": {
-                                                                    "text": "mydict[key]=value",
-                                                                    "isExplainNode": true
-                                                                },
-                                                                "children": []
-                                                            }
-                                                        ]
+                                                        "children": []
+                                                    }
+                                                ]
+                                            },
+                                            {
+                                                "data": {
+                                                    "text": "delete"
+                                                },
+                                                "children": [
+                                                    {
+                                                        "data": {
+                                                            "text": "delete one item: del mydict[key]",
+                                                            "isExplainNode": true
+                                                        },
+                                                        "children": []
                                                     },
                                                     {
                                                         "data": {
-                                                            "text": "delete"
+                                                            "text": "delete whole dict: del mydict/mydict.clear()",
+                                                            "isExplainNode": true
                                                         },
-                                                        "children": [
-                                                            {
-                                                                "data": {
-                                                                    "text": "delete one item: del mydict[key]",
-                                                                    "isExplainNode": true
-                                                                },
-                                                                "children": []
-                                                            },
-                                                            {
-                                                                "data": {
-                                                                    "text": "delete whole dict: del mydict/mydict.clear()",
-                                                                    "isExplainNode": true
-                                                                },
-                                                                "children": []
-                                                            }
-                                                        ]
+                                                        "children": []
                                                     }
                                                 ]
                                             },
@@ -6662,7 +6678,7 @@ const python_tree2 = {
                                                 "children": [
                                                     {
                                                         "data": {
-                                                            "text": "mydict.has_key(key), mydict.keys(), mydict.items(), mydict.values()",
+                                                            "text": "mydict.has_key(key), keys(), items(), values()",
                                                             "isExplainNode": true
                                                         },
                                                         "children": []
@@ -6679,14 +6695,13 @@ const python_tree2 = {
             }
         ]
     }
-
 }
 
-const python_tree3 = {
+const python_tree3 ={
     "root": {
         "data": {
             "text": "Ch 3 python basics",
-            "ableToClick": true,
+            "ableToClick": true
         },
         "children": [
             {
@@ -6697,35 +6712,39 @@ const python_tree3 = {
                     {
                         "data": {
                             "text": "branch",
-                            "ableToClick": true,
-                            "expand": false
+                            "ableToClick": true
                         },
                         "children": [
                             {
                                 "data": {
-                                    "text": "if"
+                                    "text": "if",
+                                    "expand": false
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "condition"
+                                            "text": "condition",
+                                            "isExplainNode": true
                                         },
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "Boolean condition"
+                                                    "text": "Boolean condition",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": []
-                                            }, {
+                                            },{
                                                 "data": {
-                                                    "text": "expression"
+                                                    "text": "expression",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": []
                                             }
                                         ]
-                                    }, {
+                                    },{
                                         "data": {
-                                            "text": "statements"
+                                            "text": "statements",
+                                            "isExplainNode": true
                                         },
                                         "children": []
                                     }
@@ -6742,7 +6761,7 @@ const python_tree3 = {
                                     "text": "if .. elif .. else .."
                                 },
                                 "children": []
-                            }, {
+                            },{
                                 "data": {
                                     "text": "nested"
                                 },
@@ -6753,29 +6772,32 @@ const python_tree3 = {
                     {
                         "data": {
                             "text": "loop",
-                            "ableToClick": true,
-                            "expand": false
+                            "ableToClick": true
                         },
                         "children": [
                             {
                                 "data": {
-                                    "text": "while"
+                                    "text": "while",
+                                    "expand": false
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "condition"
+                                            "text": "condition",
+                                            "isExplainNode": true
                                         },
                                         "children": []
                                     },
                                     {
                                         "data": {
-                                            "text": "statements"
+                                            "text": "statements",
+                                            "isExplainNode": true
                                         },
                                         "children": []
-                                    }, {
+                                    },{
                                         "data": {
-                                            "text": "nested"
+                                            "text": "nested",
+                                            "isExplainNode": true
                                         },
                                         "children": []
                                     }
@@ -6783,29 +6805,34 @@ const python_tree3 = {
                             },
                             {
                                 "data": {
-                                    "text": "for"
+                                    "text": "for",
+                                    "expand": false
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "var/sequence"
+                                            "text": "var/sequence",
+                                            "isExplainNode": true
                                         },
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "list"
+                                                    "text": "list",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": []
                                             },
                                             {
                                                 "data": {
-                                                    "text": "tuple"
+                                                    "text": "tuple",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": []
                                             },
                                             {
                                                 "data": {
-                                                    "text": "range()"
+                                                    "text": "range()",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": []
                                             }
@@ -6813,27 +6840,32 @@ const python_tree3 = {
                                         ]
                                     }, {
                                         "data": {
-                                            "text": "statements"
+                                            "text": "statements",
+                                            "isExplainNode": true
                                         },
                                         "children": []
-                                    }, {
+                                    },{
                                         "data": {
-                                            "text": "nested"
+                                            "text": "nested",
+                                            "isExplainNode": true
                                         },
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "for"
+                                                    "text": "for",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": []
-                                            }, {
+                                            },{
                                                 "data": {
-                                                    "text": "if .. else .."
+                                                    "text": "if .. else ..",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": []
-                                            }, {
+                                            },{
                                                 "data": {
-                                                    "text": "while"
+                                                    "text": "while",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": []
                                             }
@@ -6846,8 +6878,7 @@ const python_tree3 = {
                     {
                         "data": {
                             "text": "control flow tools",
-                            "ableToClick": true,
-                            "expand": false
+                            "ableToClick": true
                         },
                         "children": [
                             {
@@ -6880,25 +6911,27 @@ const python_tree3 = {
                     {
                         "data": {
                             "text": "algorithms",
-                            "ableToClick": true,
-                            "expand": false
+                            "ableToClick": true
                         },
                         "children": [
                             {
                                 "data": {
-                                    "text": "step 1:flow charts"
+                                    "text": "step 1:flow charts",
+                                    "isExplainNode": true
                                 },
                                 "children": []
                             },
                             {
                                 "data": {
-                                    "text": "step 2:pseudocode"
+                                    "text": "step 2:pseudocode",
+                                    "isExplainNode": true
                                 },
                                 "children": []
                             },
                             {
                                 "data": {
-                                    "text": "step 3:program code"
+                                    "text": "step 3:program code",
+                                    "isExplainNode": true
                                 },
                                 "children": []
                             }
