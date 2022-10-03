@@ -81,6 +81,7 @@ export default {
 
                     let token = res.data.token;
                     window.localStorage.setItem("token", token);
+
                     this.$router.push('/main');
                 } else {
                     this.$message({

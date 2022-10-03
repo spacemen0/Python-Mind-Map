@@ -5,7 +5,11 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-      userInfo:{ }
+      userInfo:{
+          userID:'',
+          isAdmin: 0,
+          name: ''
+      }
   },
   getters: {
   },
