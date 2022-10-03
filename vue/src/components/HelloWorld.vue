@@ -80,7 +80,8 @@ export default {
       //   //console.log("nodemousedown datae",e)
       // });
       // this.mindMap.render()
-      this.mindMap.view.translateX(-600);
+      // this.mindMap.view.translateX(-600);
+
       this.mindMap.on('node_click', (data) => {
         if (data.ableToClick === true) {
           this.drawer = true;

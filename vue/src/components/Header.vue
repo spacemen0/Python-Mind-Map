@@ -26,10 +26,10 @@
     </el-menu-item>
     <el-menu-item index="/personal">个人情况</el-menu-item>
     <el-menu-item index="/ranking">班级排名</el-menu-item>
-    
+
     <el-menu-item index="/gragh">每周题数</el-menu-item>
-    
-    <el-menu-item index="/answer">答题界面</el-menu-item>
+
+    <!--<el-menu-item index="/answer">答题界面</el-menu-item>-->
     <el-menu-item index="/main">知识图谱</el-menu-item>
   </el-menu>
 

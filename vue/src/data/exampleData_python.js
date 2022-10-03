@@ -7155,18 +7155,6 @@ const python_tree4 = {
 }
 
 export default {
-    // ...data1,
-    // ...data2,
-    // ...data3,
-    // ...data4,
-    // ...data5,
-    // ...rootData,
-    // ...python_ch1,
-    // ...python_ch2,
-    // ...python_ch3,
-    ///...python_ch2,
-    // ...python_ch6,
-
     python_trees: [
         {
             ...python_tree1,
