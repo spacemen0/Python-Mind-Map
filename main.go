@@ -27,7 +27,7 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 	r.POST("/register", controller.Register)
 	r.POST("/login", controller.Login)
 	user := r.Group("user")
-	user.Use(middleware.AuthUser())
+	user.Use(middleware.AuthUser(), middleware.CORSMiddleware())
 	{
 		user.GET("/getuser", controller.GetUser)
 		user.GET("/getquestions", controller.GetQuestion)
@@ -37,7 +37,7 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 		user.POST("/uploadcodes", controller.UploadCodes)
 	}
 	admin := r.Group("admin")
-	admin.Use(middleware.AuthAdmin())
+	admin.Use(middleware.AuthAdmin(), middleware.CORSMiddleware())
 	{
 		admin.POST("/createquestion", controller.CreateQuestion)
 		admin.POST("/deletequestion", controller.DeleteQuestion)

@@ -43,8 +43,10 @@ func Register(c *gin.Context) {
 func Login(c *gin.Context) {
 	db := common.GetDataBase()
 	//获取数据
-	studentID := c.Query("StudentID")
-	password := c.Query("Password")
+	var auser model.User
+	c.Bind(&auser)
+	studentID := auser.StudentID
+	password := auser.Password
 	//验证数据
 	isExisted, user := isExistedStudentID(db, studentID)
 	if !isExisted {
@@ -69,7 +71,7 @@ func Login(c *gin.Context) {
 
 }
 
-func isExistedStudentID(db *gorm.DB, studentID string) (bool, *model.User) {
+func isExistedStudentID(db *gorm.DB, studentID uint) (bool, *model.User) {
 	var user *model.User
 	err := db.Where("student_id = ?", studentID).First(&user).Error
 	return !(err == gorm.ErrRecordNotFound), user
