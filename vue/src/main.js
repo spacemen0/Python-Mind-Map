@@ -32,7 +32,7 @@ request.interceptors.request.use(config => {
         return Promise.reject(error);
     });
 
-//响应回来token是否过期
+// 响应回来token是否过期
 request.interceptors.response.use(response => {
         //和后端token失效返回码约定403
         if (response.data.code === 403) {

@@ -1,8 +1,8 @@
 import axios from 'axios'
-import router from "../router";
 
 const request = axios.create({
-    baseURL: "/",
+    // baseURL: process.env.NODE_EVE === 'production' ? process.env.VUE_APP_BASE_API : '/api',
+    baseURL: '/api',
     timeout: 5000
 })
 

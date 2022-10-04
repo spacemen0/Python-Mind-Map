@@ -51,11 +51,13 @@
             <P class="headline">编程题<span style="font-size: 0.8em; font-weight: normal">（将代码文件上传即可）</span></P>
             <el-form-item v-for="(t,i) in programQuestList" :key="i">
                 <P class="quesTitle"><span class="quesNum">{{ i + 1 }}</span>{{ t }}</P>
-                <el-upload class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" multiple>
+                <el-upload class="upload-demo" drag multiple :file-list="fileList" show-file-list :auto-upload="false" :before-upload="onBeforeUpload"
+                           :on-error="uploadError" :on-success="uploadSuccess" action="#" :on-change="handleChange">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
                     <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
                 </el-upload>
+                <el-button type="primary" @click="upload" class="subBtn">上传</el-button>
             </el-form-item>
         </el-form>
 
@@ -64,7 +66,7 @@
             <div v-if="!isFinished" class="unFinishWarn"><i class="el-icon-warning"></i>还有题目未完成</div>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false" class="btn">取 消</el-button>
-                <el-button type="primary" @click="submit"  class="btn">确 定</el-button>
+                <el-button type="primary" @click="submit" class="btn">确 定</el-button>
             </span>
         </el-dialog>
     </div>
@@ -165,12 +167,15 @@ export default {
             multiOptQuestList: temp,
             dialogVisible: false,
             isFinished: false,
-            score: 0
+            score: 0,
+            fileList: [],
+            uploadUrl: '/user/uploadcodes'
         }
     },
     created() {
-        request.get(`/:6679/user/getquestions?ChapterID=${this.ChapterID}TestID=${this.TestID}`).then(res => {
-            if (res.code === 200) {
+        let url = `/user/getquestions?ChapterID=${this.ChapterID}&TestID=${this.TestID}`;
+        request.get(url).then(res => {
+            if (res.status === 200) {
                 this.UserAnswers = [];
                 for (let e of res.data) {
                     this.UserAnswers.push('');
@@ -198,6 +203,7 @@ export default {
         });
     },
     methods: {
+        // 点击提交按钮
         clickSubmit() {
             console.log(this.UserAnswers);
             this.dialogVisible = true;
@@ -209,33 +215,79 @@ export default {
             if (answerdNum === this.UserAnswers.length)
                 this.isFinished = true;
         },
+        // 发送提交请求
         submit() {
             this.dialogVisible = false;
-            //  发送提交请求
             this.UserAnswers.forEach((value, index, array) => {
                 if (value === '')
                     array[index] = 'null';
             });
-
-            request.post('/:6679/user/createanswersheet',)
-
+            let url = `ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.$store.state.userInfo.userID}`
+            request.post(url,)
         },
         showAns() {
             this.updateUserSelect(this.ruleForm.resource)
             this.$router.push('/result')
         },
         getCorrectAnswers() {
-            request.get(`/:6679/user/getcorrectanswers?ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.UserID}`).then(res => {
-                if (res.code === 200) {
+            request.get(`/user/getcorrectanswers?ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.UserID}`).then(res => {
+                if (res.status === 200) {
 
                 }
             });
+        },
+        onBeforeUpload(file) {
+            const isIMAGE = file.type === 'image/jpeg' || 'image/gif' || 'image/png';
+            const isLt1M = file.size / 1024 / 1024 < 1;
+
+            if (!isIMAGE) {
+                this.$message.error('上传文件只能是图片格式!');
+            }
+            if (!isLt1M) {
+                this.$message.error('上传文件大小不能超过 1MB!');
+            }
+            return isIMAGE && isLt1M;
+        },
+        uploadError(err, file, fileList) {
+            console.log(err);
+            console.log(fileList);
+        },
+        uploadSuccess(response, file, fileList) {
+            console.log(response);
+            console.log(fileList);
+        },
+        handleChange(file, fileList) {
+            this.fileList = fileList;
+            console.log(fileList)
+        },
+        upload() {
+            let fd = new FormData();
+            // fd.append("name",this.name);
+            this.fileList.forEach(item => {
+                //文件信息中raw才是真的文件
+                fd.append("codes", item.raw);
+                console.log(item.raw)
+            })
+            let url = `/user/uploadcodes?ChapterID=${this.ChapterID}&TestID=${this.TestID}`
+            request.post(url, fd).then(res => {
+                if (res.data.code === 200) {
+                    //console.log(res);
+                    this.$message('上传成功')
+                } else {
+                    this.$message('失败')
+                }
+            })
         }
     }
 }
 </script>
 
 <style scoped>
+.el-upload__text,
+.el-upload__tip {
+    font-size: 1.3em;
+}
+
 .btn {
     font-size: 1em;
 }

@@ -24,10 +24,11 @@ func main() {
 }
 
 func CollectRoutes(r *gin.Engine) *gin.Engine {
+	r.Use(middleware.CORSMiddleware())
 	r.POST("/register", controller.Register)
 	r.POST("/login", controller.Login)
 	user := r.Group("user")
-	user.Use(middleware.AuthUser(), middleware.CORSMiddleware())
+	user.Use(middleware.AuthUser())
 	{
 		user.GET("/getuser", controller.GetUser)
 		user.GET("/getquestions", controller.GetQuestion)

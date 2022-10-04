@@ -5212,14 +5212,16 @@ const python_tree1 =  {
                         "data": {
                             "text": "hardware",
                             "isExplainNode": true,
-                            "ableToClick": true
+                            "ableToClick": true,
+                            "testID": 0,
                         },
                         "children": []
                     },
                     {
                         "data": {
-                            "text": "four function",
-                            "ableToClick": true
+                            "text": "four functions",
+                            "ableToClick": true,
+                            "testID": 1,
                         },
                         "children": [
                             {
@@ -5263,7 +5265,8 @@ const python_tree1 =  {
                         "data": {
                             "text": "recipe",
                             "isExplainNode": true,
-                            "ableToClick": true
+                            "ableToClick": true,
+                            "testID": 2,
                         },
                         "children": []
                     }
@@ -5278,7 +5281,8 @@ const python_tree1 =  {
                         "data": {
                             "text": "aspects of language",
                             "isExplainNode": true,
-                            "ableToClick": true
+                            "ableToClick": true,
+                            "testID": 3,
                         },
                         "children": []
                     }
@@ -5299,7 +5303,8 @@ const python_tree1 =  {
                                     "text": "IDE tools",
                                     "isExplainNode": true,
                                     "expand": false,
-                                    "ableToClick": true
+                                    "ableToClick": true,
+                                    "testID": 4,
                                 },
                                 "children": []
                             },
@@ -5308,7 +5313,8 @@ const python_tree1 =  {
                                     "text": "programming mode",
                                     "isExplainNode": true,
                                     "expand": false,
-                                    "ableToClick": true
+                                    "ableToClick": true,
+                                    "testID": 5,
                                 },
                                 "children": []
                             }
@@ -5321,9 +5327,10 @@ const python_tree1 =  {
                         "children": [
                             {
                                 "data": {
-                                    "text": "fundaments",
+                                    "text": "fundamentals",
                                     "expand": false,
-                                    "ableToClick": true
+                                    "ableToClick": true,
+                                    "testID": 6,
                                 },
                                 "children": [
                                     {
@@ -5358,9 +5365,10 @@ const python_tree1 =  {
                             },
                             {
                                 "data": {
-                                    "text": "python operator",
+                                    "text": "python operators",
                                     "expand": false,
-                                    "ableToClick": true
+                                    "ableToClick": true,
+                                    "testID": 7,
                                 },
                                 "children": [
                                     {
@@ -5431,7 +5439,8 @@ const python_tree2 =  {
             {
                 "data": {
                     "text": "Statement",
-                    "ableToClick": true
+                    "ableToClick": true,
+                    "testID": 0,
                 },
                 "children": [
                     {
@@ -5446,7 +5455,8 @@ const python_tree2 =  {
             {
                 "data": {
                     "text": "Expression",
-                    "ableToClick": true
+                    "ableToClick": true,
+                    "testID": 1,
                 },
                 "children": [
                     {
@@ -5461,7 +5471,9 @@ const python_tree2 =  {
             {
                 "data": {
                     "text": "Variables",
-                    "ableToClick": true
+                    "ableToClick": true,
+                    "testID": 2,
+
                 },
                 "children": [
                     {
@@ -5646,7 +5658,8 @@ const python_tree2 =  {
                     {
                         "data": {
                             "text": "Numeric Type",
-                            "ableToClick": true
+                            "ableToClick": true,
+                            "testID": 3,
                         },
                         "children": [
                             {
@@ -5790,7 +5803,9 @@ const python_tree2 =  {
                     {
                         "data": {
                             "text": "Boolean Type",
-                            "ableToClick": true
+                            "ableToClick": true,
+                            "testID": 4,
+
                         },
                         "children": [
                             {
@@ -5836,7 +5851,8 @@ const python_tree2 =  {
                                 "data": {
                                     "text": "string",
                                     "expand": false,
-                                    "ableToClick": true
+                                    "ableToClick": true,
+                                    "testID": 5,
                                 },
                                 "children": [
                                     {
@@ -6020,7 +6036,8 @@ const python_tree2 =  {
                                 "data": {
                                     "text": "list",
                                     "expand": false,
-                                    "ableToClick": true
+                                    "ableToClick": true,
+                                    "testID": 6,
                                 },
                                 "children": [
                                     {
@@ -6204,7 +6221,8 @@ const python_tree2 =  {
                                 "data": {
                                     "text": "tuple",
                                     "expand": false,
-                                    "ableToClick": true
+                                    "ableToClick": true,
+                                    "testID": 7,
                                 },
                                 "children": [
                                     {
@@ -6332,7 +6350,8 @@ const python_tree2 =  {
                                 "data": {
                                     "text": "set",
                                     "expand": false,
-                                    "ableToClick": true
+                                    "ableToClick": true,
+                                    "testID": 8,
                                 },
                                 "children": [
                                     {
@@ -6565,7 +6584,8 @@ const python_tree2 =  {
                                 "data": {
                                     "text": "Dictionary",
                                     "expand": false,
-                                    "ableToClick": true
+                                    "ableToClick": true,
+                                    "testID": 9,
                                 },
                                 "children": [
                                     {
@@ -6701,7 +6721,8 @@ const python_tree3 ={
     "root": {
         "data": {
             "text": "Ch 3 python basics",
-            "ableToClick": true
+            "ableToClick": true,
+            "testID": 0,
         },
         "children": [
             {
@@ -6712,7 +6733,8 @@ const python_tree3 ={
                     {
                         "data": {
                             "text": "branch",
-                            "ableToClick": true
+                            "ableToClick": true,
+                            "testID": 1,
                         },
                         "children": [
                             {
@@ -6772,7 +6794,8 @@ const python_tree3 ={
                     {
                         "data": {
                             "text": "loop",
-                            "ableToClick": true
+                            "ableToClick": true,
+                            "testID": 2,
                         },
                         "children": [
                             {
@@ -6878,7 +6901,8 @@ const python_tree3 ={
                     {
                         "data": {
                             "text": "control flow tools",
-                            "ableToClick": true
+                            "ableToClick": true,
+                            "testID": 3,
                         },
                         "children": [
                             {
@@ -6911,7 +6935,8 @@ const python_tree3 ={
                     {
                         "data": {
                             "text": "algorithms",
-                            "ableToClick": true
+                            "ableToClick": true,
+                            "testID": 4,
                         },
                         "children": [
                             {
@@ -7155,18 +7180,6 @@ const python_tree4 = {
 }
 
 export default {
-    // ...data1,
-    // ...data2,
-    // ...data3,
-    // ...data4,
-    // ...data5,
-    // ...rootData,
-    // ...python_ch1,
-    // ...python_ch2,
-    // ...python_ch3,
-    ///...python_ch2,
-    // ...python_ch6,
-
     python_trees: [
         {
             ...python_tree1,

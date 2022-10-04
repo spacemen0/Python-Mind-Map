@@ -6,8 +6,8 @@
                 <el-form-item label="学号" prop="StudentID">
                     <el-input v-model="User.StudentID" placeholder="学号" clearable></el-input>
                 </el-form-item>
-                <el-form-item label="密码" prop="Password">
-                    <el-input type="password" v-model="User.Password" placeholder="密码" clearable></el-input>
+                <el-form-item label="密码" prop="Password" >
+                    <el-input type="password" v-model="User.Password" placeholder="密码" show-password></el-input>
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="login" class="btn">登 录</el-button>
@@ -49,8 +49,8 @@ export default {
             isLogin: false,
             User: {
                 // name: '张三',
-                StudentID: '202034340099',
-                Password: ''
+                StudentID: '202034340091',
+                Password: '123456'
             },
             loginDialog: false,
             rules: {
@@ -65,8 +65,10 @@ export default {
     },
     methods: {
         login() {
-            request.post("/:6679/login", this.User).then(res => {
-                if (res.data.code === 0) {
+            let url = `/login?StudentID=${this.User.StudentID}&Password=${this.User.Password}`
+            request.post( url).then(res => {
+                console.log(res)
+                if (res.status === 200) {
                     this.$message.success('登陆成功！');
                     // let userInfo = {
                     //     isLogin: true,
@@ -79,6 +81,7 @@ export default {
 
                     let token = res.data.token;
                     window.localStorage.setItem("token", token);
+
                     this.$router.push('/main');
                 } else {
                     this.$message({
@@ -86,6 +89,10 @@ export default {
                         message: "登陆失败"
                     })
                 }
+            }).catch((error) =>{
+                alert(error);
+            }).finally(() => {
+                this.User.Password = '';
             })
         }
     }
