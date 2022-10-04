@@ -50,12 +50,12 @@ func Login(c *gin.Context) {
 	//验证数据
 	isExisted, user := isExistedStudentID(db, studentID)
 	if !isExisted {
-		response.Response(c, 403, nil, "用户不存在")
+		response.Response(c, 401, nil, "用户不存在")
 		//自动注册不存在
 		return
 	}
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
-		response.Response(c, 403, gin.H{"error": err}, "密码错误")
+		response.Response(c, 401, gin.H{"error": err}, "密码错误")
 
 		return
 	}
