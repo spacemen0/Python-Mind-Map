@@ -5429,7 +5429,9 @@ const python_tree1 =  {
         ]
     }
 }
-
+// "ableToClick": true,
+//     "testID":
+// "expand": false
 const python_tree2 =  {
     "root": {
         "data": {
@@ -5438,9 +5440,9 @@ const python_tree2 =  {
         "children": [
             {
                 "data": {
-                    "text": "Statement",
+                    "text": "Statement☆",
                     "ableToClick": true,
-                    "testID": 0,
+                    "testID": 0
                 },
                 "children": [
                     {
@@ -5455,8 +5457,7 @@ const python_tree2 =  {
             {
                 "data": {
                     "text": "Expression",
-                    "ableToClick": true,
-                    "testID": 1,
+                    "testID": 1
                 },
                 "children": [
                     {
@@ -5472,8 +5473,6 @@ const python_tree2 =  {
                 "data": {
                     "text": "Variables",
                     "ableToClick": true,
-                    "testID": 2,
-
                 },
                 "children": [
                     {
@@ -5515,14 +5514,15 @@ const python_tree2 =  {
                     },
                     {
                         "data": {
-                            "text": "Name rules"
+                            "text": "Name rules",
+                            "testID": 2
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "Start with",
                                     "isExplainNode": true,
-                                    "expand": false
+                                    "expand": false,
                                 },
                                 "children": [
                                     {
@@ -5582,14 +5582,15 @@ const python_tree2 =  {
                     },
                     {
                         "data": {
-                            "text": "Assigning value"
+                            "text": "Assigning value",
+                            "testID": 3
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "Single",
                                     "isExplainNode": true,
-                                    "expand": false
+                                    "expand": false,
                                 },
                                 "children": [
                                     {
@@ -5605,7 +5606,7 @@ const python_tree2 =  {
                                 "data": {
                                     "text": "Multiple",
                                     "isExplainNode": true,
-                                    "expand": false
+                                    "expand": false,
                                 },
                                 "children": [
                                     {
@@ -5621,7 +5622,7 @@ const python_tree2 =  {
                                 "data": {
                                     "text": "Combine",
                                     "isExplainNode": true,
-                                    "expand": false
+                                    "expand": false,
                                 },
                                 "children": [
                                     {
@@ -5659,18 +5660,19 @@ const python_tree2 =  {
                         "data": {
                             "text": "Numeric Type",
                             "ableToClick": true,
-                            "testID": 3,
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "int",
-                                    "expand": false
+
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "definition"
+                                            "text": "definition",
+                                            "expand": false,
+                                            "ableToClick": true,
                                         },
                                         "children": [
                                             {
@@ -5684,7 +5686,8 @@ const python_tree2 =  {
                                     },
                                     {
                                         "data": {
-                                            "text": "convert"
+                                            "text": "convert",
+                                            "expand": false,
                                         },
                                         "children": [
                                             {
@@ -5708,7 +5711,7 @@ const python_tree2 =  {
                             {
                                 "data": {
                                     "text": "float",
-                                    "expand": false
+                                    "expand": false,
                                 },
                                 "children": [
                                     {
@@ -5751,7 +5754,7 @@ const python_tree2 =  {
                             {
                                 "data": {
                                     "text": "complex",
-                                    "expand": false
+                                    "expand": false,
                                 },
                                 "children": [
                                     {
@@ -5804,15 +5807,13 @@ const python_tree2 =  {
                         "data": {
                             "text": "Boolean Type",
                             "ableToClick": true,
-                            "testID": 4,
-
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "true",
                                     "isExplainNode": true,
-                                    "expand": false
+                                    "expand": false,
                                 },
                                 "children": [
                                     {
@@ -5828,7 +5829,7 @@ const python_tree2 =  {
                                 "data": {
                                     "text": "false",
                                     "isExplainNode": true,
-                                    "expand": false
+                                    "expand": false,
                                 },
                                 "children": [
                                     {
@@ -5852,7 +5853,6 @@ const python_tree2 =  {
                                     "text": "string",
                                     "expand": false,
                                     "ableToClick": true,
-                                    "testID": 5,
                                 },
                                 "children": [
                                     {
@@ -6037,7 +6037,6 @@ const python_tree2 =  {
                                     "text": "list",
                                     "expand": false,
                                     "ableToClick": true,
-                                    "testID": 6,
                                 },
                                 "children": [
                                     {
@@ -6222,7 +6221,6 @@ const python_tree2 =  {
                                     "text": "tuple",
                                     "expand": false,
                                     "ableToClick": true,
-                                    "testID": 7,
                                 },
                                 "children": [
                                     {
@@ -6285,10 +6283,18 @@ const python_tree2 =  {
                                                         "children": []
                                                     }
                                                 ]
-                                            },
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "text": "application"
+                                        },
+                                        "children": [
                                             {
                                                 "data": {
-                                                    "text": "swap values"
+                                                    "text": "swap values",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": [
                                                     {
@@ -6302,7 +6308,8 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "return multiple values"
+                                                    "text": "return multiple values",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": [
                                                     {
@@ -6316,7 +6323,8 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "packing"
+                                                    "text": "packing",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": [
                                                     {
@@ -6330,7 +6338,8 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "unpacking"
+                                                    "text": "unpacking",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": [
                                                     {
@@ -6351,7 +6360,6 @@ const python_tree2 =  {
                                     "text": "set",
                                     "expand": false,
                                     "ableToClick": true,
-                                    "testID": 8,
                                 },
                                 "children": [
                                     {
@@ -6585,7 +6593,6 @@ const python_tree2 =  {
                                     "text": "Dictionary",
                                     "expand": false,
                                     "ableToClick": true,
-                                    "testID": 9,
                                 },
                                 "children": [
                                     {
@@ -6698,7 +6705,7 @@ const python_tree2 =  {
                                                 "children": [
                                                     {
                                                         "data": {
-                                                            "text": "mydict.has_key(key), keys(), items(), values()",
+                                                            "text": "mydict.keys(), items(), values()",
                                                             "isExplainNode": true
                                                         },
                                                         "children": []
@@ -6716,7 +6723,6 @@ const python_tree2 =  {
         ]
     }
 }
-
 const python_tree3 ={
     "root": {
         "data": {

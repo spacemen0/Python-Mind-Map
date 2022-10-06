@@ -1,63 +1,82 @@
 <template>
     <div>
         <div class="title">
-            python第{{ ChapterID }}章{{ chapterName }}
+            python第{{ ChapterID }}章：{{ TestName }}
         </div>
         <el-form class="main">
             <P class="headline">客观题<span class="score" v-if="isSubmit">你的得分：{{ score }}</span></P>
-            <el-form-item v-for="(t,i) in optQuesList" :key="i" size="medium">
-                <P class="quesTitle" :class="{ 'wrongAns': checkResult[i] === false }">
-                    <span class="quesNum">{{ i + 1 }}</span>{{ t.title }} <i v-if="checkResult[i] === false" class="el-icon-close"></i>
+            <!--单选题-->
+            <el-form-item v-for="(t,i) in optQuesList" size="medium">
+                <P class="quesTitle" :class="{ 'wrongAns': checkResult.optQuesRes[i] === false }">
+                    <span class="quesNum">{{ t.number }}</span>{{ t.title }} <i v-if="checkResult.optQuesRes[i] === false" class="el-icon-close"></i>
                 </P>
-                <el-radio-group v-model="UserAnswers[i]">
-                    <el-radio label="A">A.{{ t.selectA }}</el-radio>
-                    <br>
-                    <el-radio label="B">B.{{ t.selectB }}</el-radio>
-                    <br>
-                    <el-radio label="C" v-if="t.selectC !== '' ">C.{{ t.selectC }}</el-radio>
-                    <br v-if="t.selectC !== '' ">
-                    <el-radio label="D" v-if="t.selectD !== '' ">D.{{ t.selectD }}</el-radio>
+                <el-radio-group v-model="optAns[i]" @change="test">
+                    <div v-for="(e,j) in t.options">
+                        <el-radio :label="getAlpha(j)" size="medium">
+                            <span>{{ getAlpha(j) }}.</span>
+                            <span class="option">{{ e }}</span>
+                        </el-radio>
+                    </div>
                 </el-radio-group>
                 <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[i] }}</div>
             </el-form-item>
 
-            <el-form-item v-for="(t,i) in optQuesList" :key="i" size="medium">
-                <P class="quesTitle" :class="{ 'wrongAns': checkResult[i] === false }">
-                    <span class="quesNum">{{ i + 1 }}</span>{{ t.title }} <i v-if="checkResult[i] === false" class="el-icon-close"></i>
+            <!--多选题-->
+            <el-form-item v-for="(t,i) in multiOptQuestList" size="medium">
+                <P class="quesTitle" :class="{ 'wrongAns': checkResult.multiOptQuesRes[i] === false }">
+                    <span class="quesNum">{{ t.number }}</span>{{ t.title }} <i v-if="checkResult.multiOptQuesRes[i] === false" class="el-icon-close"></i>
                 </P>
-                <el-checkbox-group v-model="multiOptQuestList[i]" size="medium">
-                    <el-checkbox label="A">A.{{ t.selectA }}</el-checkbox>
-                    <br>
-                    <el-checkbox label="B">B.{{ t.selectB }}</el-checkbox>
-                    <br>
-                    <el-checkbox label="C" v-if="t.selectC !== '' ">C.{{ t.selectC }}</el-checkbox>
-                    <br v-if="t.selectC !== '' ">
-                    <el-checkbox label="D" v-if="t.selectD !== '' ">D.{{ t.selectD }}</el-checkbox>
+                <el-checkbox-group v-model="multiAns[i]" size="medium">
+                    <div v-for="(e,j) in t.options">
+                        <el-checkbox :label="getAlpha(j)" size="medium">
+                            <span>{{ getAlpha(j) }}.</span>
+                            <span class="option">{{ e }}</span>
+                        </el-checkbox>
+                    </div>
                 </el-checkbox-group>
                 <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[i] }}</div>
             </el-form-item>
 
-            <el-form-item v-for="(t,i) in blankQuesList" :key="i">
-                <P class="quesTitle" :class="{ 'wrongAns': checkResult[i] === false }">
-                    <span class="quesNum">{{ i + 1 }}</span>{{ t.title }} <i v-if="checkResult[i] === false" class="el-icon-close"></i>
+            <!--判断题-->
+            <el-form-item v-for="(t,i) in TFQuestionList" size="medium">
+                <P class="quesTitle" :class="{ 'wrongAns': checkResult.TFQuesRes[i] === false }">
+                    <span class="quesNum">{{ t.number }}</span>{{ t.title }} <i v-if="checkResult.TFQuesRes[i] === false" class="el-icon-close"></i>
                 </P>
-                <el-input size="medium" v-model="UserAnswers[optQuesList.length + i]" clearable style="width: 50%"></el-input>
+                <el-radio-group v-model="TFAns[i]">
+                    <div>
+                        <el-radio label="1" size="medium"><i class="el-icon-check TFOpt"></i></el-radio>
+                    </div>
+                    <div>
+                        <el-radio label="0" size="medium"><i class="el-icon-close TFOpt"></i></el-radio>
+                    </div>
+                </el-radio-group>
+                <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[i] }}</div>
+            </el-form-item>
+
+            <!--填空题-->
+            <el-form-item v-for="(t,i) in blankQuesList">
+                <P class="quesTitle" :class="{ 'wrongAns': checkResult.blanQuesRes[i] === false }">
+                    <span class="quesNum">{{ t.number }}</span>{{ t.title }} <i v-if="checkResult.blanQuesRes[i] === false" class="el-icon-close"></i>
+                </P>
+                <el-input size="medium" v-model="blanAns[i]" clearable style="width: 50%"></el-input>
                 <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[i] }}</div>
             </el-form-item>
 
             <el-button type="primary" class="subBtn" @click="clickSubmit">提交答案</el-button>
 
             <el-divider/>
+            <!--编程题-->
             <P class="headline">编程题<span style="font-size: 0.8em; font-weight: normal">（将代码文件上传即可）</span></P>
-            <el-form-item v-for="(t,i) in programQuestList" :key="i">
-                <P class="quesTitle"><span class="quesNum">{{ i + 1 }}</span>{{ t }}</P>
-                <el-upload class="upload-demo" drag multiple :file-list="fileList" show-file-list :auto-upload="false" :before-upload="onBeforeUpload"
-                           :on-error="uploadError" :on-success="uploadSuccess" action="#" :on-change="handleChange">
+            <el-form-item v-for="(t,i) in programQuestList">
+                <P class="quesTitle"><span class="quesNum">{{ t.number }}</span>{{ t.title }}</P>
+                <el-upload class="upload-demo" drag :limit="1" :file-list="codefileList[i]" show-file-list :auto-upload="false"
+                           :on-error="uploadError" :on-success="uploadSuccess" action="#"
+                           :on-change="(file, fileList)=>{return handleChange(file, fileList, i)}" :on-remove="(file, fileList)=>{return fileRemove(file, fileList, i)}">
                     <i class="el-icon-upload"></i>
                     <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-                    <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+                    <!--<div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>-->
                 </el-upload>
-                <el-button type="primary" @click="upload" class="subBtn">上传</el-button>
+                <el-button type="primary" @click="()=>{return upload(i)}" class="subBtn">上传</el-button>
             </el-form-item>
         </el-form>
 
@@ -78,66 +97,50 @@ import request from "@/utils/request";
 export default {
     name: "AnswerCar",
     data() {
-        let temp = [];
-        for (let i = 0; i < 9; i++)
-            temp.push([]);
-
         return {
             ChapterID: 1,
             TestID: 1,
+            TestName: '',
+            UserID: '',
             chapterName: '',
-            isSubmit: true,
+            isSubmit: false,
+            // 单选题数组
             optQuesList: [
                 {
                     number: 1,
                     title: '某建设工程施工招标，甲公司中标后将其转包给不具有相应资质等级的乙公司，乙施工过程不符合规定的质量标准，给建设单位造成损失。关于向建设单位承担赔偿责任的说法，正确的是（ ）。',
-                    selectA: '甲、乙承担连带赔偿责任',
-                    selectB: '建设单位与甲有合同关系，应由乙承担赔偿责任',
-                    selectC: '乙为实际施工人，应由乙承担赔偿责任',
-                    selectD: '',
-                },
-                {
-                    number: 2,
-                    title: '下列属于建设工程施工合同承包人主要义务的是（）。',
-                    selectA: '不得转包和违法分包工程',
-                    selectB: '及时检查隐蔽工程',
-                    selectC: '建设工程质量不符合约定的有偿修理',
-                    selectD: '提供必要施工条件',
-                },
-                {
-                    number: 3,
-                    title: '建设工程未经竣工验收，发包人擅自使用的，竣工日期（）。',
-                    selectA: '以合同约定的竣工日期为准',
-                    selectB: '相应顺延',
-                    selectC: '以承包人提交竣工报告之日为准',
-                    selectD: '以转移占有建设工程之日为竣工日期',
-                },
-                {
-                    number: 4,
-                    title: '某开发商开发的住宅价值7000万元，其中已售出价值5000万元住宅，开发商将此笔资金全部用于购买土地。导致开发商欠施工单位的2000万元工程款迟迟不能支付，另外开发商还欠银行抵押贷款1000万元，欠材料供应商500万元，现承包人申请人民法院拍卖该工程，下列说法正确的是（）。',
-                    selectA: '人民法院可将7000万元的房产拍卖，然后分别偿还开发商各方欠款',
-                    selectB: '人民法院可将7000万元的房产拍卖，然后先还施工单位，再还银行和材料供应商',
-                    selectC: '人民法院可将2000万元的房产拍卖，然后按欠款比例分别偿还开发商各方欠款',
-                    selectD: '人民法院可将2000万元的房产拍卖，首先偿还施工单位欠款',
-                },
-                {
-                    number: 5,
-                    title: '某村委会为获得回扣，以高价与施工单位签订了村内道路施工合同，根据《民法典》，该合同为（）合同。',
-                    selectA: '无效',
-                    selectB: '可变更可撤销',
-                    selectC: '有效',
-                    selectD: '效力待定',
+                    options:
+                        ['甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任',
+                            '建设单位与甲有合同关系，应由乙承担赔偿责任甲、乙承担连带赔偿责任v',
+                            '乙为实际施工人，应由乙承担赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任',
+                        ]
                 }
             ],
             optQuestion: {
                 number: 0,
                 title: '',
-                selectA: '',
-                selectB: '',
-                selectC: '',
-                selectD: '',
+                options: []
             },
-            CheckQuesList: [],
+            // 多选题数组
+            multiOptQuestList: [
+                {
+                    number: 1,
+                    title: '某建设工程施工招标，甲公司中标后将其转包给不具有相应资质等级的乙公司，乙施工过程不符合规定的质量标准，给建设单位造成损失。关于向建设单位承担赔偿责任的说法，正确的是（ ）。',
+                    options:
+                        ['甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任',
+                            '建设单位与甲有合同关系，应由乙承担赔偿责任甲、乙承担连带赔偿责任v',
+                            '乙为实际施工人，应由乙承担赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任',
+                        ]
+                }
+            ],
+            // 判断题数组
+            TFQuestionList: [
+                {
+                    title: 'The integrated development tool built into Python is',
+                    number: 1
+                }
+            ],
+            // 填空题数组
             blankQuesList: [
                 {
                     title: '企业事业单位和其他生产经营者，为改善环境，依照有关规定转产、搬迁、关闭的，人民政府应当子以支持。',
@@ -160,82 +163,202 @@ export default {
                 title: '',
                 number: 0
             },
-            programQuestList: ['The integrated development tool built into Python is'],
-            checkResult: [false],
+            // 编程题数组
+            programQuestList: [
+                {
+                    number: 1,
+                    title: 'The integrated development tool built into Python is'
+                },
+                {
+                    number: 2,
+                    title: 'The integrated development tool built into Python is'
+                }
+            ],
+            // 客观题校对结果
+            checkResult: {
+                optQuesRes: [],
+                multiOptQuesRes: [],
+                TFQuesRes: [],
+                blanQuesRes: []
+            },
             correctAnswers: ['AB'],
-            UserAnswers: ['A', 'B'],
-            multiOptQuestList: temp,
+            // 四种类型题目的答案
+            optAns: [],
+            multiAns: [[]],
+            TFAns: [],
+            blanAns: [],
+            // 与后端交互所用的答案
+            UserAnswers: [],
             dialogVisible: false,
+            // 是否已经完成答题
             isFinished: false,
-            score: 0,
-            fileList: [],
-            uploadUrl: '/user/uploadcodes'
+            score: '',
+            // 代码文件数组
+            codefileList: [],
         }
     },
     created() {
+        // 获取用户信息
+        console.log('answercard');
+        this.UserID = this.$store.state.userInfo.userID;
+        this.ChapterID = Number(this.$route.query.ChapterID) + 1;
+        this.TestName = this.$route.query.TestName;
+        //  获取题目
         let url = `/user/getquestions?ChapterID=${this.ChapterID}&TestID=${this.TestID}`;
         request.get(url).then(res => {
             if (res.status === 200) {
-                this.UserAnswers = [];
-                for (let e of res.data) {
-                    this.UserAnswers.push('');
-                    if (e.ChoiceQuestion === true) {
-                        let array = e.Description.split('@');
-                        this.optQuestion.selectA = array[1];
-                        this.optQuestion.selectB = array[2];
-                        this.optQuestion.selectC = array[3];
-                        this.optQuestion.selectD = array[4];
-                        this.optQuestion.title = array[5];
-                        this.optQuestion.number = e.QuestionNumber;
-                        this.optQuesList.push(this.optQuestion);
-                    } else {
-                        this.blankQuestion.title = e.Description;
-                        this.blankQuestion.number = e.QuestionNumber;
-                        this.blankQuesList.push(this.blankQuestion);
+                // this.UserAnswers = Array(res.data.questions.length).fill('');
+                // 判断是否已经回答过题目
+                this.isSubmit = (res.data.data.hasDoneTest === true);
+                // 初始化答案数组
+                this.optAns = [];
+                this.multiAns = [];
+                this.TFAns = [];
+                this.blanAns = [];
+
+                for (let e of res.data.data.questions) {
+                    this.optQuestion.number = e.QuestionNumber;
+                    let array = e.Description.split('@');
+                    switch (e.QuestionType) {
+                        // 单选题
+                        case 0: {
+                            this.optQuestion.title = array[0];
+                            this.optQuestion.options = array.slice(1);
+                            this.optQuesList.push(this.optQuestion);
+                            this.optAns.push('');
+                            break;
+                        }
+                        // 多选题
+                        case 1: {
+                            this.optQuestion.title = array[0];
+                            this.optQuestion.options = array.slice(1);
+                            this.multiOptQuestList.push(this.optQuestion);
+                            this.multiAns.push([]);
+                            break;
+                        }
+                        // 判断题
+                        case 2: {
+                            this.blankQuestion.title = array[0];
+                            this.TFQuestionList.push(this.blankQuestion);
+                            this.TFAns.push('');
+                            break;
+                        }
+                        // 填空题
+                        case 3: {
+                            this.blankQuestion.title = array[0];
+                            this.blankQuesList.push(this.blankQuestion);
+                            this.blanAns.push('');
+                            break;
+                        }
+                        // 编程题
+                        case  4: {
+                            this.blankQuestion.title = array[0];
+                            this.blankQuesList.push(this.blankQuestion);
+                            this.codefileList.push([]);
+                        }
                     }
                 }
-            } else {
-                this.$message({
-                    type: "error",
-                    message: "加载失败"
-                })
             }
+        }).catch(error => {
+            console.log(error);
+            this.$message({
+                type: "error",
+                message: "加载失败"
+            });
         });
+        if (this.isFinished)
+            this.showAns();
     },
     methods: {
-        // 点击提交按钮
+        test(value) {
+            for (let e of this.optAns)
+                console.log(e);
+        },
+        // 提交按钮点击事件
         clickSubmit() {
+            // 将答案移到UserAnswers中
+            this.UserAnswers = [];
+            let i = 0;
+            for (let e of this.optAns) {
+                if (e === undefined || e === '')
+                    this.UserAnswers[i++] = 'null';
+                else
+                    this.UserAnswers[i++] = e;
+            }
+            for (let e of this.multiAns) {
+                if (e === undefined || e === [])
+                    this.UserAnswers[i++] = 'null';
+                else
+                    this.UserAnswers[i++] = e.sort().join('');
+            }
+            for (let e of this.TFAns) {
+                if (e === undefined || e === '')
+                    this.UserAnswers[i++] = 'null';
+                else
+                    this.UserAnswers[i++] = e;
+            }
+            for (let e of this.blanAns) {
+                if (e === undefined || e === '')
+                    this.UserAnswers[i++] = 'null';
+                else
+                    this.UserAnswers[i++] = e;
+            }
+
             console.log(this.UserAnswers);
             this.dialogVisible = true;
             let answerdNum = 0;
             for (let e of this.UserAnswers) {
-                if (e !== '')
+                if (e !== 'null')
                     answerdNum++;
             }
             if (answerdNum === this.UserAnswers.length)
                 this.isFinished = true;
         },
-        // 发送提交请求
+        // 提交答案
         submit() {
             this.dialogVisible = false;
-            this.UserAnswers.forEach((value, index, array) => {
-                if (value === '')
-                    array[index] = 'null';
-            });
-            let url = `ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.$store.state.userInfo.userID}`
-            request.post(url,)
-        },
-        showAns() {
-            this.updateUserSelect(this.ruleForm.resource)
-            this.$router.push('/result')
-        },
-        getCorrectAnswers() {
-            request.get(`/user/getcorrectanswers?ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.UserID}`).then(res => {
+            let answers = this.UserAnswers.join('@');
+            let url = `ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.$store.state.userInfo.userID}&Answers=${answers}`;
+            request.post(url).then(res => {
                 if (res.status === 200) {
-
+                    this.$message({
+                        type: "success",
+                        message: "提交成功"
+                    });
+                    this.showAns();
                 }
-            });
+            }).catch(error => {
+                console.log(error);
+                this.$message({
+                    type: "error",
+                    message: "提交失败"
+                });
+            })
         },
+        // 获取用户之前的答题信息以及正确答案
+        showAns() {
+            let url = `/user/getcorrectanswers?ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.UserID}`;
+            request.get(url).then(res => {
+                if (res.status === 200) {
+                    this.correctAnswers = res.data.data['correct answer'].split('@');
+                    this.checkResult = res.data.data['result'];
+                    this.UserAnswers = res.data.data['user answer'].split('@');
+                    // 计算分数(正确率)
+                    this.score = 0;
+                    this.checkResult.forEach((value) => {
+                        if (value === true)
+                            this.score++;
+                    });
+                    this.score /= this.checkResult.length;
+                }
+            }).catch(error => {
+                this.$message({
+                    type: "error",
+                    message: "获取答题信息失败"
+                });
+            })
+        },
+        // 上传文件相关方法
         onBeforeUpload(file) {
             const isIMAGE = file.type === 'image/jpeg' || 'image/gif' || 'image/png';
             const isLt1M = file.size / 1024 / 1024 < 1;
@@ -256,33 +379,63 @@ export default {
             console.log(response);
             console.log(fileList);
         },
-        handleChange(file, fileList) {
-            this.fileList = fileList;
-            console.log(fileList)
+        handleChange(file, fileList, index) {
+            this.codefileList[index] = fileList;
+            console.log(fileList);
         },
-        upload() {
+        fileRemove(file, fileList, index) {
+            console.log(fileList);
+            this.codefileList[index] = fileList;
+        },
+        // 上传文件
+        upload(index) {
             let fd = new FormData();
-            // fd.append("name",this.name);
-            this.fileList.forEach(item => {
-                //文件信息中raw才是真的文件
-                fd.append("codes", item.raw);
-                console.log(item.raw)
-            })
+            // 判断文件列表是否为空
+            if (this.codefileList[index].length === 0) {
+                this.$message({
+                    type: "error",
+                    message: "未提交文件"
+                });
+                return;
+            }
+
+            let raw = this.codefileList[index][0].raw;
+            fd.append("codes", raw);
+            console.log(raw)
+
             let url = `/user/uploadcodes?ChapterID=${this.ChapterID}&TestID=${this.TestID}`
             request.post(url, fd).then(res => {
-                if (res.data.code === 200) {
-                    //console.log(res);
+                if (res.status === 200) {
                     this.$message('上传成功')
-                } else {
-                    this.$message('失败')
                 }
+            }).catch(error => {
+                console.log(error);
+                this.$message({
+                    type: "error",
+                    message: "上传失败"
+                });
             })
+        },
+        // 根据Index生成大写字母
+        getAlpha(index) {
+            return String.fromCharCode(65 + index);
         }
+
     }
 }
 </script>
 
 <style scoped>
+.option {
+    margin-left: 0.5em;
+}
+
+.TFOpt {
+    color: rgb(74 74 74) !important;
+    font-size: 1.5em;
+    font-weight: normal !important;
+}
+
 .el-upload__text,
 .el-upload__tip {
     font-size: 1.3em;
@@ -356,7 +509,7 @@ export default {
 }
 
 .el-radio, .el-checkbox {
-    margin-left: 20px;
+    /*margin-left: 20px;*/
 }
 
 .el-input {
@@ -368,6 +521,10 @@ export default {
     line-height: 2;
     font-size: 20px;
     color: #626262;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: inline-flex;
+    flex-direction: row;
 }
 
 .correctAnswer {
@@ -378,9 +535,12 @@ export default {
 
 
 .title {
-    margin-left: 5%;
+    margin-left: 3%;
     float: left;
-    font-size: 40px;
+    font-size: 36px;
     font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    max-width: 10em;
+    word-break: break-word;
+    line-height: 1.5em;
 }
 </style>

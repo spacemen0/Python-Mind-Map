@@ -14,10 +14,9 @@
             size="20%">
             <span slot="title" style="font-size: 30px; color:  #cccccc">{{ title }}</span>
             <div class="resourceBlock">
-
-                <router-link rel="external nofollow" target="_blank" :to="pdfLink">PDF资源
-                                                                                   <!--<canvas id="the-canvas" style="display: none"></canvas>-->
-                                                                                   <!--<img :src="imgUrl" alt="pdf" width="100%" height="auto">-->
+                <router-link rel="external nofollow" target="_blank" v-for="(t,i) in pdfLink" :to="t">{{ pdfLink }}
+                                                                                                      <!--<canvas id="the-canvas" style="display: none"></canvas>-->
+                                                                                                      <!--<img :src="imgUrl" alt="pdf" width="100%" height="auto">-->
                 </router-link>
                 <router-link :to="answerLink" rel="external nofollow" target="_blank">习题</router-link>
             </div>
@@ -28,6 +27,7 @@
 <script>
 import MindMap from 'simple-mind-map'
 import {getData} from '@/api'
+import request from "@/utils/request";
 // import {PDFWorker as PDFJS} from "pdfjs-dist";
 
 const pdfjsLib = require("pdfjs-dist/build/pdf");
@@ -49,8 +49,9 @@ export default {
         }
     },
     mounted() {
-        this.getData()
-        this.init()
+        this.getData();
+        this.init();
+
     },
     methods: {
         getData() {
@@ -88,13 +89,35 @@ export default {
                     this.drawer = true;
                     this.title = data.nodeData.data.text;
                     console.log(data.nodeData.data.testID);
-                    this.answerLink = `/answer?ChapterID=${this.$props.index}&TestID=${data.nodeData.data.testID}`;
-                    this.pdfLink = `Ch${this.$props.index + 1}/${this.title}`
+                    this.answerLink = `/answer?ChapterID=${this.$props.index}&TestID=${data.nodeData.data.testID}&TestName=${this.title}`;
+                    // 获取资源列表
+                    this.getResources(this.$props.index, data.nodeData.data.testID);
                     // this.showPdf(this.pdfLink);
                     console.log("node_click", data);
                 }
             });
         },
+        getResources(chapterID, nodeID) {
+            request.get('/user/getresourcelist', {
+                params: {
+                    ChapterID: chapterID,
+                    NodeID: nodeID
+                }
+            }).then(res => {
+                if (res.status === 200) {
+                    this.pdfLink = [];
+                    res.data.data.resources.forEach((value) => {
+                        this.pdfLink.push(value.FileName);
+                    })
+                }
+            }).catch(error => {
+                console.log(error);
+                this.$message({
+                    type: "error",
+                    message: "获取资源失败"
+                });
+            })
+        }
         // showPdf(pdfPath) {
         //   let _this = this;
         //   let imgArr = [];

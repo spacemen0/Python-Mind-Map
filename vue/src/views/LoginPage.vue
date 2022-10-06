@@ -4,9 +4,9 @@
             <div class="header">登录</div>
             <el-form ref="User" :model="User" :rules="rules">
                 <el-form-item label="学号" prop="StudentID">
-                    <el-input v-model="User.StudentID" placeholder="学号" clearable></el-input>
+                    <el-input v-model="User.UserID" placeholder="学号" clearable></el-input>
                 </el-form-item>
-                <el-form-item label="密码" prop="Password" >
+                <el-form-item label="密码" prop="Password">
                     <el-input type="password" v-model="User.Password" placeholder="密码" show-password></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -23,6 +23,7 @@ import request from "@/utils/request";
 export default {
     name: "LoginPage",
     data() {
+        // 检查ID格式
         const checkID = (rule, value, callback) => {
             if (!value) {
                 return callback(new Error('学号不能为空'));
@@ -38,6 +39,7 @@ export default {
                 }
             }
         };
+        // 检查密码格式
         const validatePass = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入密码'));
@@ -48,8 +50,7 @@ export default {
         return {
             isLogin: false,
             User: {
-                // name: '张三',
-                StudentID: '202034340091',
+                UserID: '202034340091',
                 Password: '123456'
             },
             loginDialog: false,
@@ -65,34 +66,44 @@ export default {
     },
     methods: {
         login() {
-            let url = `/login?StudentID=${this.User.StudentID}&Password=${this.User.Password}`
-            request.post( url).then(res => {
+            let url = `/login?StudentID=${this.User.UserID}&Password=${this.User.Password}`
+            request.post(url).then(res => {
                 console.log(res)
                 if (res.status === 200) {
                     this.$message.success('登陆成功！');
-                    // let userInfo = {
-                    //     isLogin: true,
-                    //     manage: true,
-                    //     userID: this.User.StudentID,
-                    //     name: this.name
-                    // }
-                    // window.localStorage.setItem("userInfo", JSON.stringify(userInfo));
-                    // this.$store.state.userInfo = userInfo;
-
-                    let token = res.data.token;
+                    // 存储token
+                    let token = res.data.data.token;
                     window.localStorage.setItem("token", token);
-
-                    this.$router.push('/main');
-                } else {
-                    this.$message({
-                        type: "error",
-                        message: "登陆失败"
-                    })
+                    this.getuser();
                 }
-            }).catch((error) =>{
-                alert(error);
+            }).catch((error) => {
+                this.$message({
+                    type: "error",
+                    message: "登陆失败"
+                })
+                console.log(error);
             }).finally(() => {
                 this.User.Password = '';
+            })
+        },
+        // 获取用户信息
+        getuser() {
+            request.get('/user/getuser').then(res => {
+                if (res.status === 200) {
+                    // 将用户信息存储到store里
+                    let user = res.data.data.user;
+                    console.log('user', user);
+                    this.$store.state.userInfo.userID = user.StudentID;
+                    this.$store.state.userInfo.name = user.StudentName;
+                    this.$store.state.userInfo.isAdmin = user.Admin;
+                    this.$router.push('/main');
+                }
+            }).catch(error => {
+                console.log('error', error);
+                this.$message({
+                    type: "error",
+                    message: "获取用户信息失败"
+                })
             })
         }
     }

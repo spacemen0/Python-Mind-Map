@@ -13,7 +13,7 @@ import (
 func verifyToken(ctx *gin.Context) *model.User {
 	tokenString := ctx.GetHeader("Authorization")
 	if tokenString == "" || !strings.HasPrefix(tokenString, "Bearer ") {
-		response.Response(ctx, 401, nil, "验证token失败")
+		response.Response(ctx, 401, nil, "验证token失败1")
 		ctx.Abort()
 		return nil
 	}
@@ -21,7 +21,7 @@ func verifyToken(ctx *gin.Context) *model.User {
 	token, claims, err := common.PaeseToken(tokenString)
 
 	if err != nil || !token.Valid {
-		response.Response(ctx, 401, gin.H{"error": err}, "验证token失败")
+		response.Response(ctx, 401, gin.H{"error": err}, "验证token失败2")
 		ctx.Abort()
 		return nil
 	}
