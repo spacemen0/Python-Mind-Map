@@ -1,107 +1,102 @@
 <template>
-    <div id="myChart" :style="{ width: '300px', height: '500px' }" />
+    
+  <el-container>
+  <el-aside class="aside" width="200px">
+    <el-menu
+        default-active="1"
+        class="el-menu-vertical-demo"
+        background-color="#545c64"
+        text-color="#fff"
+        active-text-color="#ffd04b">
+      <el-menu-item v-for="item in ChapNum" v-bind:key="item" @click="updateMindGraph(item - 1)">
+        <span slot="title">Chapter {{ item }}</span>
+      </el-menu-item>
+    </el-menu>
+  </el-aside>
+  <el-main style="z-index: 1">
+    <div id="myChart" :style="{ width: '1500px', height: '500px' }" />
+    
+  </el-main>
+</el-container>
 </template>
+
+
+
+<script>
   
-  
-  
-  <script>
-    export default {
-      mounted() {
-        this.drawLine()
-      },
-      methods: {
-        drawLine() {
-          // 基于准备好的dom，初始化echarts实例
-          const myChart = this.$echarts.init(document.getElementById('myChart'))
-myChart.setOption ( {
-  title: {
-    text: '班级前七各单元完成题数排名'
-  },
-  tooltip: {
-    trigger: 'axis',
-    axisPointer: {
-      // Use axis to trigger tooltip
-      type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
-    }
-  },
-  legend: {},
-  grid: {
-    left: '3%',
-    right: '4%',
-    bottom: '3%',
-    containLabel: true
-  },
-  xAxis: {
-    type: 'value'
-  },
-  yAxis: {
-    type: 'category',
-    data: ['A', '丁', '丙', '乙', '甲', '李四', '张三']
-  },
-  series: [
-    {
-      name: 'Unit1',
-      type: 'bar',
-      stack: 'total',
-      label: {
-        show: true
-      },
-      emphasis: {
-        focus: 'series'
-      },
-      data: [320, 302, 301, 334, 390, 330, 320]
+  export default {
+    name: 'personal',
+    mounted() {
+      this.drawLine()
     },
-    {
-      name: 'Unit2',
-      type: 'bar',
-      stack: 'total',
-      label: {
-        show: true
-      },
-      emphasis: {
-        focus: 'series'
-      },
-      data: [120, 132, 101, 134, 90, 230, 210]
-    },
-    {
-      name: 'Unit3',
-      type: 'bar',
-      stack: 'total',
-      label: {
-        show: true
-      },
-      emphasis: {
-        focus: 'series'
-      },
-      data: [220, 182, 191, 234, 290, 330, 310]
-    },
-    {
-      name: 'Unit4',
-      type: 'bar',
-      stack: 'total',
-      label: {
-        show: true
-      },
-      emphasis: {
-        focus: 'series'
-      },
-      data: [150, 212, 201, 154, 190, 330, 410]
-    },
-    {
-      name: 'Unit5',
-      type: 'bar',
-      stack: 'total',
-      label: {
-        show: true
-      },
-      emphasis: {
-        focus: 'series'
-      },
-      data: [820, 832, 901, 934, 1290, 1330, 1320]
-    }
+    data() {
+  return {
+    drawer: true,
+    direction: 'rtl',
+    title: 'mytitle',
+
+    courseName: 'python',
+    index: 0,
+    key: 0,
+    ChapNum: 4
+  }
+},
+    methods: {
+      drawLine() {
+        // 基于准备好的dom，初始化echarts实例
+        const myChart = this.$echarts.init(document.getElementById('myChart'))
+myChart.setOption ({
+  title:{text:'班级平均完成情况'},
+dataset: {
+  source: [
+    ['score', 'amount', 'product'],
+    [89.3, 58, 'hardware'],
+    [57.1, 78, 'four functions'],
+    [74.4, 41, 'recipe'],
+    [50.1, 12, 'aspects of language'],
+    [89.7, 20, 'IDE tools'],
+    [68.1, 79, 'fundamentals'],
+    [19.6, 91, 'python operators'],
+   
   ]
-})
+},
+grid: { containLabel: true },
+xAxis: { name: 'amount' },
+yAxis: { type: 'category' },
+visualMap: {
+  orient: 'horizontal',
+  left: 'center',
+  min: 10,
+  max: 100,
+  text: ['High Score', 'Low Score'],
+  // Map the score column to color
+  dimension: 0,
+  inRange: {
+    color: ['#65B581', '#FFCE34', '#FD665F']
+  }
+},
+series: [
+  {
+    type: 'bar',
+    encode: {
+      // Map the "amount" column to X axis.
+      x: 'amount',
+      // Map the "product" column to Y axis
+      y: 'product'
+    }
+  }
+]
+});
+
+},
+
+  updateGraph(index) {
+    this.key++;
+    this.index = index;
+  
+
 }
 }
 }
-  </script>
+
+</script>

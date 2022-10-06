@@ -8,6 +8,7 @@ import ranking from '@/views/ranking'
 import personal from '@/views/personal'
 import helloWorld from "@/components/HelloWorld";
 
+
 const Answer = () => import('@/views/AnswerCar');
 
 Vue.use(VueRouter)
