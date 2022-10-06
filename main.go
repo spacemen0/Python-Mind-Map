@@ -36,6 +36,9 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 		user.GET("/getcorrectanswers", controller.GetCorrectAnswers)
 		user.POST("/createanswersheet", controller.CreateAnswerSheet)
 		user.POST("/uploadcodes", controller.UploadCodes)
+		user.GET("/getcrbystudentandchapter", controller.GetCRByStudentAndChapter)
+		user.GET("/getcrbystudent", controller.GetCRByStudent)
+		user.POST("/createcr", controller.CRTest)
 	}
 	admin := r.Group("admin")
 	admin.Use(middleware.AuthAdmin(), middleware.CORSMiddleware())
