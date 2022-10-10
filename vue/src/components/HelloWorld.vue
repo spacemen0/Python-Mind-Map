@@ -14,9 +14,10 @@
             size="20%">
             <span slot="title" style="font-size: 30px; color:  #cccccc">{{ title }}</span>
             <div class="resourceBlock">
-                <router-link rel="external nofollow" target="_blank" v-for="(t,i) in pdfLink" :to="t">{{ pdfLink }}
-                                                                                                      <!--<canvas id="the-canvas" style="display: none"></canvas>-->
-                                                                                                      <!--<img :src="imgUrl" alt="pdf" width="100%" height="auto">-->
+                <!--<router-link rel="external nofollow" target="_blank" v-for="(t,i) in pdfLink" :to="t">{{ pdfLink }}-->
+                <router-link rel="external nofollow" target="_blank" :to="pdfLink">{{ pdfLink }}
+                    <canvas id="the-canvas" style="display: none"></canvas>
+                    <img :src="imgUrl" alt="pdf" width="100%" height="auto">
                 </router-link>
                 <router-link :to="answerLink" rel="external nofollow" target="_blank">习题</router-link>
             </div>
@@ -28,10 +29,18 @@
 import MindMap from 'simple-mind-map'
 import {getData} from '@/api'
 import request from "@/utils/request";
-// import {PDFWorker as PDFJS} from "pdfjs-dist";
+
+// const pdfjsLib = require("pdfjs-dist");
+// pdfjsLib.GlobalWorkerOptions.workerSrc = ((typeof window !== "undefined" ? window : {}).
+//     pdfjsWorker = require("pdfjs-dist/build/pdf.worker"));
+
+
+// const pdfjsLib = require("pdfjs-dist/build/pdf");
+// pdfjsLib.workerSrc = require("pdfjs-dist/build/pdf.worker");
+
+
 
 const pdfjsLib = require("pdfjs-dist/build/pdf");
-const pdfjsWorker = require("pdfjs-dist/build/pdf.worker.entry")
 
 export default {
     name: 'HelloWorld',
@@ -42,7 +51,7 @@ export default {
             mindmapdata: null,
             answerLink: '',
             imgUrl: '1',
-            pdfLink: "",
+            pdfLink: "string.pdf",
             drawer: false,
             direction: 'rtl',
             title: ''
@@ -93,7 +102,7 @@ export default {
                     // 获取资源列表
                     this.getResources(this.$props.index, data.nodeData.data.testID);
                     // this.showPdf(this.pdfLink);
-                    console.log("node_click", data);
+                    // console.log("node_click", data);
                 }
             });
         },
@@ -117,83 +126,84 @@ export default {
                     message: "获取资源失败"
                 });
             })
+        },
+        showPdf(pdfPath) {
+            let _this = this;
+            let imgArr = [];
+            pdfjsLib.workerSrc = require('pdfjs-dist/build/pdf.worker');
+            // pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+            let loadingTask = pdfjsLib.getDocument(pdfPath);
+            // PDFJS.workerSrc = 'pdf.worker.js';// pdfjsLib为undefined可以换成这行
+            // let loadingTask = PDFJS.getDocument(pdfPath);// pdfjsLib为undefined可以换成这行
+            loadingTask.promise.then(pdf => {
+                console.log('PDF loaded');
+                let pageNum = pdf.numPages;
+                console.log(pageNum);
+                for (let i = 1; i <= pageNum; i++) {
+                    pdf.getPage(i).then(function (page) {
+                        console.log('Page loaded');
+
+                        let scale = 1;
+                        let viewport = page.getViewport({scale});
+
+                        // let canvas = document.getElementById('the-canvas');
+                        let canvas = document.createElement("canvas");
+                        let context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+
+                        let renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        let renderTask = page.render(renderContext);
+                        renderTask.promise.then(function () {
+                            console.log('Page rendered');
+                            let imgUrl = canvas.toDataURL('image/jpeg'); //转换为base64
+                            if (imgUrl) {
+                                imgArr[i - 1] = imgUrl;
+                            }
+                            //pdf全部画完结束后操作
+                            if (imgArr.length === pageNum && !isEmpty(imgArr)) {
+                                // let canvas2 = document.createElement("canvas");
+                                let canvas2 = document.getElementById('the-canvas');
+                                let context2 = canvas2.getContext('2d');
+                                canvas2.height = viewport.height * pageNum;
+                                canvas2.width = viewport.width;
+                                let count = 0;
+                                for (let j = 0; j < imgArr.length; j++) {
+                                    let IMG = new Image();
+                                    IMG.src = imgArr[j];
+                                    IMG.width = viewport.width;
+                                    IMG.height = viewport.height;
+
+                                    IMG.onload = function () {
+                                        context2.drawImage(IMG, 0, viewport.height * j);
+                                        if (count === pageNum) {
+                                            count++;//确保所有img渲染结束后操作
+                                            let canvas = document.getElementById('the-canvas');
+                                            //赋值给img
+                                            _this.imgUrl = canvas.toDataURL('image/jpeg');
+                                            console.log('_this.imgUrl', _this.imgUrl);
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    });
+                }
+            }, function (reason) {
+                console.error(reason);
+            });
+
+            function isEmpty(arr) {
+                for (let i = 0; i < arr.length; i++) {
+                    if (!arr[i])
+                        return true;
+                }
+                return false;
+            }
         }
-        // showPdf(pdfPath) {
-        //   let _this = this;
-        //   let imgArr = [];
-        //   pdfjsLib.workerSrc = require('pdfjs-dist/build/pdf.worker');
-        //   // pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
-        //   let loadingTask = pdfjsLib.getDocument(pdfPath);
-        //   // PDFJS.workerSrc = 'pdf.worker.js';// pdfjsLib为undefined可以换成这行
-        //   // let loadingTask = PDFJS.getDocument(pdfPath);// pdfjsLib为undefined可以换成这行
-        //   loadingTask.promise.then(function (pdf) {
-        //     console.log('PDF loaded');
-        //     let pageNum = pdf.numPages;
-        //     // console.log(pageNum);
-        //     for (let i = 1; i <= pageNum; i++) {
-        //       pdf.getPage(i).then(function (page) {
-        //         console.log('Page loaded');
-        //
-        //         let scale = 1;
-        //         let viewport = page.getViewport(scale);
-        //
-        //         // let canvas = document.getElementById('the-canvas');
-        //         let canvas = document.createElement("canvas");
-        //         let context = canvas.getContext('2d');
-        //         canvas.height = viewport.height;
-        //         canvas.width = viewport.width;
-        //
-        //         let renderContext = {
-        //           canvasContext: context,
-        //           viewport: viewport
-        //         };
-        //         let renderTask = page.render(renderContext);
-        //         renderTask.promise.then(function () {
-        //           console.log('Page rendered');
-        //           let imgUrl = canvas.toDataURL('image/jpeg'); //转换为base64
-        //           if (imgUrl) {
-        //             imgArr[i - 1] = imgUrl;
-        //           }
-        //           //pdf全部画完结束后操作
-        //           if (imgArr.length === pageNum && !isEmpty(imgArr)) {
-        //             // let canvas2 = document.createElement("canvas");
-        //             let canvas2 = document.getElementById('the-canvas');
-        //             let context2 = canvas2.getContext('2d');
-        //             canvas2.height = viewport.height * pageNum;
-        //             canvas2.width = viewport.width;
-        //             let count = 0;
-        //             for (let j = 0; j < imgArr.length; j++) {
-        //               let IMG = new Image();
-        //               IMG.src = imgArr[j];
-        //               IMG.width = viewport.width;
-        //               IMG.height = viewport.height;
-        //               IMG.onload = function () {
-        //                 context2.drawImage(IMG, 0, viewport.height * j);
-        //                 count++;//确保所有img渲染结束后操作
-        //                 if (count === pageNum) {
-        //                   let canvas = document.getElementById('the-canvas');
-        //                   //赋值给img
-        //                   _this.imgUrl = canvas.toDataURL('image/jpeg');
-        //                   console.log('_this.imgUrl', _this.imgUrl);
-        //                 }
-        //               }
-        //             }
-        //           }
-        //         });
-        //       });
-        //     }
-        //   }, function (reason) {
-        //     console.error(reason);
-        //   });
-        //
-        //   function isEmpty(arr) {
-        //     for (let i = 0; i < arr.length; i++) {
-        //       if (!arr[i])
-        //         return true;
-        //     }
-        //     return false;
-        //   }
-        // }
     }
 }
 

@@ -18,7 +18,7 @@
                         </el-radio>
                     </div>
                 </el-radio-group>
-                <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[i] }}</div>
+                <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[0][i] }}</div>
             </el-form-item>
 
             <!--多选题-->
@@ -34,7 +34,7 @@
                         </el-checkbox>
                     </div>
                 </el-checkbox-group>
-                <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[i] }}</div>
+                <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[1][i] }}</div>
             </el-form-item>
 
             <!--判断题-->
@@ -50,7 +50,7 @@
                         <el-radio label="0" size="medium"><i class="el-icon-close TFOpt"></i></el-radio>
                     </div>
                 </el-radio-group>
-                <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[i] }}</div>
+                <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[2][i] }}</div>
             </el-form-item>
 
             <!--填空题-->
@@ -59,7 +59,7 @@
                     <span class="quesNum">{{ t.number }}</span>{{ t.title }} <i v-if="checkResult.blanQuesRes[i] === false" class="el-icon-close"></i>
                 </P>
                 <el-input size="medium" v-model="blanAns[i]" clearable style="width: 50%"></el-input>
-                <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[i] }}</div>
+                <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[3][i] }}</div>
             </el-form-item>
 
             <el-button type="primary" class="subBtn" @click="clickSubmit">提交答案</el-button>
@@ -181,7 +181,7 @@ export default {
                 TFQuesRes: [],
                 blanQuesRes: []
             },
-            correctAnswers: ['AB'],
+            correctAnswers: [],
             // 四种类型题目的答案
             optAns: [],
             multiAns: [[]],
@@ -340,7 +340,17 @@ export default {
             let url = `/user/getcorrectanswers?ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.UserID}`;
             request.get(url).then(res => {
                 if (res.status === 200) {
-                    this.correctAnswers = res.data.data['correct answer'].split('@');
+                    // 获取正确答案，并转换成所需格式
+                    let corAns = res.data.data['correct answer'].split('@');
+                    let i1 = this.optQuesList.length;
+                    let i2 = i1 + this.multiOptQuestList.length;
+                    let i3 = i2 + this.TFQuestionList.length;
+                    let i4 = i3 + this.blankQuesList.length;
+                    this.correctAnswers = [];
+                    this.correctAnswers.push(corAns.slice(0, i1));
+                    this.correctAnswers.push(corAns.slice(i1, i2));
+                    this.correctAnswers.push(corAns.slice(i2, i3));
+                    this.correctAnswers.push(corAns.slice(i3, i4));
                     this.checkResult = res.data.data['result'];
                     this.UserAnswers = res.data.data['user answer'].split('@');
                     // 计算分数(正确率)
