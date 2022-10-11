@@ -1129,7 +1129,7 @@ const python_ch2 = {
                     {
                         "data": {
                             "text": "statement in a line or several lines",
-                            "isExplainNode": true
+                            // "isExplainNode": true
                         },
                         "children": []
                     }
@@ -5200,7 +5200,8 @@ const python_tree = {
 const python_tree1 =  {
     "root": {
         "data": {
-            "text": "Ch 1 python language"
+            "text": "Ch 1 python language",
+            "expand": true
         },
         "children": [
             {
@@ -5211,7 +5212,7 @@ const python_tree1 =  {
                     {
                         "data": {
                             "text": "hardware",
-                            "isExplainNode": true,
+                            "isExplainNode": false,
                             "ableToClick": true,
                             "testID": 0,
                         },
@@ -5264,7 +5265,7 @@ const python_tree1 =  {
                     {
                         "data": {
                             "text": "recipe",
-                            "isExplainNode": true,
+                            "isExplainNode": false,
                             "ableToClick": true,
                             "testID": 2,
                         },
@@ -5280,7 +5281,7 @@ const python_tree1 =  {
                     {
                         "data": {
                             "text": "aspects of language",
-                            "isExplainNode": true,
+                            "isExplainNode": false,
                             "ableToClick": true,
                             "testID": 3,
                         },
@@ -5301,7 +5302,7 @@ const python_tree1 =  {
                             {
                                 "data": {
                                     "text": "IDE tools",
-                                    "isExplainNode": true,
+                                    "isExplainNode": false,
                                     "expand": false,
                                     "ableToClick": true,
                                     "testID": 4,
@@ -5311,7 +5312,7 @@ const python_tree1 =  {
                             {
                                 "data": {
                                     "text": "programming mode",
-                                    "isExplainNode": true,
+                                    "isExplainNode": false,
                                     "expand": false,
                                     "ableToClick": true,
                                     "testID": 5,
@@ -5435,12 +5436,13 @@ const python_tree1 =  {
 const python_tree2 =  {
     "root": {
         "data": {
-            "text": "Ch 2"
+            "text": "Ch 2",
+            "expand": true
         },
         "children": [
             {
                 "data": {
-                    "text": "Statement☆",
+                    "text": "Statement",
                     "ableToClick": true,
                     "testID": 0
                 },
@@ -6728,6 +6730,7 @@ const python_tree3 ={
     "root": {
         "data": {
             "text": "Ch 3 python basics",
+        "expand": true,
             "ableToClick": true,
             "testID": 0,
         },
@@ -6978,7 +6981,8 @@ const python_tree3 ={
 const python_tree4 = {
     "root": {
         "data": {
-            "text": "Ch 4 python basics"
+            "text": "Ch 4 python basics",
+            "expand": true
         },
         "children": [
             {

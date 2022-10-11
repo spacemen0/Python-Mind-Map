@@ -29,6 +29,7 @@
 import MindMap from 'simple-mind-map'
 import {getData} from '@/api'
 import request from "@/utils/request";
+import {walk, bfsWalk} from 'simple-mind-map/src/utils'
 
 // const pdfjsLib = require("pdfjs-dist");
 // pdfjsLib.GlobalWorkerOptions.workerSrc = ((typeof window !== "undefined" ? window : {}).
@@ -37,7 +38,6 @@ import request from "@/utils/request";
 
 // const pdfjsLib = require("pdfjs-dist/build/pdf");
 // pdfjsLib.workerSrc = require("pdfjs-dist/build/pdf.worker");
-
 
 
 const pdfjsLib = require("pdfjs-dist/build/pdf");
@@ -54,13 +54,33 @@ export default {
             pdfLink: "string.pdf",
             drawer: false,
             direction: 'rtl',
-            title: ''
+            title: '',
+            mindMap: null
         }
     },
     mounted() {
         this.getData();
         this.init();
+        let timer = setInterval(() => {
+            if (this.mindMap.renderer.root !== null) {
+                clearTimeout(timer);
+                walk(this.mindMap.renderer.root, null,
+                    (root) => {
+                        if (root.ableToClick === true) {
+                            root.setStyle('borderDasharray', 'none', false);
+                            root.setStyle('borderColor', '#fff', false);
+                        }
+                    }, (root) => {
+                    },
+                    true, 0, 0);
 
+                setTimeout(() => {
+                    this.mindMap.execCommand('UNEXPAND_ALL');
+                }, 100);
+
+            }
+
+        }, 50);
     },
     methods: {
         getData() {
@@ -93,11 +113,22 @@ export default {
             // this.mindMap.render()
             // this.mindMap.view.translateX(-600);
 
+            // Object.keys(this.mindMap.renderer).forEach((value, index, array) => {
+            //     if (value === 'root')
+            //         console.log(array[value]);
+            // })
+
+            // bfsWalk(this.mindMap.renderer.root, (root) => {
+            //     console.log(root);
+            //     // if (Reflect.has(root, 'ableToClick') && root.ableToClick === true)
+            //     //     root.setStyle('borderColor', '#fff', false);
+            // });
+
             this.mindMap.on('node_click', (data) => {
                 if (data.ableToClick === true) {
                     this.drawer = true;
                     this.title = data.nodeData.data.text;
-                    console.log(data.nodeData.data.testID);
+                    // console.log(data.nodeData.data.testID);
                     this.answerLink = `/answer?ChapterID=${this.$props.index}&TestID=${data.nodeData.data.testID}&TestName=${this.title}`;
                     // 获取资源列表
                     this.getResources(this.$props.index, data.nodeData.data.testID);
@@ -105,7 +136,9 @@ export default {
                     // console.log("node_click", data);
                 }
             });
+
         },
+
         getResources(chapterID, nodeID) {
             request.get('/user/getresourcelist', {
                 params: {
