@@ -14,33 +14,32 @@
             size="20%">
             <span slot="title" style="font-size: 30px; color:  #cccccc">{{ title }}</span>
             <div class="resourceBlock">
-                <!--<router-link rel="external nofollow" target="_blank" v-for="(t,i) in pdfLink" :to="t">{{ pdfLink }}-->
-                <router-link rel="external nofollow" target="_blank" :to="pdfLink">{{ pdfLink }}
+                <span slot="title" style="font-size: 30px; ">PDF</span>
+                <el-divider/>
+                <router-link rel="external nofollow" target="_blank" v-for="(t,i) in pdfLink" :to="t">
                     <canvas id="the-canvas" style="display: none"></canvas>
-                    <img :src="imgUrl" alt="pdf" width="100%" height="auto">
+                    <el-image :src="imgUrl" alt="pdf" width="100%" height="100%" fit="scale-down" style="box-shadow: 0 0 5px 5px #999999" />
                 </router-link>
-                <router-link :to="answerLink" rel="external nofollow" target="_blank">习题</router-link>
+
+                <span slot="title" style="font-size: 30px;">习题</span>
+                <el-divider/>
+                <router-link :to="answerLink" rel="external nofollow" target="_blank">对应习题</router-link>
             </div>
         </el-drawer>
 
     </div>
 </template>
+
 <script>
-import MindMap from 'simple-mind-map'
-import {getData} from '@/api'
+import MindMap from 'simple-mind-map';
+import {getData} from '@/api';
 import request from "@/utils/request";
-import {walk, bfsWalk} from 'simple-mind-map/src/utils'
+import {walk} from 'simple-mind-map/src/utils';
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
 
-// const pdfjsLib = require("pdfjs-dist");
-// pdfjsLib.GlobalWorkerOptions.workerSrc = ((typeof window !== "undefined" ? window : {}).
-//     pdfjsWorker = require("pdfjs-dist/build/pdf.worker"));
+const pdfjsLib = require("pdfjs-dist");
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
-
-// const pdfjsLib = require("pdfjs-dist/build/pdf");
-// pdfjsLib.workerSrc = require("pdfjs-dist/build/pdf.worker");
-
-
-const pdfjsLib = require("pdfjs-dist/build/pdf");
 
 export default {
     name: 'HelloWorld',
@@ -50,8 +49,8 @@ export default {
         return {
             mindmapdata: null,
             answerLink: '',
-            imgUrl: '1',
-            pdfLink: "string.pdf",
+            imgUrl: null,
+            pdfLink: ["string.pdf"],
             drawer: false,
             direction: 'rtl',
             title: '',
@@ -128,11 +127,9 @@ export default {
                 if (data.ableToClick === true) {
                     this.drawer = true;
                     this.title = data.nodeData.data.text;
-                    // console.log(data.nodeData.data.testID);
                     this.answerLink = `/answer?ChapterID=${this.$props.index}&TestID=${data.nodeData.data.testID}&TestName=${this.title}`;
                     // 获取资源列表
                     this.getResources(this.$props.index, data.nodeData.data.testID);
-                    // this.showPdf(this.pdfLink);
                     // console.log("node_click", data);
                 }
             });
@@ -150,7 +147,8 @@ export default {
                     this.pdfLink = [];
                     res.data.data.resources.forEach((value) => {
                         this.pdfLink.push(value.FileName);
-                    })
+                    });
+                    this.pdfLink.forEach(value => this.showPdf(value));
                 }
             }).catch(error => {
                 console.log(error);
@@ -163,15 +161,11 @@ export default {
         showPdf(pdfPath) {
             let _this = this;
             let imgArr = [];
-            pdfjsLib.workerSrc = require('pdfjs-dist/build/pdf.worker');
-            // pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
             let loadingTask = pdfjsLib.getDocument(pdfPath);
-            // PDFJS.workerSrc = 'pdf.worker.js';// pdfjsLib为undefined可以换成这行
-            // let loadingTask = PDFJS.getDocument(pdfPath);// pdfjsLib为undefined可以换成这行
-            loadingTask.promise.then(pdf => {
+            loadingTask.promise.then(function (pdf) {
                 console.log('PDF loaded');
-                let pageNum = pdf.numPages;
-                console.log(pageNum);
+                // let pageNum = pdf.numPages
+                let pageNum = 1;
                 for (let i = 1; i <= pageNum; i++) {
                     pdf.getPage(i).then(function (page) {
                         console.log('Page loaded');
@@ -179,7 +173,6 @@ export default {
                         let scale = 1;
                         let viewport = page.getViewport({scale});
 
-                        // let canvas = document.getElementById('the-canvas');
                         let canvas = document.createElement("canvas");
                         let context = canvas.getContext('2d');
                         canvas.height = viewport.height;
@@ -198,7 +191,6 @@ export default {
                             }
                             //pdf全部画完结束后操作
                             if (imgArr.length === pageNum && !isEmpty(imgArr)) {
-                                // let canvas2 = document.createElement("canvas");
                                 let canvas2 = document.getElementById('the-canvas');
                                 let context2 = canvas2.getContext('2d');
                                 canvas2.height = viewport.height * pageNum;
@@ -209,15 +201,13 @@ export default {
                                     IMG.src = imgArr[j];
                                     IMG.width = viewport.width;
                                     IMG.height = viewport.height;
-
                                     IMG.onload = function () {
                                         context2.drawImage(IMG, 0, viewport.height * j);
+                                        count++;//确保所有img渲染结束后操作
                                         if (count === pageNum) {
-                                            count++;//确保所有img渲染结束后操作
                                             let canvas = document.getElementById('the-canvas');
                                             //赋值给img
                                             _this.imgUrl = canvas.toDataURL('image/jpeg');
-                                            console.log('_this.imgUrl', _this.imgUrl);
                                         }
                                     }
                                 }
@@ -271,7 +261,10 @@ a {
 
 .resourceBlock > a {
     text-decoration: none;
-    margin-top: 30px;
+    margin-bottom: 30px;
+    color: #cccccc;
+    padding-left: 0;
+    font-size: 0.8em;
     display: block;
 }
 

@@ -5422,6 +5422,20 @@ const python_tree1 =  {
                                         "children": []
                                     }
                                 ]
+                            },
+                            {
+                                "data": {
+                                    "text": "input",
+                                    "isExplainNode": true
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "text": "output",
+                                    "isExplainNode": true
+                                },
+                                "children": []
                             }
                         ]
                     }
