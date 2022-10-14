@@ -129,7 +129,8 @@ export default {
                     this.title = data.nodeData.data.text;
                     this.answerLink = `/answer?ChapterID=${this.$props.index}&TestID=${data.nodeData.data.testID}&TestName=${this.title}`;
                     // 获取资源列表
-                    this.getResources(this.$props.index, data.nodeData.data.testID);
+                    // console.log(data.nodeData.data.testID);
+                    this.getResources(this.$props.index, data.nodeData.data.pdfID);
                     // console.log("node_click", data);
                 }
             });

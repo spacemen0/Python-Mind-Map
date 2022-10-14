@@ -99,6 +99,7 @@ router.beforeEach((to, from, next) => {
             }).catch(error => {
                 console.log('error', error);
                 ElementUI.Message('获取用户信息错误');
+                next({name: 'login'});
             });
 
         }
