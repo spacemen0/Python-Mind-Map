@@ -3,7 +3,7 @@
         <el-main>
             <div class="header">登录</div>
             <el-form ref="User" :model="User" :rules="rules">
-                <el-form-item label="学号" prop="StudentID">
+                <el-form-item label="学号" prop="UserID">
                     <el-input v-model="User.UserID" placeholder="学号" clearable></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="Password">
@@ -25,19 +25,13 @@ export default {
     data() {
         // 检查ID格式
         const checkID = (rule, value, callback) => {
-            if (!value) {
+            if (value === undefined)
                 return callback(new Error('学号不能为空'));
-            }
             let regPos = /[0-9]/;
-            if (!regPos.test(value)) {
+            if (!regPos.test(value))
                 callback(new Error('请输入学号'));
-            } else {
-                if (value.length !== 12) {
-                    callback(new Error('学号必须为12位'));
-                } else {
-                    callback();
-                }
-            }
+            else if (value.length !== 12)
+                callback(new Error('学号必须为12位'));
         };
         // 检查密码格式
         const validatePass = (rule, value, callback) => {
@@ -50,12 +44,12 @@ export default {
         return {
             isLogin: false,
             User: {
-                UserID: '202034340091',
-                Password: '123456'
+                UserID: '',
+                Password: ''
             },
             loginDialog: false,
             rules: {
-                StudentID: [
+                UserID: [
                     {validator: checkID, trigger: 'blur'}
                 ],
                 Password: [
@@ -85,7 +79,8 @@ export default {
             }).finally(() => {
                 this.User.Password = '';
             })
-        },
+        }
+        ,
         // 获取用户信息
         getuser() {
             request.get('/user/getuser').then(res => {
@@ -147,7 +142,7 @@ export default {
 
 /deep/ .el-form-item__label {
     font-size: 22px;
-    width: 3em
+    /*width: 3em*/
 }
 
 /deep/ .el-input__inner {
