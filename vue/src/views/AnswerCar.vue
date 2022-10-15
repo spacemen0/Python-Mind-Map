@@ -201,13 +201,17 @@ export default {
         // 获取用户信息
         console.log('answercard');
         this.UserID = this.$store.state.userInfo.userID;
-        this.ChapterID = Number(this.$route.query.ChapterID) + 1;
-        this.TestName = this.$route.query.TestName;
+        this.ChapterID = this.$route.query.ChapterID;
+        this.TestID = this.$route.query.TestID;
+        // 清空题目数组
+        this.optQuesList = [];
+        this.multiOptQuestList = [];
+        this.TFQuestionList = [];
+        this.blankQuesList = [];
         //  获取题目
-        let url = `/user/getquestions?ChapterID=${this.ChapterID}&TestID=${this.TestID}`;
+        let url = `/user/getquestions?ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.UserID}`;
         request.get(url).then(res => {
             if (res.status === 200) {
-                // this.UserAnswers = Array(res.data.questions.length).fill('');
                 // 判断是否已经回答过题目
                 this.isSubmit = (res.data.data.hasDoneTest === true);
                 // 初始化答案数组

@@ -4,13 +4,16 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "scp": "npm run build && node scp2.js"
   },
   "dependencies": {
     "axios": "^0.27.2",
+    "chalk": "^5.1.2",
     "core-js": "^3.8.3",
     "echarts": "^5.4.0",
     "element-ui": "^2.15.10",
+    "ora": "^6.1.2",
     "pdfjs-dist": "^2.16.105",
     "simple-mind-map": "^0.2.3",
     "vue": "2.6.14",
@@ -26,6 +29,7 @@
     "@vue/cli-service": "~5.0.0",
     "@vue/composition-api": "^1.7.1",
     "less": "^4.0.0",
-    "less-loader": "^8.0.0"
+    "less-loader": "^8.0.0",
+    "scp2": "^0.5.0"
   }
 }
