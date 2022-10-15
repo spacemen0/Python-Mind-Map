@@ -64,9 +64,10 @@
 
             <el-button type="primary" class="subBtn" @click="clickSubmit">提交答案</el-button>
 
-            <el-divider/>
+            <el-divider v-if="programQuestList.length > 0"/>
+
             <!--编程题-->
-            <P class="headline">编程题<span style="font-size: 0.8em; font-weight: normal">（将代码文件上传即可）</span></P>
+            <P class="headline" v-if="programQuestList.length > 0">编程题<span style="font-size: 0.8em; font-weight: normal">（将代码文件上传即可）</span></P>
             <el-form-item v-for="(t,i) in programQuestList">
                 <P class="quesTitle"><span class="quesNum">{{ t.number }}</span>{{ t.title }}</P>
                 <el-upload class="upload-demo" drag :limit="1" :file-list="codefileList[i]" show-file-list :auto-upload="false"
@@ -93,6 +94,10 @@
 
 <script>
 import request from "@/utils/request";
+// 深拷贝
+function deepCopy(ele) {
+    return JSON.parse(JSON.stringify(ele));
+}
 
 export default {
     name: "AnswerCar",
@@ -208,6 +213,7 @@ export default {
         this.multiOptQuestList = [];
         this.TFQuestionList = [];
         this.blankQuesList = [];
+        this.programQuestList = [];
         //  获取题目
         let url = `/user/getquestions?ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.UserID}`;
         request.get(url).then(res => {
@@ -221,14 +227,14 @@ export default {
                 this.blanAns = [];
 
                 for (let e of res.data.data.questions) {
-                    this.optQuestion.number = e.QuestionNumber;
                     let array = e.Description.split('@');
                     switch (e.QuestionType) {
                         // 单选题
                         case 0: {
                             this.optQuestion.title = array[0];
                             this.optQuestion.options = array.slice(1);
-                            this.optQuesList.push(this.optQuestion);
+                            this.optQuestion.number = e.QuestionNumber;
+                            this.optQuesList.push(deepCopy(this.optQuestion));
                             this.optAns.push('');
                             break;
                         }
@@ -236,28 +242,32 @@ export default {
                         case 1: {
                             this.optQuestion.title = array[0];
                             this.optQuestion.options = array.slice(1);
-                            this.multiOptQuestList.push(this.optQuestion);
+                            this.optQuestion.number = e.QuestionNumber;
+                            this.multiOptQuestList.push(deepCopy(this.optQuestion));
                             this.multiAns.push([]);
                             break;
                         }
                         // 判断题
                         case 2: {
                             this.blankQuestion.title = array[0];
-                            this.TFQuestionList.push(this.blankQuestion);
+                            this.blankQuestion.number = e.QuestionNumber;
+                            this.TFQuestionList.push(deepCopy(this.blankQuestion));
                             this.TFAns.push('');
                             break;
                         }
                         // 填空题
                         case 3: {
                             this.blankQuestion.title = array[0];
-                            this.blankQuesList.push(this.blankQuestion);
+                            this.blankQuestion.number = e.QuestionNumber;
+                            this.blankQuesList.push(deepCopy(this.blankQuestion));
                             this.blanAns.push('');
                             break;
                         }
                         // 编程题
                         case  4: {
                             this.blankQuestion.title = array[0];
-                            this.blankQuesList.push(this.blankQuestion);
+                            this.blankQuestion.number = e.QuestionNumber;
+                            this.programQuestList.push(deepCopy(this.blankQuestion));
                             this.codefileList.push([]);
                         }
                     }
@@ -433,8 +443,7 @@ export default {
         // 根据Index生成大写字母
         getAlpha(index) {
             return String.fromCharCode(65 + index);
-        }
-
+        },
     }
 }
 </script>

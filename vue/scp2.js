@@ -1,9 +1,8 @@
 const scp = require('scp2');
 const ora = require('ora');
 const chalk = require('chalk'); //设置命令颜色的
-const spinner = ora(chalk.blue('正在部署到服务器...'));  //显示加载
+const spinner = ora(`Loading ${chalk.blue('正在部署到服务器...')}`).start();  //显示加载
 
-spinner.start();
 scp.scp('./dist/', {
     host: '124.221.26.190', // 服务器的地址
     port: 22,            // 服务器端口， 一般为 22
