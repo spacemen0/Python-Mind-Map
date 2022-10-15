@@ -40,7 +40,6 @@ import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
 const pdfjsLib = require("pdfjs-dist");
 pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorker;
 
-
 export default {
     name: 'HelloWorld',
     // 从0开始
@@ -127,10 +126,10 @@ export default {
                 if (data.ableToClick === true) {
                     this.drawer = true;
                     this.title = data.nodeData.data.text;
-                    this.answerLink = `/answer?ChapterID=${this.$props.index}&TestID=${data.nodeData.data.testID}&TestName=${this.title}`;
+                    this.answerLink = `/answer?ChapterID=${this.$props.index + 1}&TestID=${data.nodeData.data.testID}&TestName=${this.title}`;
                     // 获取资源列表
                     // console.log(data.nodeData.data.testID);
-                    this.getResources(this.$props.index, data.nodeData.data.pdfID);
+                    this.getResources(this.$props.index + 1, data.nodeData.data.pdfID);
                     // console.log("node_click", data);
                 }
             });

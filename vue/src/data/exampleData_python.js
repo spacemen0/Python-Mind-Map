@@ -909,6 +909,8 @@ const rootData = {
     }
 }
 
+// testID与pdfID均从1开始
+
 const python_tree1 =  {
     "root": {
         "data": {
@@ -926,8 +928,8 @@ const python_tree1 =  {
                             "text": "hardware",
                             "isExplainNode": false,
                             "ableToClick": true,
-                            "testID": 0,
-                            "pdfID": 0
+                            "testID": 1,
+                            "pdfID": 1
                         },
                         "children": []
                     },
@@ -935,8 +937,8 @@ const python_tree1 =  {
                         "data": {
                             "text": "four functions",
                             "ableToClick": true,
-                            "testID": 1,
-                            "pdfID": 1
+                            "testID": 2,
+                            "pdfID": 2
                         },
                         "children": [
                             {
@@ -981,8 +983,8 @@ const python_tree1 =  {
                             "text": "recipe",
                             "isExplainNode": false,
                             "ableToClick": true,
-                            "testID": 2,
-                            "pdfID": 2
+                            "testID": 3,
+                            "pdfID": 3
                         },
                         "children": []
                     }
@@ -998,8 +1000,8 @@ const python_tree1 =  {
                             "text": "aspects of language",
                             "isExplainNode": false,
                             "ableToClick": true,
-                            "testID": 3,
-                            "pdfID": 3
+                            "testID": 4,
+                            "pdfID": 4
                         },
                         "children": []
                     }
@@ -1021,8 +1023,8 @@ const python_tree1 =  {
                                     "isExplainNode": false,
                                     "expand": false,
                                     "ableToClick": true,
-                                    "testID": 4,
-                                    "pdfID": 4
+                                    "testID": 5,
+                                    "pdfID": 5
                                 },
                                 "children": []
                             },
@@ -1032,8 +1034,8 @@ const python_tree1 =  {
                                     "isExplainNode": false,
                                     "expand": false,
                                     "ableToClick": true,
-                                    "testID": 5,
-                                    "pdfID": 5
+                                    "testID": 6,
+                                    "pdfID": 6
                                 },
                                 "children": []
                             }
@@ -1049,8 +1051,8 @@ const python_tree1 =  {
                                     "text": "fundamentals",
                                     "expand": false,
                                     "ableToClick": true,
-                                    "testID": 6,
-                                    "pdfID": 6
+                                    "testID": 7,
+                                    "pdfID": 7
                                 },
                                 "children": [
                                     {
