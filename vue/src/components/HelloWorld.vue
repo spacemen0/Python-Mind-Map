@@ -71,14 +71,12 @@ export default {
                     }, (root) => {
                     },
                     true, 0, 0);
-
                 setTimeout(() => {
                     this.mindMap.execCommand('UNEXPAND_ALL');
-                }, 100);
-
+                }, 200);
             }
 
-        }, 50);
+        }, 100);
     },
     methods: {
         getData() {
