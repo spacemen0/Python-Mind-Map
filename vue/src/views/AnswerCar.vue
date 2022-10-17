@@ -10,7 +10,7 @@
                 <P class="quesTitle" :class="{ 'wrongAns': checkResult.optQuesRes[i] === false }">
                     <span class="quesNum">{{ t.number }}</span>{{ t.title }} <i v-if="checkResult.optQuesRes[i] === false" class="el-icon-close"></i>
                 </P>
-                <el-radio-group v-model="optAns[i]" @change="test">
+                <el-radio-group v-model="optAns[i]">
                     <div v-for="(e,j) in t.options">
                         <el-radio :label="getAlpha(j)" size="medium">
                             <span>{{ getAlpha(j) }}.</span>
@@ -24,7 +24,7 @@
             <!--多选题-->
             <el-form-item v-for="(t,i) in multiOptQuestList" size="medium">
                 <P class="quesTitle" :class="{ 'wrongAns': checkResult.multiOptQuesRes[i] === false }">
-                    <span class="quesNum">{{ t.number }}</span>{{ t.title }} <i v-if="checkResult.multiOptQuesRes[i] === false" class="el-icon-close"></i>
+                    <span class="quesNum">{{ t.number }}</span>（多选）{{ t.title }} <i v-if="checkResult.multiOptQuesRes[i] === false" class="el-icon-close"></i>
                 </P>
                 <el-checkbox-group v-model="multiAns[i]" size="medium">
                     <div v-for="(e,j) in t.options">
@@ -94,6 +94,9 @@
 
 <script>
 import request from "@/utils/request";
+
+let FormData = require("form-data");
+
 // 深拷贝
 function deepCopy(ele) {
     return JSON.parse(JSON.stringify(ele));
@@ -110,75 +113,24 @@ export default {
             chapterName: '',
             isSubmit: false,
             // 单选题数组
-            optQuesList: [
-                {
-                    number: 1,
-                    title: '某建设工程施工招标，甲公司中标后将其转包给不具有相应资质等级的乙公司，乙施工过程不符合规定的质量标准，给建设单位造成损失。关于向建设单位承担赔偿责任的说法，正确的是（ ）。',
-                    options:
-                        ['甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任',
-                            '建设单位与甲有合同关系，应由乙承担赔偿责任甲、乙承担连带赔偿责任v',
-                            '乙为实际施工人，应由乙承担赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任',
-                        ]
-                }
-            ],
+            optQuesList: [],
             optQuestion: {
                 number: 0,
                 title: '',
                 options: []
             },
             // 多选题数组
-            multiOptQuestList: [
-                {
-                    number: 1,
-                    title: '某建设工程施工招标，甲公司中标后将其转包给不具有相应资质等级的乙公司，乙施工过程不符合规定的质量标准，给建设单位造成损失。关于向建设单位承担赔偿责任的说法，正确的是（ ）。',
-                    options:
-                        ['甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任',
-                            '建设单位与甲有合同关系，应由乙承担赔偿责任甲、乙承担连带赔偿责任v',
-                            '乙为实际施工人，应由乙承担赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任甲、乙承担连带赔偿责任',
-                        ]
-                }
-            ],
+            multiOptQuestList: [],
             // 判断题数组
-            TFQuestionList: [
-                {
-                    title: 'The integrated development tool built into Python is',
-                    number: 1
-                }
-            ],
+            TFQuestionList: [],
             // 填空题数组
-            blankQuesList: [
-                {
-                    title: '企业事业单位和其他生产经营者，为改善环境，依照有关规定转产、搬迁、关闭的，人民政府应当子以支持。',
-                    number: 0
-                },
-                {
-                    title: '人民代表大会制度是我国的根本制度。',
-                    number: 1
-                },
-                {
-                    title: '一切法律、行政法规和地方性法规都不得同宪法相抵触。',
-                    number: 2
-                },
-                {
-                    title: '我国最高国家权力机关的常设机关是全国人民代表大会常务委员会。',
-                    number: 3
-                },
-            ],
+            blankQuesList: [],
             blankQuestion: {
                 title: '',
                 number: 0
             },
             // 编程题数组
-            programQuestList: [
-                {
-                    number: 1,
-                    title: 'The integrated development tool built into Python is'
-                },
-                {
-                    number: 2,
-                    title: 'The integrated development tool built into Python is'
-                }
-            ],
+            programQuestList: [],
             // 客观题校对结果
             checkResult: {
                 optQuesRes: [],
@@ -202,9 +154,8 @@ export default {
             codefileList: [],
         }
     },
-    created() {
+    mounted() {
         // 获取用户信息
-        console.log('answercard');
         this.UserID = this.$store.state.userInfo.userID;
         this.ChapterID = this.$route.query.ChapterID;
         this.TestID = this.$route.query.TestID;
@@ -218,14 +169,11 @@ export default {
         let url = `/user/getquestions?ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.UserID}`;
         request.get(url).then(res => {
             if (res.status === 200) {
-                // 判断是否已经回答过题目
-                this.isSubmit = (res.data.data.hasDoneTest === true);
                 // 初始化答案数组
                 this.optAns = [];
                 this.multiAns = [];
                 this.TFAns = [];
                 this.blanAns = [];
-
                 for (let e of res.data.data.questions) {
                     let array = e.Description.split('@');
                     switch (e.QuestionType) {
@@ -272,6 +220,12 @@ export default {
                         }
                     }
                 }
+
+                // 判断是否已经回答过题目
+                if (res.data.data.hasDoneTest === true) {
+                    this.showAns();
+                }
+
             }
         }).catch(error => {
             console.log(error);
@@ -280,14 +234,9 @@ export default {
                 message: "加载失败"
             });
         });
-        if (this.isFinished)
-            this.showAns();
+
     },
     methods: {
-        test(value) {
-            for (let e of this.optAns)
-                console.log(e);
-        },
         // 提交按钮点击事件
         clickSubmit() {
             // 将答案移到UserAnswers中
@@ -331,9 +280,21 @@ export default {
         // 提交答案
         submit() {
             this.dialogVisible = false;
+            // 检查是否提交过答案
+            if (this.isSubmit === true) {
+                this.$message({
+                    type: "warning",
+                    message: "已提交过答案，不能再次提交"
+                });
+                return;
+            }
             let answers = this.UserAnswers.join('@');
-            let url = `ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.$store.state.userInfo.userID}&Answers=${answers}`;
-            request.post(url).then(res => {
+            let data = new FormData();
+            data.append('ChapterID', this.ChapterID);
+            data.append('TestID', this.TestID);
+            data.append('UserID', this.UserID);
+            data.append('Answers', answers);
+            request.post(`/user/createanswersheet`, data).then(res => {
                 if (res.status === 200) {
                     this.$message({
                         type: "success",
@@ -354,28 +315,48 @@ export default {
             let url = `/user/getcorrectanswers?ChapterID=${this.ChapterID}&TestID=${this.TestID}&UserID=${this.UserID}`;
             request.get(url).then(res => {
                 if (res.status === 200) {
-                    // 获取正确答案，并转换成所需格式
-                    let corAns = res.data.data['correct answer'].split('@');
                     let i1 = this.optQuesList.length;
                     let i2 = i1 + this.multiOptQuestList.length;
                     let i3 = i2 + this.TFQuestionList.length;
                     let i4 = i3 + this.blankQuesList.length;
+
+                    // 获取正确答案，并转换成所需格式
+                    let corAns = res.data.data['correct answer'].split('@');
                     this.correctAnswers = [];
                     this.correctAnswers.push(corAns.slice(0, i1));
                     this.correctAnswers.push(corAns.slice(i1, i2));
                     this.correctAnswers.push(corAns.slice(i2, i3));
                     this.correctAnswers.push(corAns.slice(i3, i4));
-                    this.checkResult = res.data.data['result'];
+
+                    // 获取用户答题正误结果，并转换成所需格式
+                    let checkResult0 = res.data.data['result'];
+                    this.checkResult.optQuesRes = checkResult0.slice(0, i1);
+                    this.checkResult.multiOptQuesRes = checkResult0.slice(i1, i2);
+                    this.checkResult.TFQuesRes = checkResult0.slice(i2, i3);
+                    this.checkResult.blanQuesRes = checkResult0.slice(i3, i4);
+
+                    // 获取用户答案，并转换成所需格式
                     this.UserAnswers = res.data.data['user answer'].split('@');
+                    this.optAns = this.UserAnswers.slice(0, i1);
+                    this.multiAns = [];
+                    for (let e of this.UserAnswers.slice(i1, i2)) {
+                        let list = e.split('');
+                        this.multiAns.push(list);
+                    }
+                    this.TFAns = this.UserAnswers.slice(i2, i3);
+                    this.blanAns = this.UserAnswers.slice(i3, i4);
+
                     // 计算分数(正确率)
                     this.score = 0;
-                    this.checkResult.forEach((value) => {
+                    checkResult0.forEach((value) => {
                         if (value === true)
                             this.score++;
                     });
-                    this.score /= this.checkResult.length;
+                    this.score = this.score + ' / ' + checkResult0.length;
+                    this.isSubmit = true;
                 }
             }).catch(error => {
+                console.log(error);
                 this.$message({
                     type: "error",
                     message: "获取答题信息失败"
@@ -449,6 +430,11 @@ export default {
 </script>
 
 <style scoped>
+/deep/ .el-dialog__title,
+/deep/ .el-dialog__body {
+    font-size: 24px;
+}
+
 .option {
     margin-left: 0.5em;
 }

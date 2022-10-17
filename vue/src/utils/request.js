@@ -19,9 +19,9 @@ request.interceptors.request.use(config => {
                 //在请求头加入token，名字要和后端接收请求头的token名字一样
                 let token = localStorage.getItem('token');
                 // console.log('token', token);
-                console.log('token', token);
                 config.headers.Authorization = `Bearer ${token}`;
-            } else console.log('no token');
+            } else
+                console.log('no token');
         }
         // }
         return config;
@@ -33,14 +33,14 @@ request.interceptors.request.use(config => {
 // 响应回来token是否过期
 request.interceptors.response.use(response => {
         //和后端token失效返回码约定401
-        console.log('response', response);
+        // console.log('response', response);
         if (response.status === 401) {
             // 引用elementui message提示框
             ElementUI.Message('身份已失效');
             //清除token
             localStorage.removeItem('token');
             //跳转
-            router.push({name: 'login'});
+            router.push({name: 'login'}).then(r => {});
         } else {
             return response
         }

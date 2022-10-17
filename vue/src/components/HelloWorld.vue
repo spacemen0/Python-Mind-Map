@@ -14,16 +14,20 @@
             size="20%">
             <span slot="title" style="font-size: 30px; color:  #cccccc">{{ title }}</span>
             <div class="resourceBlock">
-                <span slot="title" style="font-size: 30px; ">PDF</span>
-                <el-divider/>
+                <!--pdf资源-->
+                <span slot="title" class="subtitle">Lecture</span>
                 <router-link rel="external nofollow" target="_blank" v-for="(t,i) in pdfLink" :to="t">
                     <canvas id="the-canvas" style="display: none"></canvas>
                     <el-image :src="imgUrl" alt="pdf" width="100%" height="100%" fit="scale-down" style="box-shadow: 0 0 5px 5px #999999" />
                 </router-link>
-
-                <span slot="title" style="font-size: 30px;">习题</span>
                 <el-divider/>
-                <router-link :to="answerLink" rel="external nofollow" target="_blank">对应习题</router-link>
+                <!--视频资源-->
+                <span slot="title" class="subtitle">MOOC Resource</span>
+                <el-divider/>
+                <!--习题-->
+                <span slot="title" class="subtitle">Exercise</span>
+                <el-divider/>
+                <router-link :to="answerLink" rel="external nofollow" target="_blank">Relevant Exercise</router-link>
             </div>
         </el-drawer>
 
@@ -251,6 +255,12 @@ a {
 }
 </style>
 <style lang="less" scoped>
+.subtitle {
+   font-size: 30px;
+    margin-top: 1em;
+    display: inline-block;
+}
+
 .resourceBlock {
     padding-left: 50px;
     color: #42b983;
@@ -259,7 +269,7 @@ a {
 
 .resourceBlock > a {
     text-decoration: none;
-    margin-bottom: 30px;
+    margin-bottom: 15px;
     color: #cccccc;
     padding-left: 0;
     font-size: 0.8em;
@@ -294,8 +304,8 @@ a {
 
     .mindMapContainer {
         position: absolute;
-        left: 0px;
-        top: 0px;
+        left: 0;
+        top: 0;
         width: 100%;
         height: 100%;
     }

@@ -2,10 +2,14 @@
     <el-menu :default-active="'activeIndex'" router class="el-menu-demo" style="border-bottom-color: #5c5e63;" mode="horizontal"
              @select="" background-color="#37373c" active-text-color="#f6f4ef" text-color="rgb(184 184 184)">
         <el-menu-item disabled style="float: left; opacity: 1; cursor: auto; font-size: 20px">AI课堂</el-menu-item>
-        <el-menu-item disabled style="opacity: 1; cursor: auto">{{ User.name }}, {{ User.userID }}</el-menu-item>
-        <el-menu-item>
-            <el-button size="medium" style="padding: 20px" circle></el-button>
-        </el-menu-item>
+        <!--<el-menu-item disabled style="opacity: 1; cursor: auto">{{ User.name }}, {{ User.userID }}</el-menu-item>-->
+        <el-submenu index="" style="padding-left: 0; color: white!important;">
+            <template slot="title">
+                <!--<el-button size="medium" style="padding: 20px" circle></el-button>-->
+                {{ User.name }} , {{ User.userID }}
+            </template>
+            <el-menu-item index="/login">注销</el-menu-item>
+        </el-submenu>
         <el-menu-item index="/personal">个人情况</el-menu-item>
         <el-menu-item index="/ranking">班级排名</el-menu-item>
 
@@ -34,6 +38,7 @@ import request from "@/utils/request";
 
 export default {
     name: "Header",
+    inject: ['reload'],
     data() {
         return {
             activeIndex: 'this.$router.path',
@@ -50,6 +55,11 @@ export default {
         this.User.name = this.$store.state.userInfo.name;
         this.User.userID = this.$store.state.userInfo.userID;
         this.User.isAdmin = this.$store.state.userInfo.isAdmin;
+    },
+    watch: {
+        $route() {
+            this.reload();
+        },
     },
     methods: {
         handleChange(file, fileList) {
@@ -103,11 +113,16 @@ export default {
     padding-left: 10%;
 }
 
+.el-menu--horizontal>.el-submenu,
 .el-menu--horizontal > .el-menu-item {
     float: right;
     font-size: 16px;
     padding-left: 15px;
     padding-right: 15px;
+}
+/deep/.el-submenu__title {
+    font-size: 16px;
+    color: ghostwhite;
 }
 
 </style>

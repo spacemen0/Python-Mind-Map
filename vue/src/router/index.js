@@ -70,6 +70,7 @@ const router = new VueRouter({
     routes
 })
 
+
 router.beforeEach((to, from, next) => {
 //to到哪儿 from从哪儿离开 next跳转 为空就是放行
     if (to.name === 'login') {
