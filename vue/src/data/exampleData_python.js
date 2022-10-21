@@ -1090,8 +1090,8 @@ const python_tree1 =  {
                                     "text": "python operators",
                                     "expand": false,
                                     "ableToClick": true,
-                                    "testID": 7,
-                                    "pdfID": 7
+                                    "testID": 8,
+                                    "pdfID": 8
                                 },
                                 "children": [
                                     {
