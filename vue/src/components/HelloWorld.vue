@@ -4,30 +4,30 @@
             <div class="mindMapContainer" id="mindMapContainer"></div>
             <mindmap height="50" width="50%"></mindmap>
         </div>
-        <el-drawer
-            id="drawer"
-            title=""
-            :visible.sync="drawer"
-            direction="rtl"
-            :modal="false"
-            :modal-append-to-body="false"
-            size="20%">
-            <span slot="title" style="font-size: 30px; color:  #cccccc">{{ title }}</span>
+        <el-drawer id="drawer" title="" :visible.sync="drawer" direction="rtl"
+                   :modal="false" :modal-append-to-body="false" size="20%">
+            <div slot="title" class="drawer-title">{{ title }}</div>
             <div class="resourceBlock">
                 <!--pdf资源-->
-                <span slot="title" class="subtitle">Lecture</span>
-                <router-link rel="external nofollow" target="_blank" v-for="(t,i) in pdfLink" :to="t">
-                    <canvas id="the-canvas" style="display: none"></canvas>
-                    <el-image :src="imgUrl" alt="pdf" width="100%" height="100%" fit="scale-down" style="box-shadow: 0 0 5px 5px #999999" />
-                </router-link>
-                <el-divider/>
+                <div v-if="hasPdf">
+                    <span slot="title" class="subtitle">Lecture</span>
+                    <router-link rel="external nofollow" target="_blank" v-for="(t,i) in pdfLink" :to="t">
+                        <canvas id="the-canvas" style="display: none"></canvas>
+                        <el-image :src="imgUrl" alt="pdf" width="100%" height="100%" fit="scale-down" class="pdf-img"/>
+                    </router-link>
+                    <el-divider/>
+                </div>
                 <!--视频资源-->
-                <span slot="title" class="subtitle">MOOC Resource</span>
-                <el-divider/>
+                <div v-if="hasVideo">
+                    <span slot="title" class="subtitle">MOOC Resource</span>
+                    <el-divider/>
+                </div>
                 <!--习题-->
-                <span slot="title" class="subtitle">Exercise</span>
-                <el-divider/>
-                <router-link :to="answerLink" rel="external nofollow" target="_blank">Relevant Exercise</router-link>
+                <div v-if="hasExercise">
+                    <span slot="title" class="subtitle">Exercise</span>
+                    <router-link :to="answerLink" rel="external nofollow" target="_blank">Exercise Link</router-link>
+                    <el-divider/>
+                </div>
             </div>
         </el-drawer>
 
@@ -57,7 +57,10 @@ export default {
             drawer: false,
             direction: 'rtl',
             title: '',
-            mindMap: null
+            mindMap: null,
+            hasPdf: false,
+            hasVideo: true,
+            hasExercise: false
         }
     },
     mounted() {
@@ -79,7 +82,6 @@ export default {
                     this.mindMap.execCommand('UNEXPAND_ALL');
                 }, 200);
             }
-
         }, 100);
     },
     methods: {
@@ -100,39 +102,22 @@ export default {
             });
             let themeConfig = this.mindMap.getCustomThemeConfig();
             themeConfig.backgroundColor = '#2f2f32';
-            // this.mindMap.on('mousedown', (...args) => {
-            //     console.log("鼠标按下")
-            //     this.mindMap.setTheme('diyColor')
-            //     console.log("this.mindMap.themeConfig",this.mindMap.themeConfig)
-            //
-            //   })
-            // this.mindMap.on('node_mousedown', (data) => {
-            //   console.log("nodemousedown  data",data)
-            //   //console.log("nodemousedown datae",e)
-            // });
-            // this.mindMap.render()
-            // this.mindMap.view.translateX(-600);
-
-            // Object.keys(this.mindMap.renderer).forEach((value, index, array) => {
-            //     if (value === 'root')
-            //         console.log(array[value]);
-            // })
-
-            // bfsWalk(this.mindMap.renderer.root, (root) => {
-            //     console.log(root);
-            //     // if (Reflect.has(root, 'ableToClick') && root.ableToClick === true)
-            //     //     root.setStyle('borderColor', '#fff', false);
-            // });
 
             this.mindMap.on('node_click', (data) => {
                 if (data.ableToClick === true) {
-                    this.drawer = true;
                     this.title = data.nodeData.data.text;
+                    // 检查是否有习题
+                    this.hasExercise = (data.nodeData.data.testID !== undefined);
                     this.answerLink = `/answer?ChapterID=${this.$props.index + 1}&TestID=${data.nodeData.data.testID}&TestName=${this.title}`;
-                    // 获取资源列表
-                    // console.log(data.nodeData.data.testID);
-                    this.getResources(this.$props.index + 1, data.nodeData.data.pdfID);
+                    // 检查是否有pdf
+                    this.hasPdf = (data.nodeData.data.pdfID !== undefined);
+                    if (this.hasPdf)
+                        this.getResources(this.$props.index + 1, data.nodeData.data.pdfID);
+                    // 检查是否有视频
+
+
                     // console.log("node_click", data);
+                    this.drawer = true;
                 }
             });
 
@@ -158,7 +143,7 @@ export default {
                     type: "error",
                     message: "获取资源失败"
                 });
-            })
+            });
         },
         showPdf(pdfPath) {
             let _this = this;
@@ -255,24 +240,37 @@ a {
 }
 </style>
 <style lang="less" scoped>
+.pdf-img {
+    box-shadow: rgb(153 153 153) 0 0 3px 3px;
+    border-radius: 6px;
+}
+
+.drawer-title {
+    font-size: xx-large;
+    color: rgb(204, 204, 204);
+    margin-bottom: 0;
+    background: linear-gradient(244deg, #a9bad9, #a583cb 31%, #daa8d1 74%, #d4d7da);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 .subtitle {
-   font-size: 30px;
-    margin-top: 1em;
+    font-size: 1.6em;
+    margin-top: 1.2em;
     display: inline-block;
 }
 
 .resourceBlock {
-    padding-left: 50px;
-    color: #42b983;
-    font-size: 30px;
+    padding: 0 8%;
+    color: #c1c1c1;
 }
 
-.resourceBlock > a {
+.resourceBlock > div > a {
     text-decoration: none;
-    margin-bottom: 15px;
-    color: #cccccc;
+    margin: 10px 0;
+    color: #fff;
     padding-left: 0;
-    font-size: 0.8em;
+    font-size: 1.3em;
     display: block;
 }
 

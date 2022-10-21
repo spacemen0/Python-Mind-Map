@@ -910,8 +910,11 @@ const rootData = {
 }
 
 // testID与pdfID均从1开始
+// "ableToClick": true,
+//  "testID":
+// "pdfID":
 
-const python_tree1 =  {
+const python_tree1 = {
     "root": {
         "data": {
             "text": "Ch 1 python language",
@@ -1090,8 +1093,8 @@ const python_tree1 =  {
                                     "text": "python operators",
                                     "expand": false,
                                     "ableToClick": true,
-                                    "testID": 7,
-                                    "pdfID": 7
+                                    "testID": 8,
+                                    "pdfID": 8
                                 },
                                 "children": [
                                     {
@@ -1166,21 +1169,19 @@ const python_tree1 =  {
         ]
     }
 }
-// "ableToClick": true,
-//     "testID":
-// "expand": false
-const python_tree2 =  {
+
+const python_tree2 = {
     "root": {
         "data": {
-            "text": "Ch 2",
-            "expand": true
+            "text": "Ch 2"
         },
         "children": [
             {
                 "data": {
                     "text": "Statement",
                     "ableToClick": true,
-                    "testID": 0
+                    "testID": 1,
+                    "pdfID": 1,
                 },
                 "children": [
                     {
@@ -1195,7 +1196,8 @@ const python_tree2 =  {
             {
                 "data": {
                     "text": "Expression",
-                    "testID": 1
+                    "ableToClick": true,
+                    "testID": 2
                 },
                 "children": [
                     {
@@ -1211,6 +1213,7 @@ const python_tree2 =  {
                 "data": {
                     "text": "Variables",
                     "ableToClick": true,
+                    "pdfID": 2,
                 },
                 "children": [
                     {
@@ -1253,14 +1256,14 @@ const python_tree2 =  {
                     {
                         "data": {
                             "text": "Name rules",
-                            "testID": 2
+                            "ableToClick": true,
+                            "testID": 3
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "Start with",
-                                    "isExplainNode": true,
-                                    "expand": false,
+                                    "isExplainNode": true
                                 },
                                 "children": [
                                     {
@@ -1282,8 +1285,7 @@ const python_tree2 =  {
                             {
                                 "data": {
                                     "text": "Component",
-                                    "isExplainNode": true,
-                                    "expand": false
+                                    "isExplainNode": true
                                 },
                                 "children": [
                                     {
@@ -1321,14 +1323,14 @@ const python_tree2 =  {
                     {
                         "data": {
                             "text": "Assigning value",
-                            "testID": 3
+                            "ableToClick": true,
+                            "testID": 4
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "Single",
-                                    "isExplainNode": true,
-                                    "expand": false,
+                                    "isExplainNode": true
                                 },
                                 "children": [
                                     {
@@ -1343,8 +1345,7 @@ const python_tree2 =  {
                             {
                                 "data": {
                                     "text": "Multiple",
-                                    "isExplainNode": true,
-                                    "expand": false,
+                                    "isExplainNode": true
                                 },
                                 "children": [
                                     {
@@ -1359,8 +1360,7 @@ const python_tree2 =  {
                             {
                                 "data": {
                                     "text": "Combine",
-                                    "isExplainNode": true,
-                                    "expand": false,
+                                    "isExplainNode": true
                                 },
                                 "children": [
                                     {
@@ -1398,19 +1398,19 @@ const python_tree2 =  {
                         "data": {
                             "text": "Numeric Type",
                             "ableToClick": true,
+                            "pdfID": 3,
                         },
                         "children": [
                             {
                                 "data": {
-                                    "text": "int",
-
+                                    "text": "int"
                                 },
                                 "children": [
                                     {
                                         "data": {
                                             "text": "definition",
-                                            "expand": false,
                                             "ableToClick": true,
+                                            "testID": 5
                                         },
                                         "children": [
                                             {
@@ -1425,7 +1425,8 @@ const python_tree2 =  {
                                     {
                                         "data": {
                                             "text": "convert",
-                                            "expand": false,
+                                            "ableToClick": true,
+                                            "testID": 6
                                         },
                                         "children": [
                                             {
@@ -1448,13 +1449,14 @@ const python_tree2 =  {
                             },
                             {
                                 "data": {
-                                    "text": "float",
-                                    "expand": false,
+                                    "text": "float"
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "definition"
+                                            "text": "definition",
+                                            "ableToClick": true,
+                                            "testID": 7
                                         },
                                         "children": [
                                             {
@@ -1468,7 +1470,9 @@ const python_tree2 =  {
                                     },
                                     {
                                         "data": {
-                                            "text": "convert"
+                                            "text": "convert",
+                                            "ableToClick": true,
+                                            "testID": 8
                                         },
                                         "children": [
                                             {
@@ -1491,13 +1495,14 @@ const python_tree2 =  {
                             },
                             {
                                 "data": {
-                                    "text": "complex",
-                                    "expand": false,
+                                    "text": "complex"
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "definition"
+                                            "text": "definition",
+                                            "ableToClick": true,
+                                            "testID": 9
                                         },
                                         "children": [
                                             {
@@ -1511,7 +1516,9 @@ const python_tree2 =  {
                                     },
                                     {
                                         "data": {
-                                            "text": "convert"
+                                            "text": "convert",
+                                            "ableToClick": true,
+                                            "testID": 10
                                         },
                                         "children": [
                                             {
@@ -1545,13 +1552,14 @@ const python_tree2 =  {
                         "data": {
                             "text": "Boolean Type",
                             "ableToClick": true,
+                            "pdfID": 4,
+                            "testID": 11
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "true",
-                                    "isExplainNode": true,
-                                    "expand": false,
+                                    "isExplainNode": true
                                 },
                                 "children": [
                                     {
@@ -1566,8 +1574,7 @@ const python_tree2 =  {
                             {
                                 "data": {
                                     "text": "false",
-                                    "isExplainNode": true,
-                                    "expand": false,
+                                    "isExplainNode": true
                                 },
                                 "children": [
                                     {
@@ -1589,13 +1596,15 @@ const python_tree2 =  {
                             {
                                 "data": {
                                     "text": "string",
-                                    "expand": false,
                                     "ableToClick": true,
+                                    "pdfID": 5,
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "attribute"
+                                            "text": "attribute",
+                                            "ableToClick": true,
+                                            "testID": 12
                                         },
                                         "children": [
                                             {
@@ -1609,7 +1618,9 @@ const python_tree2 =  {
                                     },
                                     {
                                         "data": {
-                                            "text": "create"
+                                            "text": "create",
+                                            "ableToClick": true,
+                                            "testID": 13
                                         },
                                         "children": [
                                             {
@@ -1630,7 +1641,9 @@ const python_tree2 =  {
                                     },
                                     {
                                         "data": {
-                                            "text": "access"
+                                            "text": "access",
+                                            "ableToClick": true,
+                                            "testID": 14
                                         },
                                         "children": [
                                             {
@@ -1656,7 +1669,9 @@ const python_tree2 =  {
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "convert"
+                                                    "text": "convert",
+                                                    "ableToClick": true,
+                                                    "testID": 15
                                                 },
                                                 "children": [
                                                     {
@@ -1684,7 +1699,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "concatenate"
+                                                    "text": "concatenate",
+                                                    "ableToClick": true,
+                                                    "testID": 16
                                                 },
                                                 "children": [
                                                     {
@@ -1698,7 +1715,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "multiply"
+                                                    "text": "multiply",
+                                                    "ableToClick": true,
+                                                    "testID": 17
                                                 },
                                                 "children": [
                                                     {
@@ -1712,7 +1731,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "print"
+                                                    "text": "print",
+                                                    "ableToClick": true,
+                                                    "testID": 18
                                                 },
                                                 "children": [
                                                     {
@@ -1740,7 +1761,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "slicing"
+                                                    "text": "slicing",
+                                                    "ableToClick": true,
+                                                    "testID": 19
                                                 },
                                                 "children": [
                                                     {
@@ -1754,7 +1777,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "built-in methods"
+                                                    "text": "built-in methods",
+                                                    "ableToClick": true,
+                                                    "testID": 20
                                                 },
                                                 "children": [
                                                     {
@@ -1773,13 +1798,15 @@ const python_tree2 =  {
                             {
                                 "data": {
                                     "text": "list",
-                                    "expand": false,
                                     "ableToClick": true,
+                                    "pdfID": 6,
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "attribute"
+                                            "text": "attribute",
+                                            "ableToClick": true,
+                                            "testID": 21
                                         },
                                         "children": [
                                             {
@@ -1793,7 +1820,9 @@ const python_tree2 =  {
                                     },
                                     {
                                         "data": {
-                                            "text": "create"
+                                            "text": "create",
+                                            "ableToClick": true,
+                                            "testID": 22
                                         },
                                         "children": [
                                             {
@@ -1821,7 +1850,9 @@ const python_tree2 =  {
                                     },
                                     {
                                         "data": {
-                                            "text": "access"
+                                            "text": "access",
+                                            "ableToClick": true,
+                                            "testID": 23
                                         },
                                         "children": [
                                             {
@@ -1854,7 +1885,9 @@ const python_tree2 =  {
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "slicing"
+                                                    "text": "slicing",
+                                                    "ableToClick": true,
+                                                    "testID": 24
                                                 },
                                                 "children": [
                                                     {
@@ -1868,7 +1901,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "insert"
+                                                    "text": "insert",
+                                                    "ableToClick": true,
+                                                    "testID": 25
                                                 },
                                                 "children": [
                                                     {
@@ -1896,7 +1931,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "remove"
+                                                    "text": "remove",
+                                                    "ableToClick": true,
+                                                    "testID": 26
                                                 },
                                                 "children": [
                                                     {
@@ -1910,7 +1947,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "concatenate"
+                                                    "text": "concatenate",
+                                                    "ableToClick": true,
+                                                    "testID": 27
                                                 },
                                                 "children": [
                                                     {
@@ -1924,7 +1963,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "convert"
+                                                    "text": "convert",
+                                                    "ableToClick": true,
+                                                    "testID": 28
                                                 },
                                                 "children": [
                                                     {
@@ -1938,7 +1979,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "built-in methods"
+                                                    "text": "built-in methods",
+                                                    "ableToClick": true,
+                                                    "testID": 29
                                                 },
                                                 "children": [
                                                     {
@@ -1957,13 +2000,15 @@ const python_tree2 =  {
                             {
                                 "data": {
                                     "text": "tuple",
-                                    "expand": false,
                                     "ableToClick": true,
+                                    "pdfID": 7,
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "attribute"
+                                            "text": "attribute",
+                                            "ableToClick": true,
+                                            "testID": 30
                                         },
                                         "children": [
                                             {
@@ -1977,7 +2022,9 @@ const python_tree2 =  {
                                     },
                                     {
                                         "data": {
-                                            "text": "create"
+                                            "text": "create",
+                                            "ableToClick": true,
+                                            "testID": 31
                                         },
                                         "children": [
                                             {
@@ -1991,7 +2038,9 @@ const python_tree2 =  {
                                     },
                                     {
                                         "data": {
-                                            "text": "access"
+                                            "text": "access",
+                                            "ableToClick": true,
+                                            "testID": 32
                                         },
                                         "children": [
                                             {
@@ -2010,7 +2059,9 @@ const python_tree2 =  {
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "slicing"
+                                                    "text": "slicing",
+                                                    "ableToClick": true,
+                                                    "testID": 33
                                                 },
                                                 "children": [
                                                     {
@@ -2026,7 +2077,9 @@ const python_tree2 =  {
                                     },
                                     {
                                         "data": {
-                                            "text": "application"
+                                            "text": "application",
+                                            "ableToClick": true,
+                                            "testID": 34
                                         },
                                         "children": [
                                             {
@@ -2096,8 +2149,8 @@ const python_tree2 =  {
                             {
                                 "data": {
                                     "text": "set",
-                                    "expand": false,
                                     "ableToClick": true,
+                                    "pdfID": 8,
                                 },
                                 "children": [
                                     {
@@ -2107,7 +2160,9 @@ const python_tree2 =  {
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "attribute"
+                                                    "text": "attribute",
+                                                    "ableToClick": true,
+                                                    "testID": 35
                                                 },
                                                 "children": [
                                                     {
@@ -2121,7 +2176,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "create"
+                                                    "text": "create",
+                                                    "ableToClick": true,
+                                                    "testID": 36
                                                 },
                                                 "children": [
                                                     {
@@ -2147,7 +2204,9 @@ const python_tree2 =  {
                                                 "children": [
                                                     {
                                                         "data": {
-                                                            "text": "add"
+                                                            "text": "add",
+                                                            "ableToClick": true,
+                                                            "testID": 37
                                                         },
                                                         "children": [
                                                             {
@@ -2161,7 +2220,9 @@ const python_tree2 =  {
                                                     },
                                                     {
                                                         "data": {
-                                                            "text": "remove"
+                                                            "text": "remove",
+                                                            "ableToClick": true,
+                                                            "testID": 38
                                                         },
                                                         "children": [
                                                             {
@@ -2189,7 +2250,9 @@ const python_tree2 =  {
                                                     },
                                                     {
                                                         "data": {
-                                                            "text": "binary operation"
+                                                            "text": "binary operation",
+                                                            "ableToClick": true,
+                                                            "testID": 39
                                                         },
                                                         "children": [
                                                             {
@@ -2224,7 +2287,9 @@ const python_tree2 =  {
                                                     },
                                                     {
                                                         "data": {
-                                                            "text": "comparison"
+                                                            "text": "comparison",
+                                                            "ableToClick": true,
+                                                            "testID": 40
                                                         },
                                                         "children": [
                                                             {
@@ -2238,7 +2303,9 @@ const python_tree2 =  {
                                                     },
                                                     {
                                                         "data": {
-                                                            "text": "built-in methods"
+                                                            "text": "built-in methods",
+                                                            "ableToClick": true,
+                                                            "testID": 41
                                                         },
                                                         "children": [
                                                             {
@@ -2261,7 +2328,9 @@ const python_tree2 =  {
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "attribute"
+                                                    "text": "attribute",
+                                                    "ableToClick": true,
+                                                    "testID": 42
                                                 },
                                                 "children": [
                                                     {
@@ -2275,7 +2344,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "create"
+                                                    "text": "create",
+                                                    "ableToClick": true,
+                                                    "testID": 43
                                                 },
                                                 "children": [
                                                     {
@@ -2294,7 +2365,9 @@ const python_tree2 =  {
                                                 "children": [
                                                     {
                                                         "data": {
-                                                            "text": "comparison"
+                                                            "text": "comparison",
+                                                            "ableToClick": true,
+                                                            "testID": 44
                                                         },
                                                         "children": [
                                                             {
@@ -2308,7 +2381,9 @@ const python_tree2 =  {
                                                     },
                                                     {
                                                         "data": {
-                                                            "text": "built-in methods"
+                                                            "text": "built-in methods",
+                                                            "ableToClick": true,
+                                                            "testID": 45
                                                         },
                                                         "children": [
                                                             {
@@ -2329,13 +2404,15 @@ const python_tree2 =  {
                             {
                                 "data": {
                                     "text": "Dictionary",
-                                    "expand": false,
                                     "ableToClick": true,
+                                    "pdfID": 9,
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "attribute"
+                                            "text": "attribute",
+                                            "ableToClick": true,
+                                            "testID": 46
                                         },
                                         "children": [
                                             {
@@ -2349,7 +2426,9 @@ const python_tree2 =  {
                                     },
                                     {
                                         "data": {
-                                            "text": "create"
+                                            "text": "create",
+                                            "ableToClick": true,
+                                            "testID": 47
                                         },
                                         "children": [
                                             {
@@ -2370,7 +2449,9 @@ const python_tree2 =  {
                                     },
                                     {
                                         "data": {
-                                            "text": "access"
+                                            "text": "access",
+                                            "ableToClick": true,
+                                            "testID": 48
                                         },
                                         "children": [
                                             {
@@ -2389,7 +2470,9 @@ const python_tree2 =  {
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "test if key in dict"
+                                                    "text": "test if key in dict",
+                                                    "ableToClick": true,
+                                                    "testID": 49
                                                 },
                                                 "children": [
                                                     {
@@ -2403,7 +2486,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "add/modify"
+                                                    "text": "add/modify",
+                                                    "ableToClick": true,
+                                                    "testID": 50
                                                 },
                                                 "children": [
                                                     {
@@ -2417,7 +2502,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "delete"
+                                                    "text": "delete",
+                                                    "ableToClick": true,
+                                                    "testID": 51
                                                 },
                                                 "children": [
                                                     {
@@ -2438,7 +2525,9 @@ const python_tree2 =  {
                                             },
                                             {
                                                 "data": {
-                                                    "text": "built-in methods"
+                                                    "text": "built-in methods",
+                                                    "ableToClick": true,
+                                                    "testID": 52
                                                 },
                                                 "children": [
                                                     {
@@ -2462,31 +2551,31 @@ const python_tree2 =  {
     }
 }
 
-const python_tree3 ={
+const python_tree3 = {
     "root": {
         "data": {
             "text": "Ch 3 python basics",
-        "expand": true,
             "ableToClick": true,
-            "testID": 0,
+            "pdfID": 1,
         },
         "children": [
             {
                 "data": {
-                    "text": "control flow"
+                    "text": "control flow",
                 },
                 "children": [
                     {
                         "data": {
                             "text": "branch",
                             "ableToClick": true,
-                            "testID": 1,
+                            "pdfID": 2,
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "if",
-                                    "expand": false
+                                    "ableToClick": true,
+                                    "testID": 1,
                                 },
                                 "children": [
                                     {
@@ -2501,7 +2590,7 @@ const python_tree3 ={
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
-                                            },{
+                                            }, {
                                                 "data": {
                                                     "text": "expression",
                                                     "isExplainNode": true
@@ -2509,7 +2598,7 @@ const python_tree3 ={
                                                 "children": []
                                             }
                                         ]
-                                    },{
+                                    }, {
                                         "data": {
                                             "text": "statements",
                                             "isExplainNode": true
@@ -2520,18 +2609,24 @@ const python_tree3 ={
                             },
                             {
                                 "data": {
-                                    "text": "if .. else .."
+                                    "text": "if .. else ..",
+                                    "ableToClick": true,
+                                    "testID": 2,
                                 },
                                 "children": []
                             },
                             {
                                 "data": {
-                                    "text": "if .. elif .. else .."
+                                    "text": "if .. elif .. else ..",
+                                    "ableToClick": true,
+                                    "testID": 3,
                                 },
                                 "children": []
-                            },{
+                            }, {
                                 "data": {
-                                    "text": "nested"
+                                    "text": "nested",
+                                    "ableToClick": true,
+                                    "testID": 4,
                                 },
                                 "children": []
                             }
@@ -2541,13 +2636,14 @@ const python_tree3 ={
                         "data": {
                             "text": "loop",
                             "ableToClick": true,
-                            "testID": 2,
+                            "pdfID": 3,
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "while",
-                                    "expand": false
+                                    "ableToClick": true,
+                                    "testID": 5,
                                 },
                                 "children": [
                                     {
@@ -2563,7 +2659,7 @@ const python_tree3 ={
                                             "isExplainNode": true
                                         },
                                         "children": []
-                                    },{
+                                    }, {
                                         "data": {
                                             "text": "nested",
                                             "isExplainNode": true
@@ -2575,7 +2671,8 @@ const python_tree3 ={
                             {
                                 "data": {
                                     "text": "for",
-                                    "expand": false
+                                    "ableToClick": true,
+                                    "testID": 6,
                                 },
                                 "children": [
                                     {
@@ -2613,7 +2710,7 @@ const python_tree3 ={
                                             "isExplainNode": true
                                         },
                                         "children": []
-                                    },{
+                                    }, {
                                         "data": {
                                             "text": "nested",
                                             "isExplainNode": true
@@ -2625,13 +2722,13 @@ const python_tree3 ={
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
-                                            },{
+                                            }, {
                                                 "data": {
                                                     "text": "if .. else ..",
                                                     "isExplainNode": true
                                                 },
                                                 "children": []
-                                            },{
+                                            }, {
                                                 "data": {
                                                     "text": "while",
                                                     "isExplainNode": true
@@ -2648,24 +2745,30 @@ const python_tree3 ={
                         "data": {
                             "text": "control flow tools",
                             "ableToClick": true,
-                            "testID": 3,
+                            "pdfID": 4,
                         },
                         "children": [
                             {
                                 "data": {
-                                    "text": "break"
+                                    "text": "break",
+                                    "ableToClick": true,
+                                    "testID": 7,
                                 },
                                 "children": []
                             },
                             {
                                 "data": {
-                                    "text": "continue"
+                                    "text": "continue",
+                                    "ableToClick": true,
+                                    "testID": 8,
                                 },
                                 "children": []
                             },
                             {
                                 "data": {
-                                    "text": "pass"
+                                    "text": "pass",
+                                    "ableToClick": true,
+                                    "testID": 9,
                                 },
                                 "children": []
                             }
@@ -2682,7 +2785,8 @@ const python_tree3 ={
                         "data": {
                             "text": "algorithms",
                             "ableToClick": true,
-                            "testID": 4,
+                            "pdfID": 5,
+                            "testID": 10,
                         },
                         "children": [
                             {

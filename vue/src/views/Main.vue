@@ -14,7 +14,6 @@
     </el-aside>
     <el-main style="z-index: 1">
       <HelloWorld :index="index" :key="key"/>
-
     </el-main>
   </el-container>
 </template>

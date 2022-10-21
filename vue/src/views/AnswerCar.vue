@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="title">
-            python第{{ ChapterID }}章：{{ TestName }}
+            python第{{ ChapterID }}章  {{ TestName }}
         </div>
         <el-form class="main">
-            <P class="headline">客观题<span class="score" v-if="isSubmit">你的得分：{{ score }}</span></P>
+            <P class="headline">客观题<span class="score" v-if="isSubmit">正确率：{{ score }}</span></P>
             <!--单选题-->
             <el-form-item v-for="(t,i) in optQuesList" size="medium">
                 <P class="quesTitle" :class="{ 'wrongAns': checkResult.optQuesRes[i] === false }">
@@ -159,6 +159,8 @@ export default {
         this.UserID = this.$store.state.userInfo.userID;
         this.ChapterID = this.$route.query.ChapterID;
         this.TestID = this.$route.query.TestID;
+        // 获取知识点名字
+        this.TestName = this.$route.query.TestName;
         // 清空题目数组
         this.optQuesList = [];
         this.multiOptQuestList = [];
