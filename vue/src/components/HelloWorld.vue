@@ -9,25 +9,21 @@
             <div slot="title" class="drawer-title">{{ title }}</div>
             <div class="resourceBlock">
                 <!--pdf资源-->
-                <div v-if="hasPdf">
-                    <span slot="title" class="subtitle">Lecture</span>
-                    <router-link rel="external nofollow" target="_blank" v-for="(t,i) in pdfLink" :to="t">
-                        <canvas id="the-canvas" style="display: none"></canvas>
-                        <el-image :src="imgUrl" alt="pdf" width="100%" height="100%" fit="scale-down" class="pdf-img"/>
-                    </router-link>
-                    <el-divider/>
-                </div>
+                <span slot="title" class="subtitle">Lecture</span>
+                <router-link rel="external nofollow" target="_blank" v-for="(t,i) in pdfLink" :to="t">
+                    <canvas id="the-canvas" style="display: none"></canvas>
+                    <el-image :src="imgUrl" alt="pdf" width="100%" height="100%" fit="scale-down" class="pdf-img"/>
+                </router-link>
+                <el-divider/>
                 <!--视频资源-->
-                <div v-if="hasVideo">
-                    <span slot="title" class="subtitle">MOOC Resource</span>
-                    <el-divider/>
-                </div>
+                <span slot="title" class="subtitle">MOOC Resource</span>
+                <div class="content">对应的视频序号：{{ videoID }}</div>
+                <el-divider/>
                 <!--习题-->
-                <div v-if="hasExercise">
-                    <span slot="title" class="subtitle">Exercise</span>
-                    <router-link :to="answerLink" rel="external nofollow" target="_blank">Exercise Link</router-link>
-                    <el-divider/>
-                </div>
+                <span slot="title" class="subtitle">Exercise</span>
+
+                <router-link :to="answerLink" rel="external nofollow" target="_blank" class="content">Exercise Link</router-link>
+                <el-divider/>
             </div>
         </el-drawer>
 
@@ -58,9 +54,7 @@ export default {
             direction: 'rtl',
             title: '',
             mindMap: null,
-            hasPdf: false,
-            hasVideo: true,
-            hasExercise: false
+            videoID: ''
         }
     },
     mounted() {
@@ -106,15 +100,8 @@ export default {
             this.mindMap.on('node_click', (data) => {
                 if (data.ableToClick === true) {
                     this.title = data.nodeData.data.text;
-                    // 检查是否有习题
-                    this.hasExercise = (data.nodeData.data.testID !== undefined);
                     this.answerLink = `/answer?ChapterID=${this.$props.index + 1}&TestID=${data.nodeData.data.testID}&TestName=${this.title}`;
-                    // 检查是否有pdf
-                    this.hasPdf = (data.nodeData.data.pdfID !== undefined);
-                    if (this.hasPdf)
-                        this.getResources(this.$props.index + 1, data.nodeData.data.pdfID);
-                    // 检查是否有视频
-
+                    this.getResources(this.$props.index + 1, data.nodeData.data.testID);
 
                     // console.log("node_click", data);
                     this.drawer = true;
@@ -134,6 +121,7 @@ export default {
                     this.pdfLink = [];
                     res.data.data.resources.forEach((value) => {
                         this.pdfLink.push(value.FileName);
+                        this.videoID = value.Description;
                     });
                     this.pdfLink.forEach(value => this.showPdf(value));
                 }
@@ -243,6 +231,7 @@ a {
 .pdf-img {
     box-shadow: rgb(153 153 153) 0 0 3px 3px;
     border-radius: 6px;
+    margin-top: 10px;
 }
 
 .drawer-title {
@@ -265,13 +254,21 @@ a {
     color: #c1c1c1;
 }
 
-.resourceBlock > div > a {
-    text-decoration: none;
-    margin: 10px 0;
+.content {
+    margin-top: 0.4em;
     color: #fff;
     padding-left: 0;
     font-size: 1.3em;
     display: block;
+}
+
+.resourceBlock > a {
+    text-decoration: none;
+    color: #8180ff !important;
+}
+
+.resourceBlock > a:hover {
+    text-decoration: underline;
 }
 
 /deep/ .el-drawer.rtl {
