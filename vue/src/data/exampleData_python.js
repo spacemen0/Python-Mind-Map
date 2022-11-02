@@ -2904,7 +2904,7 @@ const python_tree4 = {
                                         ]
                                     }, {
                                         "data": {
-                                            "text": "pass data into a function"
+                                            "text": "function arguments"
                                         },
                                         "children": [
                                             {
