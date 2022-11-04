@@ -2839,8 +2839,7 @@ const python_tree3 = {
 const python_tree4 = {
     "root": {
         "data": {
-            "text": "Ch 4 python basics",
-            "expand": true
+            "text": "Ch 4 python basics"
         },
         "children": [
             {
@@ -2851,34 +2850,38 @@ const python_tree4 = {
                     {
                         "data": {
                             "text": "concept",
-                            "isExplainNode": true
+                            "isExplainNode":true
                         },
-                        "children": []
+                        "children":[]
                     },
                     {
                         "data": {
-                            "text": "function",
+                            "text": "function"
                         },
                         "children": [
                             {
                                 "data": {
                                     "text": "define",
-                                    "expand": false
+                                    "ableToClick": true,
+                                    "testID":1
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": " def / return"
+                                            "text": " def / return",
+                                            "isExplainNode":true
                                         },
                                         "children": []
-                                    }, {
+                                    },{
                                         "data": {
-                                            "text": "function name"
+                                            "text": "function name",
+                                            "isExplainNode":true
                                         },
                                         "children": []
-                                    }, {
+                                    },{
                                         "data": {
-                                            "text": "args"
+                                            "text": "args",
+                                            "isExplainNode":true
                                         },
                                         "children": []
                                     }
@@ -2886,59 +2889,70 @@ const python_tree4 = {
                             },
                             {
                                 "data": {
-                                    "text": "call",
-                                    "expand": false
+                                    "text": "call"
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "interface"
+                                            "text": "interface",
+                                            "ableToClick": true,
+                                            "testID":2
                                         },
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "input / return"
+                                                    "text": "input / return",
+                                                    "isExplainNode":true
                                                 },
-                                                "children": []
+                                                "children":[]
                                             }
                                         ]
-                                    }, {
+                                    },{
                                         "data": {
                                             "text": "function arguments"
                                         },
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "Required argument"
+                                                    "text": "Required argument",
+                                                    "ableToClick": true,
+                                                    "testID":3
                                                 },
                                                 "children": [
                                                     {
                                                         "data": {
-                                                            "text": "direct pass"
+                                                            "text": "direct pass",
+                                                            "isExplainNode":true
                                                         },
                                                         "children": []
-                                                    }, {
+                                                    },{
                                                         "data": {
-                                                            "text": "by reference"
+                                                            "text": "by reference",
+                                                            "isExplainNode":true
                                                         },
                                                         "children": []
                                                     }
                                                 ]
-                                            }, {
+                                            },{
                                                 "data": {
-                                                    "text": "Keyword argument"
+                                                    "text": "Keyword argument",
+                                                    "ableToClick": true,
+                                                    "testID":4
                                                 },
                                                 "children": [
                                                     {
                                                         "data": {
-                                                            "text": "keyword : value"
+                                                            "text": "keyword : value",
+                                                            "isExplainNode":true
                                                         },
                                                         "children": []
                                                     }
                                                 ]
-                                            }, {
+                                            },{
                                                 "data": {
-                                                    "text": "Recursion"
+                                                    "text": "Recursion",
+                                                    "ableToClick": true,
+                                                    "testID":5
                                                 },
                                                 "children": []
                                             }
@@ -2948,26 +2962,30 @@ const python_tree4 = {
                             },
                             {
                                 "data": {
-                                    "text": "Variable Scope",
-                                    "expand": false
+                                    "text": "Variable Scope"
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "local scope"
+                                            "text": "local scope",
+                                            "ableToClick": true,
+                                            "testID":6
                                         },
                                         "children": []
-                                    }, {
+                                    },{
                                         "data": {
-                                            "text": "global scope"
+                                            "text": "global scope",
+                                            "ableToClick": true,
+                                            "testID":7
                                         },
                                         "children": []
                                     }
                                 ]
-                            }, {
+                            },{
                                 "data": {
                                     "text": "lambda",
-                                    "expand": false
+                                    "ableToClick": true,
+                                    "testID":8
                                 },
                                 "children": []
                             }
@@ -2975,76 +2993,47 @@ const python_tree4 = {
                     },
                     {
                         "data": {
-                            "text": "module",
+                            "text": "module"
                         },
                         "children": [
                             {
                                 "data": {
-                                    "text": "define",
-                                    "expand": false
+                                    "text": "define"
                                 },
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "pyfile"
+                                            "text": "pyfile",
+                                            "ableToClick": true,
+                                            "testID": 9
                                         },
                                         "children": []
                                     }, {
                                         "data": {
-                                            "text": "content"
+                                            "text": "content",
+                                            "ableToClick": true,
+                                            "testID": 10
                                         },
                                         "children": [
                                             {
                                                 "data": {
-                                                    "text": "function / class / variable"
+                                                    "text": "function / class / variable",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": []
                                             }, {
                                                 "data": {
-                                                    "text": "runnable code"
+                                                    "text": "runnable code",
+                                                    "isExplainNode": true
                                                 },
                                                 "children": []
                                             }
                                         ]
                                     }
                                 ]
-                            },
-                            {
-                                "data": {
-                                    "text": "import",
-                                    "expand": false
-                                },
-                                "children": [
-                                    {
-                                        "data": {
-                                            "text": "function"
-                                        },
-                                        "children": []
-                                    }, {
-                                        "data": {
-                                            "text": "variable"
-                                        },
-                                        "children": []
-                                    }, {
-                                        "data": {
-                                            "text": "runnable code"
-                                        },
-                                        "children": [
-                                            {
-                                                "data": {
-                                                    "text": "__main__",
-                                                    "isExplainNode": true
-                                                },
-                                                "children": []
-                                            }]
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+                            }]
+                    }]
+            }]
     }
 }
 

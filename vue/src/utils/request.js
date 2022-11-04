@@ -10,10 +10,6 @@ const request = axios.create({
 
 //设置axios请求头加入token
 request.interceptors.request.use(config => {
-        // console.log('config', config);
-        // if (config.push === '/') {
-        // } else {
-
         if (config.url !== '/api/login') {
             if (localStorage.getItem('token')) {
                 //在请求头加入token，名字要和后端接收请求头的token名字一样
@@ -23,7 +19,6 @@ request.interceptors.request.use(config => {
             } else
                 console.log('no token');
         }
-        // }
         return config;
     },
     error => {
@@ -40,7 +35,8 @@ request.interceptors.response.use(response => {
             //清除token
             localStorage.removeItem('token');
             //跳转
-            router.push({name: 'login'}).then(r => {});
+            router.push({name: 'login'}).then(r => {
+            });
         } else {
             return response
         }

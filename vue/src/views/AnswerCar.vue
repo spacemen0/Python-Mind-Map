@@ -1,7 +1,8 @@
 <template>
     <div>
         <div class="title">
-            python第{{ ChapterID }}章  {{ TestName }}
+            <div>python第{{ ChapterID }}章</div>
+            <div>{{ TestName }}</div>
         </div>
         <el-form class="main">
             <P class="headline">客观题<span class="score" v-if="isSubmit">正确率：{{ score }}</span></P>
@@ -510,7 +511,7 @@ export default {
 }
 
 .subBtn {
-    width: 15%;
+    /*width: 15%;*/
     font-size: 20px;
 }
 

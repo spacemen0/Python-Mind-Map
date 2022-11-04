@@ -100,6 +100,7 @@ export default {
             this.mindMap.on('node_click', (data) => {
                 if (data.ableToClick === true) {
                     this.title = data.nodeData.data.text;
+                    this.imgUrl = '';
                     this.answerLink = `/answer?ChapterID=${this.$props.index + 1}&TestID=${data.nodeData.data.testID}&TestName=${this.title}`;
                     this.getResources(this.$props.index + 1, data.nodeData.data.testID);
 
