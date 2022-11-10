@@ -2850,9 +2850,9 @@ const python_tree4 = {
                     {
                         "data": {
                             "text": "concept",
-                            "isExplainNode":true
+                            "isExplainNode": true
                         },
-                        "children":[]
+                        "children": []
                     },
                     {
                         "data": {
@@ -2863,25 +2863,25 @@ const python_tree4 = {
                                 "data": {
                                     "text": "define",
                                     "ableToClick": true,
-                                    "testID":1
+                                    "testID": 1
                                 },
                                 "children": [
                                     {
                                         "data": {
                                             "text": " def / return",
-                                            "isExplainNode":true
+                                            "isExplainNode": true
                                         },
                                         "children": []
-                                    },{
+                                    }, {
                                         "data": {
                                             "text": "function name",
-                                            "isExplainNode":true
+                                            "isExplainNode": true
                                         },
                                         "children": []
-                                    },{
+                                    }, {
                                         "data": {
                                             "text": "args",
-                                            "isExplainNode":true
+                                            "isExplainNode": true
                                         },
                                         "children": []
                                     }
@@ -2896,18 +2896,18 @@ const python_tree4 = {
                                         "data": {
                                             "text": "interface",
                                             "ableToClick": true,
-                                            "testID":2
+                                            "testID": 2
                                         },
                                         "children": [
                                             {
                                                 "data": {
                                                     "text": "input / return",
-                                                    "isExplainNode":true
+                                                    "isExplainNode": true
                                                 },
-                                                "children":[]
+                                                "children": []
                                             }
                                         ]
-                                    },{
+                                    }, {
                                         "data": {
                                             "text": "function arguments"
                                         },
@@ -2916,43 +2916,43 @@ const python_tree4 = {
                                                 "data": {
                                                     "text": "Required argument",
                                                     "ableToClick": true,
-                                                    "testID":3
+                                                    "testID": 3
                                                 },
                                                 "children": [
                                                     {
                                                         "data": {
                                                             "text": "direct pass",
-                                                            "isExplainNode":true
+                                                            "isExplainNode": true
                                                         },
                                                         "children": []
-                                                    },{
+                                                    }, {
                                                         "data": {
                                                             "text": "by reference",
-                                                            "isExplainNode":true
+                                                            "isExplainNode": true
                                                         },
                                                         "children": []
                                                     }
                                                 ]
-                                            },{
+                                            }, {
                                                 "data": {
                                                     "text": "Keyword argument",
                                                     "ableToClick": true,
-                                                    "testID":4
+                                                    "testID": 4
                                                 },
                                                 "children": [
                                                     {
                                                         "data": {
                                                             "text": "keyword : value",
-                                                            "isExplainNode":true
+                                                            "isExplainNode": true
                                                         },
                                                         "children": []
                                                     }
                                                 ]
-                                            },{
+                                            }, {
                                                 "data": {
                                                     "text": "Recursion",
                                                     "ableToClick": true,
-                                                    "testID":5
+                                                    "testID": 5
                                                 },
                                                 "children": []
                                             }
@@ -2969,23 +2969,23 @@ const python_tree4 = {
                                         "data": {
                                             "text": "local scope",
                                             "ableToClick": true,
-                                            "testID":6
+                                            "testID": 6
                                         },
                                         "children": []
-                                    },{
+                                    }, {
                                         "data": {
                                             "text": "global scope",
                                             "ableToClick": true,
-                                            "testID":7
+                                            "testID": 7
                                         },
                                         "children": []
                                     }
                                 ]
-                            },{
+                            }, {
                                 "data": {
                                     "text": "lambda",
                                     "ableToClick": true,
-                                    "testID":8
+                                    "testID": 8
                                 },
                                 "children": []
                             }
@@ -3037,6 +3037,470 @@ const python_tree4 = {
     }
 }
 
+const python_tree5 = {
+    "root": {
+        "data": {
+            "text": "Ch5 file reading & writing-file object"
+        },
+        "children": [
+            {
+                "data": {
+                    "text": "file path",
+                    "ableToClick": true,
+                    "testID": 1
+
+                },
+                "children": [
+                    {
+                        "data": {
+                            "text": "folder path",
+                            "isExplainNode": true
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "text": "absolute path",
+                                    "isExplainNode": true
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "text": "relative path",
+                                    "isExplainNode": true
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "text": "file name",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "text": "extension",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "text": "open file",
+                    "ableToClick": true,
+                    "testID": 2
+                },
+                "children": [
+                    {
+                        "data": {
+                            "text": "open()",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "text": "open mode",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "text": "read file",
+                    "ableToClick": true,
+                    "testID": 3
+                },
+                "children": [
+                    {
+                        "data": {
+                            "text": "f.read()",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "text": "f.readline()",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "text": "f.readlines()",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "text": "close file",
+                    "ableToClick": true,
+                    "testID": 4
+                },
+                "children": [
+                    {
+                        "data": {
+                            "text": "f.close()",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "text": "write file",
+                    "ableToClick": true,
+                    "testID": 5
+                },
+                "children": [
+                    {
+                        "data": {
+                            "text": "f.write()",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "text": "f.writelines()",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "text": "file operation",
+                    "ableToClick": true,
+                    "testID": 6
+                },
+                "children": [
+                    {
+                        "data": {
+                            "text": "f.tell()",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "text": "f.seek()",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "text": "os,chdir()",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    },
+                    {
+                        "data": {
+                            "text": "os.rename()",
+                            "isExplainNode": true
+                        },
+                        "children": []
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+const python_tree6 = {
+    "root": {
+        "data": {
+            "text": "Ch6 - OOP"
+        },
+        "children": [
+            {
+                "data": {
+                    "text": "concept",
+                    "isExplainNode": true
+                },
+                "children": [
+                    {
+                        "data": {
+                            "text": "class",
+                            "isExplainNode": true
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "text": "abstraction of a type",
+                                    "isExplainNode": true
+                                },
+                                "children": []
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "text": "object",
+                            "isExplainNode": true
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "text": "individuals of a type",
+                                    "isExplainNode": true
+                                },
+                                "children": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "data": {
+                    "text": "oop programming"
+                },
+                "children": [
+                    {
+                        "data": {
+                            "text": "define a class"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "text": "attributes"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "text": "class attributes"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "text": "immutable",
+                                                    "isExplainNode": true
+                                                },
+                                                "children": []
+                                            },
+                                            {
+                                                "data": {
+                                                    "text": "mutable",
+                                                    "isExplainNode": true
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "text": "instance attributes"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "text": "unique to instance",
+                                                    "isExplainNode": true
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "text": "methods/functions"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "text": "constructor method"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "text": "def __init__(self, aug1, aug2,...)",
+                                                    "isExplainNode": true
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "text": "user-defined methods"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "text": "def <func>(self, aug1, aug2,...)",
+                                                    "isExplainNode": true
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "text": "getter methods"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "text": "def get_<attribute>(self)",
+                                                    "isExplainNode": true
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "text": "setter methods"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "text": "def set_<attribute>(self, new_value)",
+                                                    "isExplainNode": true
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "text": "print methods"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "text": "def __str__(self)",
+                                                    "isExplainNode": true
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "text": "create object"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "text": "class attributes",
+                                    "isExplainNode": true
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "text": "instance attributes",
+                                    "isExplainNode": true
+                                },
+                                "children": []
+                            },
+                            {
+                                "data": {
+                                    "text": "method"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "text": "immutable",
+                                            "isExplainNode": true
+                                        },
+                                        "children": []
+                                    },
+                                    {
+                                        "data": {
+                                            "text": "mutable",
+                                            "isExplainNode": true
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "data": {
+                            "text": "hierarchy"
+                        },
+                        "children": [
+                            {
+                                "data": {
+                                    "text": "parent class"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "text": "super().<func>(aug1, aug2,...)",
+                                            "isExplainNode": true
+                                        },
+                                        "children": []
+                                    }
+                                ]
+                            },
+                            {
+                                "data": {
+                                    "text": "subclass"
+                                },
+                                "children": [
+                                    {
+                                        "data": {
+                                            "text": "add new functions"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "text": "def <newfunc>(self, aug1, aug2,...)",
+                                                    "isExplainNode": true
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "data": {
+                                            "text": "override"
+                                        },
+                                        "children": [
+                                            {
+                                                "data": {
+                                                    "text": "def <func_from_parent>(self, aug1, aug2,...)",
+                                                    "isExplainNode": true
+                                                },
+                                                "children": []
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
+
 export default {
     python_trees: [
         {
@@ -3078,7 +3542,28 @@ export default {
                 }
             },
             "layout": "logicalStructure",
+        },
+        {
+            ...python_tree5,
+            "theme": {
+                "template": "diyColor",
+                "config": {
+                    // 自定义配置...
+                }
+            },
+            "layout": "logicalStructure",
+        },
+        {
+            ...python_tree6,
+            "theme": {
+                "template": "diyColor",
+                "config": {
+                    // 自定义配置...
+                }
+            },
+            "layout": "logicalStructure",
         }
+
     ]
 
 
