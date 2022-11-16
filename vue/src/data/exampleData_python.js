@@ -3283,7 +3283,9 @@ const python_tree6 = {
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "class attributes"
+                                            "text": "class attributes",
+                                            "ableToClick": true,
+                                            "testID": 1
                                         },
                                         "children": [
                                             {
@@ -3304,7 +3306,9 @@ const python_tree6 = {
                                     },
                                     {
                                         "data": {
-                                            "text": "instance attributes"
+                                            "text": "instance attributes",
+                                            "ableToClick": true,
+                                            "testID": 2
                                         },
                                         "children": [
                                             {
@@ -3325,7 +3329,9 @@ const python_tree6 = {
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "constructor method"
+                                            "text": "constructor method",
+                                            "ableToClick": true,
+                                            "testID": 3
                                         },
                                         "children": [
                                             {
@@ -3339,7 +3345,9 @@ const python_tree6 = {
                                     },
                                     {
                                         "data": {
-                                            "text": "user-defined methods"
+                                            "text": "user-defined methods",
+                                            "ableToClick": true,
+                                            "testID": 4
                                         },
                                         "children": [
                                             {
@@ -3353,7 +3361,9 @@ const python_tree6 = {
                                     },
                                     {
                                         "data": {
-                                            "text": "getter methods"
+                                            "text": "getter methods",
+                                            "ableToClick": true,
+                                            "testID": 5
                                         },
                                         "children": [
                                             {
@@ -3367,7 +3377,9 @@ const python_tree6 = {
                                     },
                                     {
                                         "data": {
-                                            "text": "setter methods"
+                                            "text": "setter methods",
+                                            "ableToClick": true,
+                                            "testID": 6
                                         },
                                         "children": [
                                             {
@@ -3381,7 +3393,9 @@ const python_tree6 = {
                                     },
                                     {
                                         "data": {
-                                            "text": "print methods"
+                                            "text": "print methods",
+                                            "ableToClick": true,
+                                            "testID": 7
                                         },
                                         "children": [
                                             {
@@ -3418,7 +3432,9 @@ const python_tree6 = {
                             },
                             {
                                 "data": {
-                                    "text": "method"
+                                    "text": "method",
+                                    "ableToClick": true,
+                                    "testID": 8
                                 },
                                 "children": [
                                     {
@@ -3446,7 +3462,9 @@ const python_tree6 = {
                         "children": [
                             {
                                 "data": {
-                                    "text": "parent class"
+                                    "text": "parent class",
+                                    "ableToClick": true,
+                                    "testID": 9
                                 },
                                 "children": [
                                     {
@@ -3465,7 +3483,9 @@ const python_tree6 = {
                                 "children": [
                                     {
                                         "data": {
-                                            "text": "add new functions"
+                                            "text": "add new functions",
+                                            "ableToClick": true,
+                                            "testID": 10
                                         },
                                         "children": [
                                             {
@@ -3479,7 +3499,9 @@ const python_tree6 = {
                                     },
                                     {
                                         "data": {
-                                            "text": "override"
+                                            "text": "override",
+                                            "ableToClick": true,
+                                            "testID": 11
                                         },
                                         "children": [
                                             {

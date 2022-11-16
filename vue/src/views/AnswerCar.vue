@@ -9,8 +9,12 @@
             <!--单选题-->
             <el-form-item v-for="(t,i) in optQuesList" size="medium">
                 <P class="quesTitle" :class="{ 'wrongAns': checkResult.optQuesRes[i] === false }">
-                    <span class="quesNum">{{ t.number }}</span>{{ t.title }} <i v-if="checkResult.optQuesRes[i] === false" class="el-icon-close"></i>
+                    <span class="quesNum question">{{ t.number }}</span>
+                    <span class="question" v-html="t.title"></span>
+                    <i v-if="checkResult.optQuesRes[i] === false" class="el-icon-close"></i>
+                    <el-image v-if="t.imgurl !== ''" :src="t.imgurl" alt="题目图片" fit="none" class="question-img"/>
                 </P>
+                <br/>
                 <el-radio-group v-model="optAns[i]">
                     <div v-for="(e,j) in t.options">
                         <el-radio :label="getAlpha(j)" size="medium">
@@ -25,8 +29,11 @@
             <!--多选题-->
             <el-form-item v-for="(t,i) in multiOptQuestList" size="medium">
                 <P class="quesTitle" :class="{ 'wrongAns': checkResult.multiOptQuesRes[i] === false }">
-                    <span class="quesNum">{{ t.number }}</span>（多选）{{ t.title }} <i v-if="checkResult.multiOptQuesRes[i] === false" class="el-icon-close"></i>
+                    <span class="quesNum question">{{ t.number }}</span>（多选）<span class="question" v-html="t.title"></span>
+                    <i v-if="checkResult.multiOptQuesRes[i] === false" class="el-icon-close"></i>
+                    <el-image v-if="t.imgurl !== ''" :src="t.imgurl" alt="题目图片" fit="none" class="question-img"/>
                 </P>
+                <br/>
                 <el-checkbox-group v-model="multiAns[i]" size="medium">
                     <div v-for="(e,j) in t.options">
                         <el-checkbox :label="getAlpha(j)" size="medium">
@@ -41,7 +48,7 @@
             <!--判断题-->
             <el-form-item v-for="(t,i) in TFQuestionList" size="medium">
                 <P class="quesTitle" :class="{ 'wrongAns': checkResult.TFQuesRes[i] === false }">
-                    <span class="quesNum">{{ t.number }}</span>{{ t.title }} <i v-if="checkResult.TFQuesRes[i] === false" class="el-icon-close"></i>
+                    <span class="quesNum question">{{ t.number }}</span><span class="question" v-html="t.title"></span> <i v-if="checkResult.TFQuesRes[i] === false" class="el-icon-close"></i>
                 </P>
                 <el-radio-group v-model="TFAns[i]">
                     <div>
@@ -57,7 +64,7 @@
             <!--填空题-->
             <el-form-item v-for="(t,i) in blankQuesList">
                 <P class="quesTitle" :class="{ 'wrongAns': checkResult.blanQuesRes[i] === false }">
-                    <span class="quesNum">{{ t.number }}</span>{{ t.title }} <i v-if="checkResult.blanQuesRes[i] === false" class="el-icon-close"></i>
+                    <span class="quesNum question">{{ t.number }}</span><span class="question" v-html="t.title"></span> <i v-if="checkResult.blanQuesRes[i] === false" class="el-icon-close"></i>
                 </P>
                 <el-input size="medium" v-model="blanAns[i]" clearable style="width: 50%"></el-input>
                 <div v-if="isSubmit" class="correctAnswer">正确答案：{{ correctAnswers[3][i] }}</div>
@@ -70,7 +77,7 @@
             <!--编程题-->
             <P class="headline" v-if="programQuestList.length > 0">编程题<span style="font-size: 0.8em; font-weight: normal">（将代码文件上传即可）</span></P>
             <el-form-item v-for="(t,i) in programQuestList">
-                <P class="quesTitle"><span class="quesNum">{{ t.number }}</span>{{ t.title }}</P>
+                <P class="quesTitle"><span class="quesNum question">{{ t.number }}</span><span class="question" v-html="t.title"></span></P>
                 <el-upload class="upload-demo" drag :limit="1" :file-list="codefileList[i]" show-file-list :auto-upload="false"
                            :on-error="uploadError" :on-success="uploadSuccess" action="#"
                            :on-change="(file, fileList)=>{return handleChange(file, fileList, i)}" :on-remove="(file, fileList)=>{return fileRemove(file, fileList, i)}">
@@ -118,7 +125,8 @@ export default {
             optQuestion: {
                 number: 0,
                 title: '',
-                options: []
+                options: [],
+                imgurl: ''
             },
             // 多选题数组
             multiOptQuestList: [],
@@ -179,20 +187,35 @@ export default {
                 this.blanAns = [];
                 for (let e of res.data.data.questions) {
                     let array = e.Description.split('@');
+                    for (let e of array)
+                        e = e.replaceAll('\\n', '<br>');
                     switch (e.QuestionType) {
                         // 单选题
-                        case 0: {
+                        case 0:
+                        case 4: {
                             this.optQuestion.title = array[0];
-                            this.optQuestion.options = array.slice(1);
+                            // 若带图片
+                            if (e.QuestionType === 4) {
+                                this.optQuestion.options = array.slice(1, -1);
+                                this.optQuestion.imgurl = array.at(-1);
+                            } else {
+                                this.optQuestion.options = array.slice(1);
+                            }
                             this.optQuestion.number = e.QuestionNumber;
                             this.optQuesList.push(deepCopy(this.optQuestion));
                             this.optAns.push('');
                             break;
                         }
                         // 多选题
-                        case 1: {
+                        case 1:
+                        case 5: {
                             this.optQuestion.title = array[0];
-                            this.optQuestion.options = array.slice(1);
+                            if (e.QuestionType === 5) {
+                                this.optQuestion.options = array.slice(1, -1);
+                                this.optQuestion.imgurl = array.at(-1);
+                            } else {
+                                this.optQuestion.options = array.slice(1);
+                            }
                             this.optQuestion.number = e.QuestionNumber;
                             this.multiOptQuestList.push(deepCopy(this.optQuestion));
                             this.multiAns.push([]);
@@ -215,7 +238,7 @@ export default {
                             break;
                         }
                         // 编程题
-                        case  4: {
+                        case  9: {
                             this.blankQuestion.title = array[0];
                             this.blankQuestion.number = e.QuestionNumber;
                             this.programQuestList.push(deepCopy(this.blankQuestion));
@@ -438,6 +461,15 @@ export default {
     font-size: 24px;
 }
 
+.question-img {
+    margin-left: 20px;
+    display: inline-table
+}
+
+.question {
+    display: inline-flex;
+}
+
 .option {
     margin-left: 0.5em;
 }
@@ -481,7 +513,6 @@ export default {
     font-size: 1.15em;
     margin-right: 20px;
     vertical-align: baseline;
-
 }
 
 .headline {
@@ -493,7 +524,8 @@ export default {
     font-size: 20px;
     margin-top: 10px;
     margin-bottom: 0;
-    line-height: 2
+    line-height: 1.5;
+    white-space: pre-wrap !important;
 }
 
 .wrongAns {
