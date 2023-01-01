@@ -118,8 +118,8 @@ export default {
 
 .btn {
     width: 95%;
-    height: 2.7em;
-    font-size: 1.5em;
+    height: 2.2em;
+    font-size: 20px;
     border-radius: 5px;
 }
 
@@ -128,7 +128,7 @@ export default {
     font-size: 50px;
     color: #fafafa;
     position: relative;
-    top: 6%;
+    /*top: 6%;*/
 }
 
 /*.login {*/
@@ -141,20 +141,20 @@ export default {
 /*}*/
 
 /deep/ .el-form-item__label {
-    font-size: 22px;
+    font-size: 19px;
     /*width: 3em*/
 }
 
 /deep/ .el-input__inner {
-    font-size: 22px;
-    height: 50px;
-    line-height: 50px;
+    font-size: 19px;
+    height: 40px;
+    line-height: 40px;
 }
 
 .el-form {
     width: 20vw;
     margin: 8vh auto;
-    padding: 3em 2em 1em 2em;
+    padding: 1.5em 2em 0.5em 2em;
     background: #fafafa;
     border: 1px solid #ebebeb;
     box-shadow: rgba(0, 0, 0, 0.14902) 0 1px 1px 0, rgba(0, 0, 0, 0.09804) 0 1px 2px 0;
@@ -174,7 +174,7 @@ export default {
 .el-main {
     color: #333;
     text-align: center;
-    line-height: 160px;
+    /*line-height: 160px;*/
     width: 50%;
     height: 100vh;
     /*background: #eee;*/
