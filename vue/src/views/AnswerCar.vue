@@ -14,7 +14,7 @@
                     <i v-if="checkResult.optQuesRes[i] === false" class="el-icon-close"></i>
                     <el-image v-if="t.imgurl !== ''" :src="t.imgurl" alt="题目图片" fit="none" class="question-img"/>
                 </P>
-                <br/>
+                <!--<br/>-->
                 <el-radio-group v-model="optAns[i]">
                     <div v-for="(e,j) in t.options">
                         <el-radio :label="getAlpha(j)" size="medium">
@@ -33,7 +33,7 @@
                     <i v-if="checkResult.multiOptQuesRes[i] === false" class="el-icon-close"></i>
                     <el-image v-if="t.imgurl !== ''" :src="t.imgurl" alt="题目图片" fit="none" class="question-img"/>
                 </P>
-                <br/>
+                <!--<br/>-->
                 <el-checkbox-group v-model="multiAns[i]" size="medium">
                     <div v-for="(e,j) in t.options">
                         <el-checkbox :label="getAlpha(j)" size="medium">
@@ -353,6 +353,9 @@ export default {
                     this.correctAnswers.push(corAns.slice(i1, i2));
                     this.correctAnswers.push(corAns.slice(i2, i3));
                     this.correctAnswers.push(corAns.slice(i3, i4));
+                    this.correctAnswers[2].forEach((value, index, array) => {
+                        array[index] = (value === "1");
+                    });
 
                     // 获取用户答题正误结果，并转换成所需格式
                     let checkResult0 = res.data.data['result'];
@@ -467,7 +470,7 @@ export default {
 }
 
 .question {
-    display: inline-flex;
+    /*display: inline-flex;*/
 }
 
 .option {
