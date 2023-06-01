@@ -10,9 +10,9 @@
             <div class="resourceBlock">
                 <!--pdf资源-->
                 <span slot="title" class="subtitle">Lecture</span>
-                <router-link rel="external nofollow" target="_blank" v-for="(t,i) in pdfLink" :to="t" v-if="t !== '0'">
+                <router-link rel="external nofollow" target="_blank" v-for="(t,i) in pdfLink" :to="t">
                     <canvas id="the-canvas" style="display: none"></canvas>
-                    <el-image  :src="imgUrl" alt="pdf" width="100%" height="100%" fit="scale-down" class="pdf-img"/>
+                    <el-image :src="imgUrl" alt="pdf" width="100%" height="100%" fit="scale-down" class="pdf-img"/>
                 </router-link>
                 <el-divider/>
                 <!--视频资源-->

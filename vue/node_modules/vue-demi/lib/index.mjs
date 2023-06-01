@@ -1,51 +1,28 @@
 import Vue from 'vue'
+import VueCompositionAPI from '@vue/composition-api/dist/vue-composition-api.mjs'
+
+function install(_vue) {
+  _vue = _vue || Vue
+  if (_vue && !_vue['__composition_api_installed__'])
+    _vue.use(VueCompositionAPI)
+}
+
+install(Vue)
 
 var isVue2 = true
 var isVue3 = false
 var Vue2 = Vue
-var warn = Vue.util.warn
+var version = Vue.version
 
-function install() {}
+/**VCA-EXPORTS**/
+export { EffectScope, computed, createApp, createRef, customRef, defineAsyncComponent, defineComponent, del, effectScope, getCurrentInstance, getCurrentScope, h, inject, isRaw, isReactive, isReadonly, isRef, markRaw, nextTick, onActivated, onBeforeMount, onBeforeUnmount, onBeforeUpdate, onDeactivated, onErrorCaptured, onMounted, onScopeDispose, onServerPrefetch, onUnmounted, onUpdated, provide, proxyRefs, reactive, readonly, ref, set, shallowReactive, shallowReadonly, shallowRef, toRaw, toRef, toRefs, triggerRef, unref, useAttrs, useCSSModule, useCssModule, useSlots, warn, watch, watchEffect, watchPostEffect, watchSyncEffect } from '@vue/composition-api/dist/vue-composition-api.mjs'
+/**VCA-EXPORTS**/
 
-// createApp polyfill
-export function createApp(rootComponent, rootProps) {
-  var vm
-  var provide = {}
-  var app = {
-    config: Vue.config,
-    use: Vue.use.bind(Vue),
-    mixin: Vue.mixin.bind(Vue),
-    component: Vue.component.bind(Vue),
-    provide: function (key, value) {
-      provide[key] = value
-      return this
-    },
-    directive: function (name, dir) {
-      if (dir) {
-        Vue.directive(name, dir)
-        return app
-      } else {
-        return Vue.directive(name)
-      }
-    },
-    mount: function (el, hydrating) {
-      if (!vm) {
-        vm = new Vue(Object.assign({ propsData: rootProps }, rootComponent, { provide: Object.assign(provide, rootComponent.provide) }))
-        vm.$mount(el, hydrating)
-        return vm
-      } else {
-        return vm
-      }
-    },
-    unmount: function () {
-      if (vm) {
-        vm.$destroy()
-        vm = undefined
-      }
-    },
-  }
-  return app
+export {
+  Vue,
+  Vue2,
+  isVue2,
+  isVue3,
+  version,
+  install,
 }
-
-export { Vue, Vue2, isVue2, isVue3, install, warn }
-export * from 'vue'
