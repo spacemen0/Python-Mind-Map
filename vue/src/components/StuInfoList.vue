@@ -4,6 +4,7 @@
             <el-menu mode="vertical" class="menu">
                 <el-menu-item @click="() => {return getdata(1)}">1班</el-menu-item>
                 <el-menu-item @click="() => {return getdata(2)}">2班</el-menu-item>
+                <el-menu-item @click="() => {return getdata(3)}">环境全英班</el-menu-item>
             </el-menu>
         </el-aside>
         <el-main>
