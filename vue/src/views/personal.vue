@@ -21,7 +21,7 @@
     </el-aside>
     <el-main style="z-index: 1">
       <el-select v-if="UserID=='100000000000'" v-model="value" placeholder="请选择" @change="drawLine()">
-        
+        <!-- 判断是否是管理员账户 -->
         <el-option
 
       v-for="item in options"
@@ -46,28 +46,14 @@ export default {
     // 基于准备好的dom，初始化echarts实例
     this.echartsInstance = this.$echarts.init(document.getElementById("myChart"));
     this.UserID=this.$store.state.userInfo.userID;
+    this.fetchClassList(); // 调用获取班级名单的方法
     this.drawLine();
   },
   data() {
     return {
       UserID: '',
-      options: [{
-          value: '100000000000',
-          label: '100000000000'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value: '100000000000',
+      options: [],
+      value: null,
       echartsInstance: null,
       drawer: true,
       direction: "rtl",
@@ -76,15 +62,34 @@ export default {
       courseName: "python",
       index: 0,
       key: 0,
-      ChapNum: 4,
+      ChapNum: 6,
     };
   },
   methods: {
+    fetchClassList() {
+      // 调用 API 获取班级名单数据
+      request.get("/admin/getstudents", {
+          params: {
+            //请求参数（条件查询）
+            ClassID: 3
+          },
+        }).then((res) => {
+          console.log(res.data)
+      this.options = res.data.data.user.map((student) => {
+        return {
+          value: parseInt(student.StudentID),
+          label: student.StudentName
+        };
+      });
+    }).catch((error) => {
+      console.error("Failed to fetch class list:", error);
+    });
+  },
+
     drawLine() {
 
       //分页查询axios请求方式
-      request
-        .get("/user/getcrbystudentandchapter", {
+      request.get("/user/getcrbystudentandchapter", {
           params: {
             //请求参数（条件查询）
             UserID: this.UserID=="100000000000"? this.value:this.$store.state.userInfo.userID,
@@ -93,26 +98,24 @@ export default {
         })
         .then((res) => {
           console.log(res)
-          //this.tableData = res.records;
-          //this.total = res.total;
-          
-
+  
       this.echartsInstance.setOption({
+        //画图
         title: { text: "个人完成情况" },
         dataset: {
           source: [
             ["amount", "product"],
-            ...res.data.data.CompletionRate.map(({ Value, Chapter, Test }) => [Value, Chapter + ' ' + Test])
+            ...res.data.data.CompletionRate.map(({ Value, Chapter, Test }) => [Value,'Chapter'+Chapter + '   Test' + Test])
           ],
         },
         grid: { containLabel: true },
-        xAxis: { name: "amount" },
+        xAxis: { name: "个人完成率" },
         yAxis: { type: "category" },
         visualMap: {
           orient: "horizontal",
           left: "center",
-          min: 10,
-          max: 100,
+          min: 0,
+          max: 1,
           text: ["High Score", "Low Score"],
           // Map the score column to color
           dimension: 0,
@@ -129,14 +132,12 @@ export default {
               // Map the "product" column to Y axis
               y: "product",
             },
+          
           },
         ],
       });
       });
     },
-
-
-    
     updateGraph(index) {
       this.key++;
       this.index = index;
