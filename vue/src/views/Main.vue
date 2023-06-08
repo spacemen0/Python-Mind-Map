@@ -36,7 +36,7 @@ export default {
       courseName: 'python',
       index: 0,
       key: 0,
-      ChapNum: 4
+      ChapNum: 6
     }
   },
   methods: {

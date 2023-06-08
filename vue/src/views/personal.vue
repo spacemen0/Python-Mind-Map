@@ -1,5 +1,5 @@
 <template>
-  
+
 
   <el-container>
     <el-aside class="aside" width="200px">
@@ -34,9 +34,9 @@
     </el-main>
   </el-container>
 </template>
-  
-  
-  
+
+
+
   <script>
 import request from "@/utils/request";
 
@@ -98,7 +98,7 @@ export default {
         })
         .then((res) => {
           console.log(res)
-  
+
       this.echartsInstance.setOption({
         //画图
         title: { text: "个人完成情况" },
@@ -109,7 +109,7 @@ export default {
           ],
         },
         grid: { containLabel: true },
-        xAxis: { name: "个人完成率" },
+        xAxis: { name: "正确率" },
         yAxis: { type: "category" },
         visualMap: {
           orient: "horizontal",
@@ -132,7 +132,7 @@ export default {
               // Map the "product" column to Y axis
               y: "product",
             },
-          
+
           },
         ],
       });
