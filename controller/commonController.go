@@ -13,7 +13,18 @@ import (
 
 func ImportStudents(c *gin.Context) {
 	db := common.GetDataBase()
-	f, err := excelize.OpenFile("./upload/students.xlsx")
+	file, err := c.FormFile("students")
+	if err != nil {
+		response.Response(c, 400, gin.H{"error": err}, "上传失败")
+		return
+	}
+	filename := file.Filename
+	if err != nil {
+		response.Response(c, 400, gin.H{"error": err}, "上传失败")
+		return
+	}
+	err = c.SaveUploadedFile(file, "./upload/"+filename)
+	f, err := excelize.OpenFile("./upload/" + filename)
 	if err != nil {
 		panic(err.Error())
 	}

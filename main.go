@@ -48,7 +48,7 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 		admin.POST("/updatequestion", controller.UpdateQuestion)
 		admin.POST("/uploadresource", controller.UploadResource)
 		admin.POST("/createresource", controller.CreateResource)
-		admin.GET("/importstudents", controller.ImportStudents)
+		admin.POST("/importstudents", controller.ImportStudents)
 		admin.GET("/getstudents", controller.GetStudents)
 	}
 	r.StaticFS("/upload", http.Dir("./upload"))
