@@ -4,12 +4,13 @@ import (
 	"GinTest/common"
 	"GinTest/model"
 	"GinTest/response"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
-func CreateCompletionRate(rate model.CompletionRate) (success bool, erra error) {
+func CreateCompletionRate(rate *model.CompletionRate) (success bool, erra error) {
 	db := common.GetDataBase()
 	err := db.Create(rate).Error
 	if err != nil {
@@ -42,7 +43,12 @@ func GetCRByStudent(c *gin.Context) {
 		response.Response(c, 422, gin.H{"error": err}, "获取完成率失败")
 		return
 	}
-	response.Response(c, 200, gin.H{"CompletionRate": cr}, "获取完成率成功")
+	var str []string
+	titles := common.GetTitles()
+	for i := 0; i < len(cr); i++ {
+		str = append(str, titles[cr[i].Chapter-1][cr[i].Test])
+	}
+	response.Response(c, 200, gin.H{"CompletionRate": cr, "NodeTitle": str}, "获取完成率成功")
 }
 
 func GetCRByStudentAndChapter(c *gin.Context) {
@@ -55,5 +61,11 @@ func GetCRByStudentAndChapter(c *gin.Context) {
 		response.Response(c, 422, gin.H{"error": err}, "获取完成率失败")
 		return
 	}
-	response.Response(c, 200, gin.H{"CompletionRate": cr}, "获取完成率成功")
+	var str []string
+	titles := common.GetTitles()
+	chap, _ := strconv.Atoi(cid)
+	for i := 0; i < len(cr); i++ {
+		str = append(str, titles[chap-1][cr[i].Test])
+	}
+	response.Response(c, 200, gin.H{"CompletionRate": cr, "NodeTitle": str}, "获取完成率成功")
 }

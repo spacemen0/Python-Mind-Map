@@ -3,7 +3,7 @@ server:
 datasource:
   host: 127.0.0.1
   port: 3306
-  databasename: e_shopping
+  databasename: gintest
   username: root
-  password: 
+  password: 987654ZCy
   charset: utf8mb4

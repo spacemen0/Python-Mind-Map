@@ -16,7 +16,7 @@ func main() {
 	common.InitDataBase()
 	engine := gin.Default()
 	CollectRoutes(engine)
-	port := viper.GetString("server.port")
+	port := "6679"
 	if port != "" {
 		panic(engine.Run(":" + port))
 	}

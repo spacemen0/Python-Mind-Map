@@ -59,10 +59,10 @@ func GetCorrectAnswers(ctx *gin.Context) {
 		Chapter: uint(chapterID),
 		Test:    uint(testID),
 		UserID:  uint(UserID),
-		Value:   float32(count / len(uAns)),
+		Value:   float32(count) / float32(len(uAns)),
 	}
 	if !HasCompletionRate(uint(chapterID), uint(testID), uint(UserID), db) {
-		success, erra := CreateCompletionRate(rate)
+		success, erra := CreateCompletionRate(&rate)
 		if !success {
 			response.Response(ctx, 422, gin.H{"error": erra}, "创建完成率失败")
 			return
