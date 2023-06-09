@@ -69,7 +69,7 @@ export default {
         },
         upload() {
             request.post(
-                '/admin/uploadresource',
+                '/admin/importstudents',
                 {file: this.fileList[0].raw}
             ).then(res => {
                 if (res.status === 200) {
