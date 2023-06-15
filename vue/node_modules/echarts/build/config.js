@@ -17,162 +17,160 @@
 * under the License.
 */
 
-const nodeResolvePlugin = require('rollup-plugin-node-resolve');
-const uglifyPlugin = require('rollup-plugin-uglify');
-const ecRemoveDevPlugin = require('./rollup-plugin-ec-remove-dev');
-const ecLangPlugin = require('./rollup-plugin-ec-lang');
-const {resolve} = require('path');
+const nodeResolvePlugin = require('@rollup/plugin-node-resolve').default;
+const nodePath = require('path');
+const ecDir = nodePath.resolve(__dirname, '..');
+const {terser} = require('rollup-plugin-terser');
+const replace = require('@rollup/plugin-replace');
+const MagicString = require('magic-string');
 const preamble = require('./preamble');
 
-function getPathBasedOnECharts(path) {
-    return resolve(__dirname, '../', path);
+function createAddLicensePlugin(sourcemap) {
+    return {
+        renderChunk(code, chunk) {
+            const s = new MagicString(code);
+            s.prepend(preamble.js);
+            return {
+                code: s.toString(),
+                map: sourcemap ? s.generateMap({ hires: true }).toString() : null
+            };
+        }
+    }
 }
 
-function getPlugins({min, lang, sourcemap, removeDev, addBundleVersion}) {
-    let plugins = [];
+function createOutputs(basename, { min }, commonOutputOpts) {
+    commonOutputOpts = {
+        format: 'umd',
+        ...commonOutputOpts
+    }
+    function createReplacePlugin(replacement) {
+        const plugin = replace({
+            'process.env.NODE_ENV': JSON.stringify(replacement)
+        });
+        // Remove transform hook. It will have warning when using in output
+        delete plugin.transform;
+        return plugin;
+    }
+    const output = [{
+        ...commonOutputOpts,
+        // Disable sourcemap in
+        sourcemap: true,
+        plugins: [
+            createReplacePlugin('development'),
+            createAddLicensePlugin(true)
+        ],
+        file: basename + '.js'
+    }];
 
-    removeDev && plugins.push(
-        ecRemoveDevPlugin({sourcemap})
-    );
-
-    lang && plugins.push(
-        ecLangPlugin({lang})
-    );
-
-    plugins.push(
-        nodeResolvePlugin()
-    );
-
-    addBundleVersion && plugins.push({
-        outro: function () {
-            return 'exports.bundleVersion = \'' + (+new Date()) + '\';';
-        }
-    });
-
-    min && plugins.push(uglifyPlugin({
-        compress: {
-            // Eliminate __DEV__ code.
-            // Currently, in uglify:
-            // `var vx; if(vx) {...}` can not be removed.
-            // `if (__DEV__) {...}` can be removed if `__DEV__` is defined as `false` in `global_defs`.
-            // 'global_defs': {
-            //     __DEV__: false
-            // },
-            'dead_code': true
-        },
-        output: {
-            preamble: preamble.js
-        }
-    }));
-
-    return plugins;
+    if (min) {
+        output.push({
+            ...commonOutputOpts,
+            // Disable sourcemap in min file.
+            sourcemap: false,
+            // TODO preamble
+            plugins: [
+                createReplacePlugin('production'),
+                terser(),
+                createAddLicensePlugin(false)
+            ],
+            file: basename + '.min.js'
+        })
+    }
+    return output;
 }
 
 /**
  * @param {Object} [opt]
- * @param {string} [opt.type=''] '' or 'simple' or 'common'
- * @param {boolean} [opt.min=false]
- * @param {string} [opt.lang=undefined] null/undefined/'' or 'en' or 'fi' or a file path.
- * @param {string} [opt.input=undefined] If set, `opt.output` is required too, and `opt.type` is ignored.
- * @param {string} [opt.output=undefined] If set, `opt.input` is required too, and `opt.type` is ignored.
+ * @param {string} [opt.type=''] 'all' or 'simple' or 'common', default is 'all'
  * @param {boolean} [opt.sourcemap] If set, `opt.input` is required too, and `opt.type` is ignored.
- * @param {boolean} [opt.removeDev]
  * @param {string} [opt.format='umd'] If set, `opt.input` is required too, and `opt.type` is ignored.
+ * @param {string} [opt.min=false] If build minified output
  * @param {boolean} [opt.addBundleVersion=false] Only for debug in watch, prompt that the two build is different.
  */
 exports.createECharts = function (opt = {}) {
-    let min = opt.min;
-    let srcType = opt.type ? '.' + opt.type : '.all';
-    let postfixType = opt.type ? '.' + opt.type : '';
-    let postfixMin = min ? '.min' : '';
-    let postfixLang = opt.lang ? '-' + opt.lang.toLowerCase() : '';
-    let input = opt.input;
-    let output = opt.output;
-    let sourcemap = opt.sourcemap;
-    let format = opt.format || 'umd';
+    const srcType = opt.type !== 'all' ? '.' + opt.type : '';
+    const postfixType = srcType;
+    const format = opt.format || 'umd';
+    const postfixFormat = (format !== 'umd') ? '.' + format.toLowerCase() : '';
 
-    if (input != null || output != null) {
-        // Based on process.cwd();
-        input = resolve(input);
-        output = resolve(output);
-    }
-    else {
-        input = getPathBasedOnECharts(`./echarts${srcType}.js`);
-        output = getPathBasedOnECharts(`dist/echarts${postfixLang}${postfixType}${postfixMin}.js`);
-    }
+    const input = nodePath.resolve(ecDir, `index${srcType}.js`);
 
     return {
-        plugins: getPlugins(opt),
+        plugins: [nodeResolvePlugin()],
+        treeshake: {
+            moduleSideEffects: false
+        },
+
         input: input,
-        legacy: true, // Support IE8-
-        output: {
-            name: 'echarts',
-            format: format,
-            sourcemap: sourcemap,
-            legacy: true, // Must be declared both in inputOptions and outputOptions.
-            file: output
-        },
-        watch: {
-            include: [
-                getPathBasedOnECharts('./src/**'),
-                getPathBasedOnECharts('./echarts*.js'),
-                getPathBasedOnECharts('../zrender/src/**')
-            ]
-        }
+
+        output: createOutputs(
+            nodePath.resolve(ecDir, `dist/echarts${postfixFormat}${postfixType}`),
+            opt,
+            {
+                name: 'echarts',
+                // Ignore default exports, which is only for compitable code like:
+                // import echarts from 'echarts/lib/echarts';
+                exports: 'named',
+                format: format
+            }
+        )
     };
 };
 
-/**
- * @param {boolean} [min=false]
- */
-exports.createBMap = function (min) {
-    let postfix = min ? '.min' : '';
+exports.createBMap = function (opt) {
+    const input = nodePath.resolve(ecDir, `extension/bmap/bmap.js`);
 
     return {
-        plugins: getPlugins({min}),
-        input: getPathBasedOnECharts(`./extension-src/bmap/bmap.js`),
-        legacy: true, // Support IE8-
+        plugins: [nodeResolvePlugin()],
+        input: input,
         external: ['echarts'],
-        output: {
-            name: 'bmap',
-            format: 'umd',
-            sourcemap: !min,
-            legacy: true, // Must be declared both in inputOptions and outputOptions.
-            globals: {
-                // For UMD `global.echarts`
-                echarts: 'echarts'
-            },
-            file: getPathBasedOnECharts(`dist/extension/bmap${postfix}.js`)
-        },
-        watch: {
-            include: [getPathBasedOnECharts('./extension-src/bmap/**')]
-        }
+        output: createOutputs(
+            nodePath.resolve(ecDir, `dist/extension/bmap`),
+            opt,
+            {
+                name: 'bmap',
+                globals: {
+                    // For UMD `global.echarts`
+                    echarts: 'echarts'
+                }
+            }
+        )
     };
 };
 
-/**
- * @param {boolean} [min=false]
- */
-exports.createDataTool = function (min) {
-    let postfix = min ? '.min' : '';
+exports.createDataTool = function (opt) {
+    let input = nodePath.resolve(ecDir, `extension/dataTool/index.js`);
+
     return {
-        plugins: getPlugins({min}),
-        input: getPathBasedOnECharts(`./extension-src/dataTool/index.js`),
-        legacy: true, // Support IE8-
+        plugins: [nodeResolvePlugin()],
+        input: input,
         external: ['echarts'],
-        output: {
-            name: 'dataTool',
-            format: 'umd',
-            sourcemap: !min,
-            legacy: true, // Must be declared both in inputOptions and outputOptions.
-            globals: {
-                // For UMD `global.echarts`
-                echarts: 'echarts'
-            },
-            file: getPathBasedOnECharts(`dist/extension/dataTool${postfix}.js`)
-        },
-        watch: {
-            include: [getPathBasedOnECharts('./extension-src/dataTool/**')]
-        }
+        output: createOutputs(
+            nodePath.resolve(ecDir, `dist/extension/dataTool`),
+            opt,
+            {
+                name: 'dataTool',
+                globals: {
+                    // For UMD `global.echarts`
+                    echarts: 'echarts'
+                }
+            }
+        )
+    };
+};
+
+exports.createMyTransform = function (opt) {
+    let input = nodePath.resolve(ecDir, `test/lib/myTransform/src/index.ts`);
+
+    return {
+        plugins: [nodeResolvePlugin()],
+        input: input,
+        output: createOutputs(
+            nodePath.resolve(ecDir, `test/lib/myTransform/dist/myTransform`),
+            opt,
+            {
+                name: 'myTransform'
+            }
+        )
     };
 };
