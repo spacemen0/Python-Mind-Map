@@ -1,6 +1,6 @@
-const chalk= require('chalk');//设置命令颜色的
 const scp = require('scp2');
 const ora = require('ora');
+const chalk= require('chalk');//设置命令颜色的
 const spinner = ora(`Loading ${chalk.blue('正在部署到服务器...')}`).start();  //显示加载
 
 scp.scp('./dist/', {
