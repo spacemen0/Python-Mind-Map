@@ -71,6 +71,30 @@ func Login(c *gin.Context) {
 
 }
 
+func ChangePassword(c *gin.Context) {
+	db := common.GetDataBase()
+	password := c.Query("password")
+	studentID := c.Query("studentID")
+	var user *model.User
+	err := db.Where("student_id = ?", studentID).First(&user).Error
+	if err != nil {
+		response.Response(c, 401, gin.H{"error": err}, "用户出错")
+		return
+	}
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+	if err != nil {
+		response.Response(c, 500, gin.H{"error": err}, "加密错误")
+		return
+	}
+	user.Password = string(hashedPassword)
+	err = db.Save(&user).Error
+	if err != nil {
+		response.Response(c, 422, gin.H{"error": err}, "更新失败")
+		return
+	}
+	response.Response(c, 200, nil, "更新成功")
+}
+
 func isExistedStudentID(db *gorm.DB, studentID uint) (bool, *model.User) {
 	var user *model.User
 	err := db.Where("student_id = ?", studentID).First(&user).Error
