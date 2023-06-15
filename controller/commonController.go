@@ -4,6 +4,7 @@ import (
 	"GinTest/common"
 	"GinTest/model"
 	"GinTest/response"
+	"os"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -84,6 +85,14 @@ func UploadCodes(c *gin.Context) {
 	chap := c.Query("ChapterID")
 	test := c.Query("TestID")
 	path := "./upload/c" + chap + "t" + test + "/"
+	_, err = os.Stat(path)
+	if os.IsNotExist(err) {
+		err := os.MkdirAll(path, os.ModePerm)
+		if err != nil {
+			response.Response(c, 500, gin.H{"error": err}, "创建文件夹出错")
+			return
+		}
+	}
 	err = c.SaveUploadedFile(f, path+f.Filename)
 	if err != nil {
 		response.Response(c, 500, gin.H{"error": err}, "文件保存出错")

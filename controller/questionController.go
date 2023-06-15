@@ -4,7 +4,6 @@ import (
 	"GinTest/common"
 	"GinTest/model"
 	"GinTest/response"
-	"fmt"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
@@ -56,7 +55,6 @@ func UpdateQuestion(ctx *gin.Context) {
 		TestID:         newQuestion.TestID,
 		QuestionNumber: newQuestion.QuestionNumber,
 	}
-	fmt.Println(oldQuestion)
 	err := db.Where(&oldQuestion).First(&oldQuestion).Error
 	if err != nil {
 		response.Response(ctx, 422, gin.H{"error": err}, "查询题目失败")
