@@ -12,7 +12,7 @@ import request from "@/utils/request";
 import ElementUI from "element-ui";
 
 
-const Answer = () => import('@/views/AnswerCar');
+const Answer = () => import('@/views/AnswerCard.vue');
 const studentInfoList = () => import('@/components/StuInfoList');
 
 Vue.use(VueRouter)
