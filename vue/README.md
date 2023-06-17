@@ -2,6 +2,7 @@
 ```
 node.js
 ```
+注：以下命令在vue目录下运行
 ## 项目初始化
 ```
 npm install
