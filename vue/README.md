@@ -1,14 +1,18 @@
-## Project setup
+## 所需环境
+```
+node.js
+```
+## 项目初始化
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### 运行项目
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### 打包项目并部署到服务器
 ```
 npm run scp
 ```
