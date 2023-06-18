@@ -502,6 +502,7 @@ export default {
 
 .option {
     margin-left: 0.5em;
+    white-space: pre-wrap;
 }
 
 .TFOpt {
